@@ -1,0 +1,60 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background-color: var(--bs-dark);
+    color: var(--bs-light);
+}
+
+tr {
+    vertical-align: middle;
+}
+
+.player-nation-flag {
+    height: 30px;
+    width: 30px;
+}
+
+.photo-container {
+    width: 50px;
+    height: 70px;
+}
+
+.photo-player {
+    width: 100%;
+    height: auto;
+    border-radius: 10%;
+}
+
+table.inline-table tbody tr td {
+    display: flex;
+    align-items: center;
+}
+
+table.inline-table tbody tr td img {
+    height: 25px;
+    width: 25px;
+    margin-right: 5px;
+}
+
+.modal-content {
+    color: var(--bs-dark) !important;
+}
+
+.radio-switches {
+    display: flex;
+    align-items: center;
+    margin: auto !important;
+}
+
+.radio-switches div input {
+    cursor: pointer;
+}
+
+a.transfer-show {
+    text-decoration: none;
+    color: inherit;
+}
+
+a.transfer-show:hover {
+    text-decoration: none;
+    color: inherit;
+}
