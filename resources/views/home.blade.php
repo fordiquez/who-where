@@ -138,7 +138,7 @@
                     @endif
                 </td>
                 <td class="text-center">
-                    <a href="{{ route('transfer.show', $transfer) }}" class="btn btn-primary me-1">
+                    <a href="{{ route('transfer.show', $transfer) }}" class="btn btn-secondary me-1">
                         <i class="bi bi-cursor"></i>
                     </a>
                     <a href="{{ route('transfer.edit', $transfer) }}" class="btn btn-primary me-1">

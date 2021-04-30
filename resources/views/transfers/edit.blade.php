@@ -6,7 +6,7 @@
             <div class="col-12 col-md-6 offset-md-3">
                 <form method="post" action="{{ route('transfer.update', $transfer) }}">
                     @csrf
-                    <h4 class="text-center">Editing transfer's {{ $transfer->player->name }}</h4>
+                    <h3 class="text-center">Editing transfer's {{ $transfer->player->name }}</h3>
                     <div class="mb-3">
                         <i class="bi bi-calendar-check"></i>
                         <label class="form-label" id="transfer-date">Transfer Date</label>

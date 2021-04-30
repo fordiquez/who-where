@@ -18,7 +18,9 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" disabled>Navbar</a>
+        <a href="{{ url('/') }}" class="navbar-brand">
+            <img src="{{ asset('/assets/images/front-end/brand-logo.png') }}" alt="Who Where logo" title="Who Where logo">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -28,7 +30,19 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('root') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Countries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Leagues</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Clubs</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Players</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Transfers</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -40,9 +54,6 @@
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#">Something else here</a></li>
                     </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
             <form class="d-flex">
