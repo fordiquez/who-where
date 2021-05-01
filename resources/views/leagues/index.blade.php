@@ -26,7 +26,7 @@
                             @foreach($leagues as $league)
                                 <tr>
                                     <th scope="row">
-                                        <img src="{{ $league->logo }}" height="35" width="35">
+                                        <img src="{{ asset($league->logo) }}" height="35" width="35">
                                         <span class="badge bg-primary rounded-pill">First Tier</span>
                                         <span>{{ $league->name }}</span>
                                     </th>

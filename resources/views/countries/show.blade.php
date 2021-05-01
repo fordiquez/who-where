@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row row-cols-1 col-lg-6 offset-lg-3">
             <div class="card">
-                <img src="{{ $country->flag }}" class="card-img-top" alt="{{ $country->name }}" title="{{ $country->name }}">
+                <img src="{{ asset($country->flag) }}" class="card-img-top" alt="{{ $country->name }}" title="{{ $country->name }}">
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header">

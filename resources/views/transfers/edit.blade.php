@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             <div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-                <form method="post" action="{{ route('transfer.update', $transfer) }}">
+                <form method="post" action="{{ route('transfer.update', $transfer) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
                         <div class="card-header">

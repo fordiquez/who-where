@@ -9,7 +9,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex country-item">
-                                <img src="{{ $country->flag }}" class="flex-shrink-0 me-3 country-image" alt="{{ $country->name }}" title="{{ $country->name }}">
+                                <img src="{{ asset($country->flag) }}" class="flex-shrink-0 me-3 country-image" alt="{{ $country->name }}" title="{{ $country->name }}">
                                 <div class="country-information">
                                     <h5 class="card-title mt-2">
                                         <i class="bi bi-flag-fill"></i>

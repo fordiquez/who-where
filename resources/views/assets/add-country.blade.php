@@ -11,12 +11,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                     <div class="input-group mb-3">
                         <label for="name-input" class="input-group-text">
                             <i class="bi bi-type"></i>
                             <span class="ms-1">Name</span>
                         </label>
-                        <input type="text" name="name" class="form-control" placeholder="Transfer fee" id="name-input">
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Country name" id="name-input">
                     </div>
 
                     <div class="input-group mb-3">
@@ -24,7 +34,7 @@
                             <i class="bi bi-file-binary-fill"></i>
                             <span class="ms-1">Code</span>
                         </label>
-                        <input type="text" name="code" class="form-control" placeholder="Transfer fee" id="code-input">
+                        <input type="text" name="code" class="form-control @error('code') is-invalid @enderror" placeholder="Country ISO 3166-2 code (e.g. Canada – CA)" id="code-input">
                     </div>
 
                     <div class="input-group mb-3">
@@ -32,20 +42,7 @@
                             <i class="bi bi-file-earmark-image"></i>
                             <span class="ms-1">Flag image</span>
                         </label>
-                        <input class="form-control" type="file" id="flag-upload" name="flag">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label for="first-tier-club-select" class="input-group-text">
-                            <i class="bi bi-list-ol"></i>
-                            <span class="ms-1">First Tier League</span>
-                        </label>
-                        <select name="first_tier_club_id" class="form-select" id="first-tier-club-select">
-                            <option selected disabled>Choose the first tier league...</option>
-                            @foreach($leagues as $league)
-                                <option value="{{ $league->id }}">{{ $league->name }}</option>
-                            @endforeach
-                        </select>
+                        <input type="file" name="flag" class="form-control @error('flag') is-invalid @enderror" id="flag-upload">
                     </div>
                 </div>
                 <div class="modal-footer">

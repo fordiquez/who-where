@@ -147,13 +147,13 @@
                         </td>
                         <td class="text-center">
                             <a href="{{ route('transfer.show', $transfer) }}" class="btn btn-secondary me-1">
-                                <i class="bi bi-cursor"></i>
+                                <i class="bi bi-cursor-fill"></i>
                             </a>
                             <a href="{{ route('transfer.edit', $transfer) }}" class="btn btn-primary me-1">
-                                <i class="bi bi-pencil"></i>
+                                <i class="bi bi-pencil-fill"></i>
                             </a>
                             <a href="{{ route('transfer.delete', $transfer) }}" class="btn btn-danger">
-                                <i class="bi bi-trash"></i>
+                                <i class="bi bi-trash-fill"></i>
                             </a>
                         </td>
                     </tr>

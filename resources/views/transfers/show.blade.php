@@ -77,7 +77,7 @@
                     </a>
                     <a class="btn btn-primary float-end" href="{{ route('transfer.edit', $transfer) }}">
                         <div>
-                            <i class="bi bi-pencil"></i>
+                            <i class="bi bi-pencil-fill"></i>
                             <span>Edit transfer</span>
                         </div>
                     </a>

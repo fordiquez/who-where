@@ -13,6 +13,8 @@ Route::get('/home', [HomeController::class, 'index'])->name('home.index');
 Route::get('/countries', [CountryController::class, 'index'])->name('country.index');
 Route::get('/country/show/{id}', [CountryController::class, 'show'])->name('country.show');
 Route::post('/country/store', [CountryController::class, 'store'])->name('country.store');
+Route::get('/country/edit/{id}', [CountryController::class, 'edit'])->name('country.edit');
+Route::post('/country/update/{id}', [CountryController::class, 'update'])->name('country.update');
 
 Route::get('/leagues/{country_id?}', [LeagueController::class, 'index'])->name('league.index');
 Route::get('/league/show/{id}', [LeagueController::class, 'show'])->name('league.show');

@@ -10,6 +10,8 @@ class Country extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function league(): HasOne
     {
         return $this->hasOne(League::class, 'id', 'first_tier_league_id');

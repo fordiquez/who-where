@@ -31,7 +31,7 @@
                                     <td class="text-center">{{ $index }}</td>
                                     <td>
                                         <a href="{{ route('league.index', $country) }}">
-                                            <img src="{{ $country->flag }}" class="country-flag" alt="{{ $country->name }}" title="{{ $country->name }}">
+                                            <img src="{{ asset($country->flag) }}" class="country-flag" alt="{{ $country->name }}" title="{{ $country->name }}">
                                             <span class="badge bg-primary rounded-pill">
                                                 {{ $country->name }}
                                             </span>
@@ -41,7 +41,7 @@
                                     <td>
                                         @if($country->league)
                                             <a href="{{ route('league.show', $country->league) }}">
-                                                <img src="{{ $country->league->logo }}" class="league-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
+                                                <img src="{{ asset($country->league->logo) }}" class="league-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
                                                 <span class="badge bg-primary rounded-pill">
                                                 {{ $country->league->name }}
                                                 </span>
@@ -55,8 +55,11 @@
                                     <td class="text-center">20</td>
                                     <td class="text-center">333</td>
                                     <td class="text-center">
-                                        <a href="{{ route('country.show', $country) }}" class="btn btn-primary me-1">
-                                            <i class="bi bi-cursor"></i>
+                                        <a href="{{ route('country.show', $country) }}" class="btn btn-secondary me-1">
+                                            <i class="bi bi-cursor-fill"></i>
+                                        </a>
+                                        <a href="{{ route('country.edit', $country) }}" class="btn btn-primary me-1">
+                                            <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     </td>
                                 </tr>
