@@ -16,7 +16,7 @@
     <title>Transfers List</title>
 </head>
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a href="{{ url('/') }}" class="navbar-brand">
             <img src="{{ asset('/assets/images/front-end/brand-logo.png') }}" alt="Who Where logo" title="Who Where logo">
@@ -30,10 +30,10 @@
                     <a class="nav-link active" aria-current="page" href="{{ route('root') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Countries</a>
+                    <a class="nav-link" href="{{ route('country.index') }}">Countries</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Leagues</a>
+                    <a class="nav-link" href="{{ route('league.index') }}">Leagues</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Clubs</a>
@@ -42,7 +42,7 @@
                     <a class="nav-link" href="#">Players</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Transfers</a>
+                    <a class="nav-link" href="{{ route('transfer.index') }}">Transfers</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,7 +58,9 @@
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+                <button class="btn btn-outline-success" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
             </form>
         </div>
     </div>

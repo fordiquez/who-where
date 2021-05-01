@@ -49,6 +49,10 @@ table.inline-table tbody tr td img {
     cursor: pointer;
 }
 
+.full-width {
+    width: 100%;
+}
+
 a.transfer-show {
     text-decoration: none;
     color: inherit;
@@ -57,4 +61,42 @@ a.transfer-show {
 a.transfer-show:hover {
     text-decoration: none;
     color: inherit;
+}
+
+.country-item {
+    justify-content: center;
+}
+
+.country-image {
+    width: 200px;
+    height: 200px;
+}
+
+.country-information a {
+    width: 100%;
+}
+
+.country-information a:last-child {
+    margin-top: 5px;
+}
+
+.card-img-top {
+    height: 200px;
+}
+
+.footer-links a, .footer-links button {
+    width: 48%;
+    margin: 1%;
+}
+
+@media only screen and (max-width: 565px) {
+    .footer-links a, button {
+        width: 100%;
+        float: unset !important;
+    }
+}
+
+.country-flag, .league-logo {
+    width: 40px;
+    height: 40px;
 }

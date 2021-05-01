@@ -2,13 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Club;
+use App\Models\Country;
 use App\Models\Player;
+use App\Models\Season;
 use App\Models\Transfer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TransferController extends Controller
 {
+    public function index(Request $request) {
+        $season = $request->season_id;
+        $window = $request->transfer_window;
+        $loan = $request->loan;
+        if ($season && $window && $loan) {
+            $transfers = Transfer::where([
+                ['season_id', $season],
+                ['transfer_window', $window],
+                ['loan', $loan]
+            ])->get();
+        } elseif ($season && $window) {
+            $transfers = Transfer::where([
+                ['season_id', $season],
+                ['transfer_window', $window]
+            ])->get();
+        } elseif ($season && $loan) {
+            $transfers = Transfer::where([
+                ['season_id', $season],
+                ['loan', $loan]
+            ])->get();
+        } elseif ($window && $loan) {
+            $transfers = Transfer::where([
+                ['transfer_window', $window],
+                ['loan', $loan]
+            ])->get();
+        } elseif ($season) {
+            $transfers = Transfer::where('season_id', $season)->get();
+        } elseif ($window) {
+            $transfers = Transfer::where('transfer_window', $window)->get();
+        } elseif ($loan) {
+            $transfers = Transfer::where('loan', $loan)->get();
+        }
+        else {
+            $transfers = Transfer::all();
+        }
+        $countries = Country::all();
+        $players = Player::all();
+        $seasons = Season::all();
+        $clubs = Club::all();
+        return view('transfers.index', [
+            'countries' => $countries,
+            'players' => $players,
+            'transfers' => $transfers,
+            'seasons' => $seasons,
+            'clubs' => $clubs,
+            'playersAge' => $this->playersAge()
+        ]);
+    }
+
     public function show($id) {
         $transfer = Transfer::find($id);
         return view('transfers.show', [
@@ -57,5 +110,10 @@ class TransferController extends Controller
         $transfer = Transfer::find($id);
         $transfer->delete();
         return back()->withMessage('Transfer was deleted successfully');
+    }
+
+    public function playersAge(): array
+    {
+        return DB::select('select id, dbo.getPlayersAge(birth_date) age from players');
     }
 }
