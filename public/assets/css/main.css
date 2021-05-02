@@ -1,3 +1,5 @@
+/* Generals */
+
 body {
     font-family: 'Nunito', sans-serif;
     background-color: var(--bs-dark);
@@ -7,6 +9,32 @@ body {
 tr {
     vertical-align: middle;
 }
+
+.footer-links a, .footer-links button {
+    width: 48%;
+    margin: 1%;
+}
+
+@media only screen and (max-width: 565px) {
+    .footer-links a, button {
+        width: 100%;
+        float: unset !important;
+    }
+}
+
+.modal-content {
+    color: var(--bs-dark) !important;
+}
+
+a.custom-link {
+    color: var(--bs-light);
+}
+
+a.custom-link:hover {
+    color: var(--bs-light);
+}
+
+/* Transfers */
 
 .player-nation-flag {
     height: 30px;
@@ -35,10 +63,6 @@ table.inline-table tbody tr td img {
     margin-right: 5px;
 }
 
-.modal-content {
-    color: var(--bs-dark) !important;
-}
-
 .radio-switches {
     display: flex;
     align-items: center;
@@ -53,15 +77,7 @@ table.inline-table tbody tr td img {
     width: 100%;
 }
 
-a.transfer-show {
-    text-decoration: none;
-    color: inherit;
-}
-
-a.transfer-show:hover {
-    text-decoration: none;
-    color: inherit;
-}
+/* Countries */
 
 .country-item {
     justify-content: center;
@@ -84,19 +100,38 @@ a.transfer-show:hover {
     height: 200px;
 }
 
-.footer-links a, .footer-links button {
-    width: 48%;
-    margin: 1%;
+.country-flag, .league-logo, .club-logo {
+    width: 35px;
+    height: 35px;
 }
 
-@media only screen and (max-width: 565px) {
-    .footer-links a, button {
-        width: 100%;
-        float: unset !important;
-    }
+.country-flag-small {
+    width: 25px;
+    height: 25px;
 }
 
-.country-flag, .league-logo {
-    width: 30px;
-    height: 30px;
+/* Leagues */
+
+.league-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.league-logo-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.league-logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

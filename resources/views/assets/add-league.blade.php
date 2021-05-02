@@ -1,12 +1,12 @@
-<div class="modal fade" id="addCountryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addCountryLabel" aria-hidden="true">
+<div class="modal fade" id="addLeagueModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLeagueLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <form method="post" action="{{ route('country.store') }}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
-                    <h5 class="modal-title" id="addCountryLabel">
+                    <h5 class="modal-title" id="addLeagueLabel">
                         <i class="bi bi-flag-fill"></i>
-                        <span>Adding the new country</span>
+                        <span>Adding the new league</span>
                     </h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -26,23 +26,36 @@
                             <i class="bi bi-type"></i>
                             <span class="ms-1">Name</span>
                         </label>
-                        <input type="text" name="name" id="name-input" class="form-control @error('name') is-invalid @enderror" placeholder="Enter the country name">
+                        <input type="text" name="name" id="name-input" class="form-control @error('name') is-invalid @enderror" placeholder="Enter the league name">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label for="code-input" class="input-group-text">
+                        <label class="input-group-text" for="country-select">
+                            <i class="bi bi-flag-fill me-1"></i>
+                            <span>Country</span>
+                        </label>
+                        <select name="country_id" class="form-select" id="country-select">
+                            <option selected disabled>Choose country...</option>
+                            @foreach($countries as $country)
+                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label for="league-level-input" class="input-group-text">
                             <i class="bi bi-file-binary-fill"></i>
-                            <span class="ms-1">Code</span>
+                            <span class="ms-1">League level</span>
                         </label>
-                        <input type="text" name="code" id="code-input" class="form-control @error('code') is-invalid @enderror" placeholder="Country ISO 3166-2 code (e.g. Canada – CA)">
+                        <input type="text" name="league_level" id="league-level-input" class="form-control @error('league_level') is-invalid @enderror" placeholder="Enter the league level">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label for="flag-upload" class="input-group-text">
+                        <label for="logo-upload" class="input-group-text">
                             <i class="bi bi-file-earmark-image"></i>
-                            <span class="ms-1">Flag image</span>
+                            <span class="ms-1">Logo image</span>
                         </label>
-                        <input type="file" name="flag" id="flag-upload" class="form-control @error('flag') is-invalid @enderror">
+                        <input type="file" name="logo" id="logo-upload" class="form-control @error('logo') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="modal-footer">

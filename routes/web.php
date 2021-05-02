@@ -18,6 +18,8 @@ Route::post('/country/update/{id}', [CountryController::class, 'update'])->name(
 
 Route::get('/leagues/{country_id?}', [LeagueController::class, 'index'])->name('league.index');
 Route::get('/league/show/{id}', [LeagueController::class, 'show'])->name('league.show');
+Route::get('/league/edit/{id}', [LeagueController::class, 'edit'])->name('league.edit');
+Route::post('/league/update/{id}', [LeagueController::class, 'update'])->name('league.update');
 
 Route::get('/transfers', [TransferController::class, 'index'])->name('transfer.index');
 Route::post('/transfer/store', [TransferController::class, 'store'])->name('transfer.store');

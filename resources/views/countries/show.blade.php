@@ -1,8 +1,8 @@
 @extends('assets.layout')
 
 @section('content')
-    <div class="container">
-        <div class="row row-cols-1 col-lg-6 offset-lg-3">
+    <div class="container-fluid">
+        <div class="row row-cols-1 col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <div class="card">
                 <img src="{{ asset($country->flag) }}" class="card-img-top" alt="{{ $country->name }}" title="{{ $country->name }}">
                 <div class="card-body">
@@ -17,6 +17,12 @@
                             <li class="list-group-item">
                                 <p class="card-text">
                                     <i class="bi bi-shop-window"></i>
+                                    <b>ISO 3166-2 code</b> <span class="badge bg-primary rounded-pill">{{ $country->code }}</span>
+                                </p>
+                            </li>
+                            <li class="list-group-item">
+                                <p class="card-text">
+                                    <i class="bi bi-shop-window"></i>
                                     <b>Total leagues:</b> <span class="badge bg-primary rounded-pill">0</span>
                                 </p>
                             </li>
@@ -25,7 +31,7 @@
                                     <i class="bi bi-shop-window"></i>
                                     <b>First Tier League:</b> <span class="badge bg-primary rounded-pill">
                                         @if ($country->league)
-                                            {{ $country->league->name }}
+                                            <a href="{{ route('league.show', $country->league->id) }}" class="custom-link">{{ $country->league->name }}</a>
                                         @else
                                             Undefined
                                         @endif

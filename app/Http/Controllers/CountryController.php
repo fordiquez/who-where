@@ -23,8 +23,10 @@ class CountryController extends Controller
 
     public function show($id) {
         $country = Country::find($id);
+        $leagues = League::all();
         return view('countries.show', [
-            'country' => $country
+            'country' => $country,
+            'leagues' => $leagues
         ]);
     }
 
