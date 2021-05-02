@@ -69,7 +69,7 @@ class CountryController extends Controller
             'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:50'],
             'code' => ['required', Rule::unique('countries', 'code')->ignore($country->id), 'min:2', 'max:6'],
             'flag' => ['mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'first_tier_league_id' => ['required', Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)]
+            'first_tier_league_id' => [Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)]
         ]);
         $country->name = $request->input('name');
         $country->code = $request->input('code');
@@ -82,7 +82,6 @@ class CountryController extends Controller
                 $extension = $flag->extension();
                 $path = $flag->storeAs($this->path, strtolower($request->input('code')) . '.' . $extension);
                 $country->flag = $path;
-                $country->saveOrFail();
             }
         }
         $country->saveOrFail();

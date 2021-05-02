@@ -24,7 +24,7 @@
                                 </div>
                             @endif
                             <div class="mb-3">
-                                <label for="name-input" class="form-label">
+                                <label class="form-label" for="name-input">
                                     <i class="bi bi-type"></i>
                                     <span>Name</span>
                                 </label>
@@ -32,25 +32,16 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="league-level-input" class="form-label">
-                                    <i class="bi bi-file-binary-fill"></i>
+                                <label class="form-label" for="league-level-input">
+                                    <i class="bi bi-graph-up"></i>
                                     <span>League level</span>
                                 </label>
                                 <input type="text" name="league_level" id="league-level-input" class="form-control @error('code') is-invalid @enderror" value="{{ $league->league_level }}" placeholder="Enter the league level">
                             </div>
 
                             <div class="mb-3">
-                                <label for="logo-file" class="form-label">
-                                    <i class="bi bi-file-earmark-image"></i>
-                                    <span>Logo Image</span>
-                                    <span class="badge bg-primary rounded-pill">Not required</span>
-                                </label>
-                                <input type="file" name="logo" id="logo-file" class="form-control @error('flag') is-invalid @enderror">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="country-select" class="form-label">
-                                    <i class="bi bi-list-ol"></i>
+                                <label class="form-label" for="country-select">
+                                    <i class="bi bi-flag-fill"></i>
                                     <span class="ms-1">Country</span>
                                 </label>
                                 <select name="country_id" id="country-select" class="form-select @error('first_tier_league_id') is-invalid @enderror">
@@ -64,6 +55,75 @@
                                     @endforeach
                                 </select>
                             </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="logo-file">
+                                    <i class="bi bi-file-earmark-image"></i>
+                                    <span>Logo Image</span>
+                                    <span class="badge bg-primary rounded-pill">Not required</span>
+                                </label>
+                                <input type="file" name="logo" id="logo-file" class="form-control @error('flag') is-invalid @enderror">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="club-select">
+                                    <i class="bi bi-trophy-fill me-1"></i>
+                                    <span>Record-holding champion</span>
+                                </label>
+                                <select name="record_holding_champion_id" class="form-select" id="club-select">
+                                    <option selected disabled>Choose the club...</option>
+                                    @foreach($clubs as $club)
+                                        @if($club->id == $league->record_holding_champion_id)
+                                            <option value="{{ $league->record->id }}" selected>{{ $league->record->name }}</option>
+                                        @else
+                                            <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="record-holding-times-input">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                    <span class="ms-1">Number of championships</span>
+                                </label>
+                                <input type="number" name="record_holding_times" id="record-holding-times-input" class="form-control @error('league_level') is-invalid @enderror" value="{{ $league->record_holding_times }}" placeholder="Enter the number">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="club-select">
+                                    <i class="bi bi-alarm-fill me-1"></i>
+                                    <span>Reigning champion</span>
+                                </label>
+                                <select name="reigning_champion_id" class="form-select" id="club-select">
+                                    <option selected disabled>Choose the club...</option>
+                                    @foreach($clubs as $club)
+                                        @if($club->id == $league->reigning_champion_id)
+                                            <option value="{{ $league->reigning->id }}" selected>{{ $league->reigning->name }}</option>
+                                        @else
+                                            <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="uefa-position-input">
+                                    <i class="bi bi-list-ol"></i>
+                                    <span class="ms-1">UEFA position</span>
+                                    <span class="badge bg-primary rounded-pill">Only European countries</span>
+                                </label>
+                                <input type="number" name="uefa_position" id="uefa-position-input" class="form-control @error('league_level') is-invalid @enderror" value="{{ $league->uefa_position }}" placeholder="Enter the place number">
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="uefa-coefficient-points-input">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span class="ms-1">UEFA coefficient points</span>
+                                    <span class="badge bg-primary rounded-pill">Only European countries</span>
+                                </label>
+                                <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points-input" class="form-control @error('league_level') is-invalid @enderror" value="{{ $league->uefa_coefficient_points }}" placeholder="Enter the number of points">
+                            </div>
                         </div>
 
                         <div class="card-footer footer-links">
@@ -75,7 +135,7 @@
                             </a>
                             <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-check2-circle"></i>
-                                <span>Update country</span>
+                                <span>Update league</span>
                             </button>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ Route::get('/country/edit/{id}', [CountryController::class, 'edit'])->name('coun
 Route::post('/country/update/{id}', [CountryController::class, 'update'])->name('country.update');
 
 Route::get('/leagues/{country_id?}', [LeagueController::class, 'index'])->name('league.index');
+Route::post('/league/store', [LeagueController::class, 'store'])->name('league.store');
 Route::get('/league/show/{id}', [LeagueController::class, 'show'])->name('league.show');
 Route::get('/league/edit/{id}', [LeagueController::class, 'edit'])->name('league.edit');
 Route::post('/league/update/{id}', [LeagueController::class, 'update'])->name('league.update');

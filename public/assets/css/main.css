@@ -16,7 +16,7 @@ tr {
 }
 
 @media only screen and (max-width: 565px) {
-    .footer-links a, button {
+    .footer-links a, .footer-links button {
         width: 100%;
         float: unset !important;
     }
