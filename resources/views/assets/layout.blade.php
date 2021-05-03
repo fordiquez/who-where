@@ -37,7 +37,7 @@
                         <a class="nav-link" href="{{ route('league.index') }}">Leagues</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Clubs</a>
+                        <a class="nav-link" href="{{ route('club.index') }}">Clubs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Players</a>

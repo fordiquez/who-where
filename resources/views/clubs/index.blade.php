@@ -6,37 +6,36 @@
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title text-center">
-                        @if($country)
-                            <span>Leagues – {{ $country->name }}</span>
+                        @if ($league)
+                            <span>Clubs – {{ $league->name }}</span>
                         @else
-                            <span>Full list leagues</span>
+                            <span>Full clubs list</span>
                         @endif
                     </h3>
                     <div class="table-responsive">
                         <table class="table table-dark table-hover">
                             <thead>
                             <tr>
-                                <th scope="col">Competition</th>
-                                <th scope="col" class="text-center">Clubs</th>
-                                <th scope="col" class="text-center">Players</th>
+                                <th scope="col">Club</th>
+                                <th scope="col" class="text-center">Squad</th>
                                 <th scope="col" class="text-center">ø age</th>
                                 <th scope="col" class="text-center">Foreigners</th>
-                                <th scope="col" class="text-center">Total value</th>
+                                <th scope="col" class="text-center">Total market value</th>
+                                <th scope="col" class="text-center">ø market value</th>
                                 <th scope="col" class="text-center">
-                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addLeagueModal">
+                                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addClubModal">
                                         <i class="bi bi-plus-circle"></i>
                                     </button>
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($leagues as $league)
+                            @foreach($clubs as $club)
                                 <tr>
                                     <th scope="row">
-                                        <a href="{{ route('club.index', $league) }}" class="custom-link">
-                                            <img src="{{ asset($league->logo) }}" class="league-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
-                                            <span class="badge bg-primary rounded-pill">First Tier</span>
-                                            <span>{{ $league->name }}</span>
+                                        <a href="{{ route('club.show', $club) }}" class="custom-link">
+                                            <img src="{{ asset($club->logo) }}" class="club-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
+                                            <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
                                         </a>
                                     </th>
                                     <td class="text-center">
@@ -47,10 +46,10 @@
                                     <td class="text-center">20</td>
                                     <td class="text-center">333</td>
                                     <td class="text-center">
-                                        <a href="{{ route('league.show', $league) }}" class="btn btn-secondary me-1">
+                                        <a href="{{ route('club.show', $club) }}" class="btn btn-secondary me-1">
                                             <i class="bi bi-cursor-fill"></i>
                                         </a>
-                                        <a href="{{ route('league.edit', $league) }}" class="btn btn-primary me-1">
+                                        <a href="{{ route('club.edit', $club) }}" class="btn btn-primary me-1">
                                             <i class="bi bi-pencil-fill"></i>
                                         </a>
                                     </td>
@@ -64,5 +63,5 @@
         </div>
     </div>
 
-    @include('assets.add-league')
+    @include('assets.add-club')
 @endsection

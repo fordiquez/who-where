@@ -13,6 +13,7 @@ class LeagueController extends Controller
     private $path = '/assets/images/leagues';
 
     public function index($countryId = null) {
+        $country = Country::find($countryId);
         if ($countryId) {
             $leagues = League::where('country_id', $countryId)->get();
         } else {
@@ -21,6 +22,7 @@ class LeagueController extends Controller
         $countries = Country::all();
         $clubs = Club::all();
         return view('leagues.index', [
+            'country' => $country,
             'leagues' => $leagues,
             'countries' => $countries,
             'clubs' => $clubs

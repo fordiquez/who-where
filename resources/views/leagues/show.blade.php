@@ -68,7 +68,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2" style="display: flex; flex-direction: column; justify-content: center; text-align: center">
+                    <div class="col-md-2 league-market-column">
                         <h5 class="card-title">Total Market Value:</h5>
                         <p class="card-text">€ 8.57 bn</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -78,36 +78,40 @@
 
             <div class="card">
                 <div class="card-body">
-                    <table class="table table-dark table-hover">
-                        <h5 class="text-center">Clubs – {{ $league->name }}</h5>
-                        <thead>
-                        <tr>
-                            <th scope="col">Club</th>
-                            <th scope="col" class="text-center">Squad</th>
-                            <th scope="col" class="text-center">ø age</th>
-                            <th scope="col" class="text-center">Foreigners</th>
-                            <th scope="col" class="text-center">Total market value</th>
-                            <th scope="col" class="text-center">ø market value</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($clubs as $club)
+                    <div class="table-responsive">
+                        <table class="table table-dark table-hover">
+                            <h5 class="text-center">Clubs – {{ $league->name }}</h5>
+                            <thead>
                             <tr>
-                                <th scope="row">
-                                    <img src="{{ asset($club->logo) }}" class="club-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
-                                    <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
-                                </th>
-                                <td class="text-center">
-                                    24
-                                </td>
-                                <td class="text-center">27.1</td>
-                                <td class="text-center">19</td>
-                                <td class="text-center">€ 1.03bn</td>
-                                <td class="text-center">€ 42.79m</td>
+                                <th scope="col">Club</th>
+                                <th scope="col" class="text-center">Squad</th>
+                                <th scope="col" class="text-center">ø age</th>
+                                <th scope="col" class="text-center">Foreigners</th>
+                                <th scope="col" class="text-center">Total market value</th>
+                                <th scope="col" class="text-center">ø market value</th>
                             </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                            @foreach($clubs as $club)
+                                <tr>
+                                    <th scope="row">
+                                        <a href="{{ route('club.show', $club) }}">
+                                            <img src="{{ asset($club->logo) }}" class="club-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
+                                            <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
+                                        </a>
+                                    </th>
+                                    <td class="text-center">
+                                        24
+                                    </td>
+                                    <td class="text-center">27.1</td>
+                                    <td class="text-center">19</td>
+                                    <td class="text-center">€ 1.03bn</td>
+                                    <td class="text-center">€ 42.79m</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

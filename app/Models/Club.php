@@ -10,6 +10,8 @@ class Club extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function country(): BelongsTo
     {
         return $this->belongsTo(Country::class);
