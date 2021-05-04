@@ -7,7 +7,9 @@
                 <div class="card-body">
                     <h3 class="card-title text-center">
                         @if($country)
-                            <span>Leagues – {{ $country->name }}</span>
+                            <span>Leagues – </span>
+                            <img src="{{ asset($country->flag) }}" height="50" width="50">
+                            <span>{{ $country->name }}</span>
                         @else
                             <span>Full list leagues</span>
                         @endif

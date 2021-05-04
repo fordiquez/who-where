@@ -10,9 +10,20 @@ class Player extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function club(): BelongsTo
     {
         return $this->belongsTo(Club::class, 'club_id');
+    }
+
+    public function signed(): BelongsTo {
+        return $this->belongsTo(Club::class, 'signed_from_club_id');
+    }
+
+    public function birth(): BelongsTo
+    {
+        return $this->belongsTo(Country::class, 'birth_country_id');
     }
 
     public function nation(): BelongsTo {

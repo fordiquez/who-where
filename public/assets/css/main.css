@@ -34,6 +34,11 @@ a.custom-link:hover {
     color: var(--bs-light);
 }
 
+.country-flag, .league-logo, .club-logo {
+    width: 35px;
+    height: 35px;
+}
+
 /* Transfers */
 
 .player-nation-flag {
@@ -98,11 +103,6 @@ table.inline-table tbody tr td img {
 
 .card-img-top {
     height: 200px;
-}
-
-.country-flag, .league-logo, .club-logo {
-    width: 35px;
-    height: 35px;
 }
 
 .country-flag-small {

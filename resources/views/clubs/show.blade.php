@@ -103,7 +103,9 @@
                                                 <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">
                                             </div>
                                             <div class="player-info">
-                                                <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
+                                                <a href="{{ route('player.show', $player->id) }}">
+                                                    <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
+                                                </a>
                                                 <span>{{ $player->main_position->name }}</span>
                                             </div>
                                         </div>

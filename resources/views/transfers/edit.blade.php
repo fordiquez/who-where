@@ -55,7 +55,10 @@
 
                             <div class="mb-3">
                                 <i class="bi bi-wallet2"></i>
-                                <label for="fee" class="form-label">Fee <span class="badge bg-primary rounded-pill">million €</span></label>
+                                <label for="fee" class="form-label">
+                                    <span>Fee</span>
+                                    <span class="badge bg-primary rounded-pill">millions €</span>
+                                </label>
                                 <input type="number" name="fee" id="fee" class="form-control" value="{{ $transfer->fee }}" placeholder="Fee">
                             </div>
                         </div>

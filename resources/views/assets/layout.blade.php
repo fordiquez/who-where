@@ -40,7 +40,7 @@
                         <a class="nav-link" href="{{ route('club.index') }}">Clubs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Players</a>
+                        <a class="nav-link" href="{{ route('player.index') }}">Players</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('transfer.index') }}">Transfers</a>

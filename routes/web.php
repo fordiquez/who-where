@@ -4,6 +4,7 @@ use App\Http\Controllers\ClubController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeagueController;
+use App\Http\Controllers\PlayerController;
 use App\Http\Controllers\TransferController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,12 @@ Route::post('/club/store', [ClubController::class, 'store'])->name('club.store')
 Route::get('/club/show/{id}', [ClubController::class, 'show'])->name('club.show');
 Route::get('/club/edit/{id}', [ClubController::class, 'edit'])->name('club.edit');
 Route::post('/club/update/{id}', [ClubController::class, 'update'])->name('club.update');
+
+Route::get('/players/{club_id?}', [PlayerController::class, 'index'])->name('player.index');
+Route::post('/player/store', [PlayerController::class, 'store'])->name('player.store');
+Route::get('/player/show/{id}', [PlayerController::class, 'show'])->name('player.show');
+Route::get('/player/edit/{id}', [PlayerController::class, 'edit'])->name('player.edit');
+Route::post('/player/update/{id}', [PlayerController::class, 'update'])->name('player.update');
 
 Route::get('/transfers', [TransferController::class, 'index'])->name('transfer.index');
 Route::post('/transfer/store', [TransferController::class, 'store'])->name('transfer.store');
