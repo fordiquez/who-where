@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', 'Countries list')
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -29,10 +31,10 @@
                                 @foreach($countries as $country)
                                     @php $index++ @endphp
                                     <tr>
-                                        <td class="text-center">{{ $index }}</td>
+                                        <th scope="row" class="text-center">{{ $index }}</th>
                                         <td>
                                             <a href="{{ route('league.index', $country) }}">
-                                                <img src="{{ asset($country->flag) }}" class="country-flag" alt="{{ $country->name }}" title="{{ $country->name }}">
+                                                <img src="{{ asset($country->flag) }}" class="small-logo" alt="{{ $country->name }}" title="{{ $country->name }}">
                                                 <span class="badge bg-primary rounded-pill">
                                                 {{ $country->name }}
                                             </span>
@@ -42,7 +44,7 @@
                                         <td>
                                             @if($country->league)
                                                 <a href="{{ route('league.show', $country->league) }}">
-                                                    <img src="{{ asset($country->league->logo) }}" class="league-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
+                                                    <img src="{{ asset($country->league->logo) }}" class="small-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
                                                     <span class="badge bg-primary rounded-pill">
                                                 {{ $country->league->name }}
                                                 </span>
@@ -74,5 +76,6 @@
         </div>
     </div>
 
+    <!-- Modal for adding the new country -->
     @include('assets.add-country')
 @endsection

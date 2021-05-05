@@ -37,7 +37,7 @@ class CountryController extends Controller
         $request->validate([
             'name' => ['required', 'unique:countries', 'min:3', 'max:50'],
             'code' => ['required', 'unique:countries', 'min:2', 'max:6'],
-            'flag' => ['required', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
+            'flag' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
         ]);
         $name = $request->input('name');
         $code = $request->input('code');
@@ -68,7 +68,7 @@ class CountryController extends Controller
         $request->validate([
             'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:50'],
             'code' => ['required', Rule::unique('countries', 'code')->ignore($country->id), 'min:2', 'max:6'],
-            'flag' => ['mimes:svg,png,jpg,jpeg,bmp,webp'],
+            'flag' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'first_tier_league_id' => [Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)]
         ]);
         $country->name = $request->input('name');

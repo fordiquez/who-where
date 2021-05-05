@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', 'Leagues list')
+
 @section('content')
     <div class="container-fluid">
         <div class="col-12">
@@ -8,7 +10,7 @@
                     <h3 class="card-title text-center">
                         @if($country)
                             <span>Leagues – </span>
-                            <img src="{{ asset($country->flag) }}" height="50" width="50">
+                            <img src="{{ asset($country->flag) }}" class="medium-logo" alt="{{ $country->name }}" title="{{ $country->name }}">
                             <span>{{ $country->name }}</span>
                         @else
                             <span>Full list leagues</span>
@@ -36,7 +38,7 @@
                                 <tr>
                                     <th scope="row">
                                         <a href="{{ route('club.index', $league) }}" class="custom-link">
-                                            <img src="{{ asset($league->logo) }}" class="league-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
+                                            <img src="{{ asset($league->logo) }}" class="medium-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
                                             <span class="badge bg-primary rounded-pill">First Tier</span>
                                             <span>{{ $league->name }}</span>
                                         </a>
@@ -66,5 +68,6 @@
         </div>
     </div>
 
+    <!-- Modal for adding the new league -->
     @include('assets.add-league')
 @endsection

@@ -22,36 +22,40 @@
                     @endif
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="name-input">
+                        <label for="name" class="input-group-text">
                             <i class="bi bi-type"></i>
                             <span class="ms-1">Name</span>
                         </label>
-                        <input type="text" name="name" id="name-input" class="form-control @error('name') is-invalid @enderror" placeholder="Enter the league name">
+                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Enter the league name">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="league-level-input">
+                        <label for="league-level" class="input-group-text">
                             <i class="bi bi-graph-up"></i>
                             <span class="ms-1">League level</span>
                         </label>
-                        <input type="text" name="league_level" id="league-level-input" class="form-control @error('league_level') is-invalid @enderror" placeholder="Enter the league level">
+                        <input type="text" name="league_level" id="league-level" class="form-control @error('league_level') is-invalid @enderror" value="{{ old('league_level') }}" placeholder="Enter the league level">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="country-select">
+                        <label for="country-select" class="input-group-text">
                             <i class="bi bi-flag-fill me-1"></i>
                             <span>Country</span>
                         </label>
-                        <select name="country_id" class="form-select" id="country-select">
+                        <select class="form-select @error('country_id') is-invalid @enderror" name="country_id" id="country-select">
                             <option selected disabled>Choose country...</option>
                             @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @if($country->id == old('country_id'))
+                                    <option value="{{ $country->id }}" selected>{{ $country->name }}</option>
+                                @else
+                                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="logo-upload">
+                        <label for="logo-upload" class="input-group-text">
                             <i class="bi bi-file-earmark-image"></i>
                             <span class="ms-1">Logo image</span>
                         </label>
@@ -59,53 +63,66 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="club-select">
-                            <i class="bi bi-trophy-fill me-1"></i>
-                            <span>Record-holding champion</span>
+                        <label for="record-holding-club-select" class="input-group-text">
+                            <i class="bi bi-trophy-fill"></i>
+                            <span class="ms-1 me-1">Record-holding champion</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <select name="record_holding_champion_id" class="form-select" id="club-select">
+                        <select class="form-select @error('record_holding_champion_id') is-invalid @enderror" name="record_holding_champion_id" id="record-holding-club-select">
                             <option selected disabled>Choose the club...</option>
                             @foreach($clubs as $club)
-                                <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @if($club->id == old('record_holding_champion_id'))
+                                    <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
+                                @else
+                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="record-holding-times-input">
+                        <label for="record-holding-times" class="input-group-text">
                             <i class="bi bi-arrow-counterclockwise"></i>
-                            <span class="ms-1">Number of championships</span>
+                            <span class="ms-1 me-1">Number of championships</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <input type="number" name="record_holding_times" id="record-holding-times-input" class="form-control @error('record_holding_times') is-invalid @enderror" placeholder="Enter the number">
+                        <input type="number" name="record_holding_times" id="record-holding-times" class="form-control @error('record_holding_times') is-invalid @enderror" value="{{ old('record_holding_times') }}" placeholder="Enter the times number">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="club-select">
-                            <i class="bi bi-alarm-fill me-1"></i>
-                            <span>Reigning champion</span>
+                        <label class="input-group-text" for="reigning-club-select">
+                            <i class="bi bi-alarm-fill"></i>
+                            <span class="ms-1 me-1">Reigning champion</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <select name="reigning_champion_id" class="form-select" id="club-select">
+                        <select class="form-select @error('reigning_champion_id') is-invalid @enderror" name="reigning_champion_id" id="reigning-club-select">
                             <option selected disabled>Choose the club...</option>
                             @foreach($clubs as $club)
-                                <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @if($club->id == old('reigning_champion_id'))
+                                    <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
+                                @else
+                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="uefa-position-input">
+                        <label for="uefa-position" class="input-group-text">
                             <i class="bi bi-list-ol"></i>
-                            <span class="ms-1">UEFA position</span>
+                            <span class="ms-1 me-1">UEFA position</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <input type="number" name="uefa_position" id="uefa-position-input" class="form-control @error('uefa_position') is-invalid @enderror" placeholder="Enter the place number">
+                        <input type="number" name="uefa_position" id="uefa-position" class="form-control @error('uefa_position') is-invalid @enderror" value="{{ old('uefa_position') }}" placeholder="Enter the place number">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label class="input-group-text" for="uefa-coefficient-points-input">
+                        <label for="uefa-coefficient-points" class="input-group-text">
                             <i class="bi bi-star-fill"></i>
-                            <span class="ms-1">UEFA coefficient points</span>
+                            <span class="ms-1 me-1">UEFA coefficient points</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points-input" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" placeholder="Enter the number of points">
+                        <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" value="{{ old('uefa_coefficient_points') }}" placeholder="Enter the number of points">
                     </div>
                 </div>
                 <div class="modal-footer">

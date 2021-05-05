@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', $club->name)
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -24,15 +26,15 @@
                                 </div>
                             @endif
                             <div class="mb-3">
-                                <label class="form-label" for="name-input">
+                                <label for="name" class="form-label">
                                     <i class="bi bi-type"></i>
                                     <span>Name</span>
                                 </label>
-                                <input type="text" name="name" id="name-input" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ? old('name') : $club->name }}" placeholder="Enter the club name">
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ? old('name') : $club->name }}" placeholder="Enter the club name">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="country-select">
+                                <label for="country-select" class="form-label">
                                     <i class="bi bi-flag-fill"></i>
                                     <span class="ms-1">Country</span>
                                 </label>
@@ -49,11 +51,11 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="country-select">
+                                <label for="league-select" class="form-label">
                                     <i class="bi bi-bookmark-plus-fill"></i>
                                     <span class="ms-1">League</span>
                                 </label>
-                                <select name="league_id" id="country-select" class="form-select @error('league_id') is-invalid @enderror">
+                                <select name="league_id" id="league-select" class="form-select @error('league_id') is-invalid @enderror">
                                     <option selected disabled>Choose the league...</option>
                                     @foreach($leagues as $league)
                                         @if($club->league_id == $league->id)
@@ -66,7 +68,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="logo-file">
+                                <label for="logo-file" class="form-label">
                                     <i class="bi bi-file-earmark-image"></i>
                                     <span>Logo Image</span>
                                     <span class="badge bg-primary rounded-pill">Not required</span>
@@ -75,51 +77,51 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="founded-input">
+                                <label for="founded" class="form-label">
                                     <i class="bi bi-clock-history"></i>
                                     <span>Founded</span>
                                 </label>
-                                <input type="number" name="founded" id="founded-input" class="form-control @error('founded') is-invalid @enderror" value="{{ old('founded') ? old('founded') : $club->founded }}" placeholder="Enter the league level">
+                                <input type="number" name="founded" id="founded" class="form-control @error('founded') is-invalid @enderror" value="{{ old('founded') ? old('founded') : $club->founded }}" placeholder="Enter the league level">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="stadium-input">
+                                <label for="stadium" class="form-label">
                                     <i class="bi bi-building"></i>
                                     <span class="ms-1">Stadium</span>
                                 </label>
-                                <input type="text" name="stadium" id="stadium-input" class="form-control @error('stadium') is-invalid @enderror" value="{{ old('stadium') ? old('stadium') : $club->stadium }}" placeholder="Enter the number">
+                                <input type="text" name="stadium" id="stadium" class="form-control @error('stadium') is-invalid @enderror" value="{{ old('stadium') ? old('stadium') : $club->stadium }}" placeholder="Enter the number">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="address-input">
+                                <label for="address" class="form-label">
                                     <i class="bi bi-geo-alt-fill"></i>
                                     <span class="ms-1">Address</span>
                                 </label>
-                                <input type="text" name="address" id="address-input" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') ? old('address') : $club->address }}" placeholder="Enter the place number">
+                                <input type="text" name="address" id="address" class="form-control @error('address') is-invalid @enderror" value="{{ old('address') ? old('address') : $club->address }}" placeholder="Enter the place number">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="city-input">
+                                <label for="city" class="form-label">
                                     <i class="bi bi-signpost-2-fill"></i>
                                     <span class="ms-1">City</span>
                                 </label>
-                                <input type="text" name="city" id="city-input" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') ? old('city') : $club->city }}" placeholder="Enter the number of points">
+                                <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') ? old('city') : $club->city }}" placeholder="Enter the number of points">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="capacity-input">
+                                <label for="capacity" class="form-label">
                                     <i class="bi bi-person-lines-fill"></i>
                                     <span class="ms-1">Capacity</span>
                                 </label>
-                                <input type="number" name="capacity" id="capacity-input" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') ? old('capacity') : $club->capacity }}" placeholder="Enter the number of points">
+                                <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') ? old('capacity') : $club->capacity }}" placeholder="Enter the number of points">
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="head_coach-input">
+                                <label for="head_coach" class="form-label">
                                     <i class="bi bi-person-badge-fill"></i>
                                     <span class="ms-1">Head Coach</span>
                                 </label>
-                                <input type="text" name="head_coach" id="head_coach-input" class="form-control @error('head_coach') is-invalid @enderror" value="{{ old('head_coach') ? old('head_coach') : $club->head_coach }}" placeholder="Enter the number of points">
+                                <input type="text" name="head_coach" id="head_coach" class="form-control @error('head_coach') is-invalid @enderror" value="{{ old('head_coach') ? old('head_coach') : $club->head_coach }}" placeholder="Enter the number of points">
                             </div>
                         </div>
 

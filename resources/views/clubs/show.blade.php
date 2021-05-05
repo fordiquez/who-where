@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', $club->name)
+
 @section('content')
     <div class="container-fluid">
         <div class="col-12">
@@ -7,14 +9,14 @@
                 <div class="row g-0">
                     <div class="club-title">
                         <h5 class="mt-2">
-                            <span>{{ $club->name }}</span>
                             <a href="{{ route('club.index', $club->league->id) }}">
-                                <img src="{{ asset($club->league->logo) }}" class="league-logo" alt="{{ $club->league->name }}" title="{{ $club->league->name }}">
+                                <img src="{{ asset($club->league->logo) }}" class="medium-logo" alt="{{ $club->league->name }}" title="{{ $club->league->name }}">
                             </a>
+                            <span>{{ $club->name }}</span>
                         </h5>
                     </div>
-                    <div class="col-md-2 player-logo-column">
-                        <div class="league-logo-item">
+                    <div class="col-md-2 club-logo-column">
+                        <div class="club-logo-item">
                             <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
                         </div>
                     </div>
@@ -66,7 +68,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 player-market-column">
+                    <div class="col-md-2 club-market-column">
                         <h5 class="card-title">Total Market Value:</h5>
                         <p class="card-text">€ 8.57 bn</p>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
@@ -96,23 +98,25 @@
                             <tbody>
                             @foreach($players as $player)
                                 <tr>
-                                    <th scope="row">{{ $player->number }}</th>
-                                    <td>
+                                    <th scope="row" class="text-center">{{ $player->number }}</th>
+                                    <td class="text-center">
                                         <div class="player-container">
                                             <div class="player-photo">
-                                                <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">
+                                                <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
                                             </div>
                                             <div class="player-info">
                                                 <a href="{{ route('player.show', $player->id) }}">
                                                     <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
                                                 </a>
-                                                <span>{{ $player->main_position->name }}</span>
+                                                <small>{{ $player->main_position->name }}</small>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="text-center">{{ $player->birth_date }} (27)</td>
                                     <td class="text-center">
-                                        <img src="{{ asset($player->nation->flag) }}" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
+                                        <a href="{{ route('league.index', $player->nation->id) }}">
+                                            <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
+                                        </a>
                                     </td>
                                     <td class="text-center">{{ $player->height }} m</td>
                                     <td class="text-center">{{ $player->foot }}</td>

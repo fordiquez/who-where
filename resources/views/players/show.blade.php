@@ -1,22 +1,24 @@
 @extends('assets.layout')
 
+@section('title', $player->name)
+
 @section('content')
     <div class="container-fluid">
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="club-title">
+                    <div class="player-title">
                         <h5 class="mt-2">
+                            <a href="{{ route('club.show', $player->club->id) }}">
+                                <img src="{{ asset($player->club->logo) }}" class="medium-logo" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
+                            </a>
                             <span># {{ $player->number }}</span>
                             <span>{{ $player->name }}</span>
-                            <a href="{{ route('club.show', $player->club->id) }}">
-                                <img src="{{ asset($player->club->logo) }}" class="league-logo" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
-                            </a>
                         </h5>
                     </div>
-                    <div class="col-md-2 player-logo-column">
-                        <div class="league-logo-item">
-                            <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">
+                    <div class="col-md-2 player-photo-column">
+                        <div class="player-photo-item">
+                            <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -28,14 +30,14 @@
                             <li class="list-group-item">
                                 <span>Birth country:</span>
                                 <a href="{{ route('league.index', $player->birth->id) }}">
-                                    <img src="{{ asset($player->birth->flag) }}" width="25" height="25" alt="{{ $player->birth->name }}" title="{{ $player->birth->name }}">
+                                    <img src="{{ asset($player->birth->flag) }}" class="tiny-logo" alt="{{ $player->birth->name }}" title="{{ $player->birth->name }}">
                                     <span class="badge bg-primary rounded-pill">{{ $player->birth->name }}</span>
                                 </a>
                             </li>
                             <li class="list-group-item">
                                 <span>Citizenship:</span>
                                 <a href="{{ route('league.index', $player->nation->id) }}">
-                                    <img src="{{ asset($player->nation->flag) }}" width="25" height="25" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
+                                    <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
                                     <span class="badge bg-primary rounded-pill">{{ $player->nation->name }}</span>
                                 </a>
                             </li>
@@ -66,7 +68,7 @@
                             <li class="list-group-item">
                                 <span>Signed from:</span>
                                 <a href="{{ route('club.show', $player->signed->id) }}">
-                                    <img src="{{ asset($player->signed->logo) }}" width="25" height="25" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
+                                    <img src="{{ asset($player->signed->logo) }}" class="tiny-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
                                     <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
                                 </a>
                             </li>

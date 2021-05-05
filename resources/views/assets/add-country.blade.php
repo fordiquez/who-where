@@ -22,19 +22,19 @@
                     @endif
 
                     <div class="input-group mb-3">
-                        <label for="name-input" class="input-group-text">
+                        <label for="name" class="input-group-text">
                             <i class="bi bi-type"></i>
                             <span class="ms-1">Name</span>
                         </label>
-                        <input type="text" name="name" id="name-input" class="form-control @error('name') is-invalid @enderror" placeholder="Enter the country name">
+                        <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" placeholder="Enter the country name">
                     </div>
 
                     <div class="input-group mb-3">
-                        <label for="code-input" class="input-group-text">
+                        <label for="code" class="input-group-text">
                             <i class="bi bi-file-binary-fill"></i>
                             <span class="ms-1">Code</span>
                         </label>
-                        <input type="text" name="code" id="code-input" class="form-control @error('code') is-invalid @enderror" placeholder="Country ISO 3166-2 code (e.g. Canada – CA)">
+                        <input type="text" name="code" id="code" class="form-control @error('code') is-invalid @enderror" value="{{ old('code') }}" placeholder="Enter the ISO 3166-2 code (e.g. Canada – CA)">
                     </div>
 
                     <div class="input-group mb-3">

@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', 'Players list')
+
 @section('content')
     <div class="container-fluid">
         <div class="col-12">
@@ -10,7 +12,7 @@
                             <h3 class="text-center">
                                 @if($club)
                                     <span>Players – </span>
-                                    <img src="{{ asset($club->logo) }}" width="50" height="50" alt="{{ $club->name }}" title="{{ $club->name }}">
+                                    <img src="{{ asset($club->logo) }}" class="medium-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
                                     <span>{{ $club->name }}</span>
                                 @else
                                     <span>Full list players</span>
@@ -40,36 +42,53 @@
                             @foreach($players as $player)
                                 <tr>
                                     <th scope="row">{{ $player->number }}</th>
-                                    <td>
+                                    <td class="text-center">
                                         <div class="player-container">
                                             <div class="player-photo">
-                                                <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">
+                                                <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
                                             </div>
                                             <div class="player-info">
                                                 <a href="{{ route('player.show', $player) }}">
                                                     <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
                                                 </a>
-                                                <span>{{ $player->main_position->name }}</span>
+                                                <small>{{ $player->main_position->name }}</small>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
-                                        <a href="{{ route('club.show', $player->club->id) }}">
-                                            <img src="{{ asset($player->club->logo) }}" width="50" height="50" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
-                                            <span class="badge bg-primary rounded-pill">{{ $player->club->name }}</span>
-                                        </a>
+                                    <td class="text-center">
+                                        <div class="club-container">
+                                            <div class="club-logo">
+                                                <a href="{{ route('club.show', $player->club->id) }}">
+                                                    <img src="{{ asset($player->club->logo) }}" class="medium-logo" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
+                                                </a>
+                                            </div>
+                                            <div class="club-name">
+                                                <a href="{{ route('club.show', $player->club->id) }}">
+                                                    <span class="badge bg-primary rounded-pill">{{ $player->club->name }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-center">{{ $player->birth_date }} (27)</td>
                                     <td class="text-center">
-                                        <img src="{{ asset($player->nation->flag) }}" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
+                                        <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
                                     </td>
                                     <td class="text-center">{{ $player->height }} m</td>
                                     <td class="text-center">{{ $player->foot }}</td>
                                     <td class="text-center">{{ $player->joined }}</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('club.show', $player->signed->id) }}" class="custom-link">
-                                            <img src="{{ asset($player->signed->logo) }}" width="50" height="50" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
-                                        </a>
+                                    <td>
+                                        <div class="club-container">
+                                            <div class="club-logo">
+                                                <a href="{{ route('club.show', $player->signed->id) }}">
+                                                    <img src="{{ asset($player->signed->logo) }}" class="medium-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
+                                                </a>
+                                            </div>
+                                            <div class="club-name">
+                                                <a href="{{ route('club.show', $player->signed->id) }}">
+                                                    <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
+                                                </a>
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-center">{{ $player->contract_expires }}</td>
                                     <td class="text-center">{{ $player->market_value }}</td>
@@ -88,5 +107,6 @@
         </div>
     </div>
 
+    <!-- Modal for adding the new player -->
     @include('assets.add-player')
 @endsection

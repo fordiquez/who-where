@@ -13,7 +13,7 @@
     <!-- Project main CSS -->
     <link rel="stylesheet" href="{{ asset('/assets/css/main.css') }}">
     @yield('custom-css')
-    <title>Transfers List</title>
+    <title>@yield('title') – WHO-WHERE</title>
 </head>
 <body>
 <header>

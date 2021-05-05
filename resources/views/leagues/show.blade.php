@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', $league->name)
+
 @section('content')
     <div class="container-fluid">
         <div class="col-12">
@@ -7,15 +9,15 @@
                 <div class="row g-0">
                     <div class="league-title">
                         <h5 class="mt-2">
-                            <span>{{ $league->name }}</span>
                             <a href="{{ route('league.index', $league->country->id) }}">
-                                <img src="{{ asset($league->country->flag) }}" class="league-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
+                                <img src="{{ asset($league->country->flag) }}" class="small-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
                             </a>
+                            <span>{{ $league->name }}</span>
                         </h5>
                     </div>
                     <div class="col-md-2 league-logo-column">
                         <div class="league-logo-item">
-                            <img src="{{ asset($league->logo) }}" alt="{{ $league->name }}" title="{{ $league->name }}">
+                            <img src="{{ asset($league->logo) }}" class="full-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -23,7 +25,7 @@
                             <li class="list-group-item">
                                 <span>League level:</span>
                                 <span>{{ $league->league_level }} – </span>
-                                <img src="{{ asset($league->country->flag) }}" class="country-flag-small" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
+                                <img src="{{ asset($league->country->flag) }}" class="tiny-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
                                 <span>{{ $league->country->name }}</span>
                             </li>
                             <li class="list-group-item">
@@ -71,7 +73,9 @@
                     <div class="col-md-2 league-market-column">
                         <h5 class="card-title">Total Market Value:</h5>
                         <p class="card-text">€ 8.57 bn</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <p class="card-text">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -96,7 +100,7 @@
                                 <tr>
                                     <th scope="row">
                                         <a href="{{ route('club.show', $club) }}">
-                                            <img src="{{ asset($club->logo) }}" class="club-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
+                                            <img src="{{ asset($club->logo) }}" class="medium-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
                                             <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
                                         </a>
                                     </th>

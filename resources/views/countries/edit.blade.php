@@ -1,5 +1,7 @@
 @extends('assets.layout')
 
+@section('title', $country->name)
+
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -26,7 +28,7 @@
                                     <i class="bi bi-type"></i>
                                     <span>Name</span>
                                 </label>
-                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ $country->name }}" placeholder="Country name">
+                                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ? old('name') : $country->name }}" placeholder="Country name">
                             </div>
 
                             <div class="mb-3">
@@ -35,7 +37,7 @@
                                     <span>Code</span>
                                     <span class="badge bg-primary rounded-pill">ISO 3166-2</span>
                                 </label>
-                                <input type="text" name="code" id="code" class="form-control @error('code') is-invalid @enderror" value="{{ $country->code }}" placeholder="Enter the ISO 3166-2 code (e.g. Canada – CA)">
+                                <input type="text" name="code" id="code" class="form-control @error('code') is-invalid @enderror" value="{{ old('code') ? old('code') : $country->code }}" placeholder="Enter the ISO 3166-2 code (e.g. Canada – CA)">
                             </div>
 
                             <div class="mb-3">
