@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', $player->name)
+@section('title', strtoupper($player->name))
 
 @section('content')
     <div class="container-fluid">

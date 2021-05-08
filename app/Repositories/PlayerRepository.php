@@ -15,4 +15,14 @@ class PlayerRepository
     {
         return DB::select('select id, dbo.getPlayersAge(birth_date) age from players where id = ' . $id);
     }
+
+    public function YoungestPlayer($clubId): array
+    {
+        return DB::select('exec dbo.getTheYoungestPlayer ' . $clubId);
+    }
+
+    public function OldestPlayer($clubId): array
+    {
+        return DB::select('exec dbo.getTheOldestPlayer ' . $clubId);
+    }
 }

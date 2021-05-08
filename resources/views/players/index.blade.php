@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', 'Players list')
+@section('title', strtoupper('Players list'))
 
 @section('content')
     <div class="container-fluid">

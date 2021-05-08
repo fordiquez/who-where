@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', $transfer->player->name)
+@section('title', strtoupper($transfer->player->name))
 
 @section('content')
     <div class="container-fluid">
@@ -93,17 +93,17 @@
                             </div>
 
                             <div class="mb-3">
-                                <label for="loan" class="form-label">
+                                <label for="is-loaned" class="form-label">
                                     <i class="bi bi-hourglass-split"></i>
                                     <span>Loaned transfer</span>
                                 </label>
                                 <div class="radio-switches">
                                     <div class="form-check form-check-inline form-switch">
-                                        <input type="radio" name="loan" id="loan-true" class="form-check-input" value="1" @if ($transfer->loan) checked @endif>
+                                        <input type="radio" name="is_loan" id="is-loan-true" class="form-check-input" value="1" @if ($transfer->is_loan) checked @endif>
                                         <label for="loan-true" class="form-check-label">Yes</label>
                                     </div>
                                     <div class="form-check form-check-inline form-switch">
-                                        <input type="radio" name="loan" id="loan-false" class="form-check-input" value="0" @if (!$transfer->loan) checked @endif>
+                                        <input type="radio" name="is_loan" id="is-loan-false" class="form-check-input" value="0" @if (!$transfer->is_loan) checked @endif>
                                         <label for="loan-false" class="form-check-label">No</label>
                                     </div>
                                 </div>

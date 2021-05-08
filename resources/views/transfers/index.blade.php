@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', 'Transfers list')
+@section('title', strtoupper('Transfers list'))
 
 @section('content')
     <div class="container-fluid">
@@ -39,13 +39,13 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label class="form-label" for="loan-select">
+                    <label class="form-label" for="is-loaned-select">
                         <i class="bi bi-hourglass-split"></i>
                         <span>Loans:</span>
                     </label>
                 </div>
                 <div class="col-md-6">
-                    <select class="form-select" name="loan" id="loan-select">
+                    <select class="form-select" name="is_loan" id="is-loaned-select">
                         <option value="0" selected>All transfers</option>
                         <option value="1">Only include loans</option>
                     </select>

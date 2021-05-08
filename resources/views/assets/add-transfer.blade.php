@@ -114,18 +114,18 @@
                     </div>
 
                     <div class="input-group mb-3">
-                        <label for="loaned-transfer-radio" class="input-group-text">
+                        <label for="is-loan" class="input-group-text">
                             <i class="bi bi-hourglass-split me-1"></i>
                             <span>Loaned transfer</span>
                         </label>
                         <div class="radio-switches">
                             <div class="form-check form-check-inline form-switch">
-                                <input type="radio" name="loan" id="loaned-transfer-yes" class="form-check-input @error('loan') is-invalid @enderror" value="1" {{ old('loan') == '1' ? 'checked' : '' }}>
-                                <label for="loaned-transfer-yes" class="form-check-label">Yes</label>
+                                <input type="radio" name="is_loan" id="loaned-transfer-true" class="form-check-input @error('is_loan') is-invalid @enderror" value="1" {{ old('is_loan') == '1' ? 'checked' : '' }}>
+                                <label for="loaned-transfer-true" class="form-check-label">Yes</label>
                             </div>
                             <div class="form-check form-check-inline form-switch">
-                                <input type="radio" name="loan" id="loaned-transfer-no" class="form-check-input @error('loan') is-invalid @enderror" value="0" {{ old('loan') == '0' ? 'checked' : '' }}>
-                                <label for="loaned-transfer-no" class="form-check-label">No</label>
+                                <input type="radio" name="is_loan" id="loaned-transfer-false" class="form-check-input @error('is_loan') is-invalid @enderror" value="0" {{ old('is_loan') == '0' ? 'checked' : '' }}>
+                                <label for="loaned-transfer-false" class="form-check-label">No</label>
                             </div>
                         </div>
                     </div>

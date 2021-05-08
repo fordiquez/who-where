@@ -47,8 +47,10 @@ class LeagueController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id')), 'min:3', 'max:50'],
-            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id')), 'max:50'],
+            'name' => ['required', 'min:3', 'max:50',
+                Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))],
+            'league_level' => ['required', 'min:3', 'max:50',
+                Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);
@@ -103,8 +105,10 @@ class LeagueController extends Controller
     public function update($id, Request $request) {
         $league = League::find($id);
         $request->validate([
-            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))->ignore($league->id), 'min:3', 'max:50'],
-            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))->ignore($league->id), 'max:50'],
+            'name' => ['required', 'min:3', 'max:50',
+                Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))->ignore($league->id)],
+            'league_level' => ['required', 'min:3', 'max:50',
+                Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))->ignore($league->id)],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);

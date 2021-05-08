@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', $club->name)
+@section('title', strtoupper($club->name))
 
 @section('content')
     <div class="container-fluid">
@@ -20,7 +20,7 @@
                             <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5 col-lg-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1 fw-bold">Squad size:</span>
@@ -38,30 +38,36 @@
                                     @endif
                                 @endforeach
                             </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1 fw-bold">The youngest player:</span>
-                                @foreach($avgAge as $age)
-                                    @if($age->id == $club->id)
-                                        @if($age->avg_age != null)
-                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
-                                        @else
-                                            <span class="badge bg-primary rounded-pill">Undefined</span>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1 fw-bold">The oldest player:</span>
-                                @foreach($avgAge as $age)
-                                    @if($age->id == $club->id)
-                                        @if($age->avg_age != null)
-                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
-                                        @else
-                                            <span class="badge bg-primary rounded-pill">Undefined</span>
-                                        @endif
-                                    @endif
-                                @endforeach
-                            </li>
+                            @foreach($youngestPlayer as $player)
+                                @if($player->id)
+                                    <li class="list-group-item d-flex align-items-center justify-content-sm-between">
+                                        <span class="me-1 fw-bold">The youngest player:</span>
+                                        <a href="{{ route('player.show', $player->id) }}" class="custom-link youngest-player">
+                                            <span class="badge bg-primary rounded-pill">
+                                                {{ $player->name }}
+                                            </span>
+                                            <span class="badge bg-primary rounded-pill mt-1">
+                                                Years: {{ $player->years }} – Months: {{ $player->months }} – Days: {{ $player->days }}
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
+                            @foreach($oldestPlayer as $player)
+                                @if($player->id)
+                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                        <span class="me-1 fw-bold">The oldest player:</span>
+                                        <a href="{{ route('player.show', $player->id) }}" class="custom-link oldest-player">
+                                            <span class="badge bg-primary rounded-pill">
+                                                {{ $player->name }}
+                                            </span>
+                                            <span class="badge bg-primary rounded-pill mt-1">
+                                                Years: {{ $player->years }} – Months: {{ $player->months }} – Days: {{ $player->days }}
+                                            </span>
+                                        </a>
+                                    </li>
+                                @endif
+                            @endforeach
                             <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1 fw-bold">ø-age:</span>
                                 @foreach($avgAge as $age)
@@ -105,7 +111,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5 col-lg-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1 fw-bold">Founded:</span>
@@ -127,21 +133,21 @@
                                 <span class="me-1 fw-bold">Head coach:</span>
                                 <span class="badge bg-primary rounded-pill">{{ $club->head_coach }}</span>
                             </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1 fw-bold">Championships number:</span>
-                                @foreach($championships as $championship)
-                                    <span class="badge bg-primary rounded-pill">{{ $championship->championships_number }}</span>
-                                @endforeach
-                            </li>
-                            <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1 fw-bold">The last championship season:</span>
-                                @foreach($championships as $championship)
-                                    <span class="badge bg-primary rounded-pill">{{ $championship->season->year }}</span>
-                                @endforeach
-                            </li>
+                            @foreach($championships as $championship)
+                                @if($championship)
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <span class="me-1 fw-bold">Championships number:</span>
+                                        <span class="badge bg-primary rounded-pill">{{ $championship->championships_number }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex align-items-center">
+                                        <span class="me-1 fw-bold">The last championship season:</span>
+                                        <span class="badge bg-primary rounded-pill">{{ $championship->season->year }}</span>
+                                    </li>
+                                @endif
+                            @endforeach
                         </ul>
                     </div>
-                    <div class="col-md-2 club-market-column bg-indigo rounded">
+                    <div class="col-lg-2 club-market-column bg-indigo rounded">
                         <h5 class="card-title fw-bold">Total Market Value:</h5>
                         @foreach($totalMarketValue as $marketValue)
                             @if($marketValue->id == $club->id)

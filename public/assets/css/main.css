@@ -193,3 +193,10 @@ a.custom-link:hover {
 .player-photo-item img {
     border: 1px solid var(--bs-secondary);
 }
+
+.youngest-player, .oldest-player {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}

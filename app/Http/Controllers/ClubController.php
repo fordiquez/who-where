@@ -61,8 +61,12 @@ class ClubController extends Controller
             'city' => ['required', 'min:1', 'max:50',],
             'capacity' => ['required', 'integer', 'min:0', 'max:110000'],
             'head_coach' => ['required', 'min:1', 'max:50'],
-            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255', Rule::requiredIf($request->input('last_championship_season_id'))],
-            'last_championship_season_id' => [Rule::exists('seasons', 'id'), Rule::requiredIf($request->input('championships_number') != null)]
+            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255',
+                Rule::requiredIf($request->input('last_championship_season_id'))],
+            'last_championship_season_id' => [Rule::exists('seasons', 'id'),
+                Rule::requiredIf($request->input('championships_number') != null),
+                Rule::unique('championships', 'last_championship_season_id')->where('league_id', $request->input('league_id'))
+            ]
         ]);
         $name = $request->input('name');
         $logo = $request->file('logo');
@@ -108,7 +112,9 @@ class ClubController extends Controller
             'totalMarketValue' => $this->clubRepository->getTotalMarketValue(),
             'avgMarketValue' => $this->clubRepository->getAvgMarketValue(),
             'mostValuablePlayer' => $this->clubRepository->getMostValuablePlayer($club->id),
-            'playersAge' => $this->playerRepository->playersAge()
+            'playersAge' => $this->playerRepository->playersAge(),
+            'youngestPlayer' => $this->playerRepository->YoungestPlayer($club->id),
+            'oldestPlayer' => $this->playerRepository->OldestPlayer($club->id)
         ]);
     }
 
@@ -133,7 +139,7 @@ class ClubController extends Controller
     public function update($id, Request $request) {
         $club = Club::find($id);
         $request->validate([
-            'name' => ['required', Rule::unique('clubs', 'name')->ignore($club->id), 'min:3', 'max:50'],
+            'name' => ['required', 'min:3', 'max:50', Rule::unique('clubs', 'name')->ignore($club->id)],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
@@ -143,8 +149,10 @@ class ClubController extends Controller
             'city' => ['required', 'min:1', 'max:50',],
             'capacity' => ['required', 'integer', 'min:1', 'max:110000'],
             'head_coach' => ['required', 'min:1', 'max:50'],
-            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255', Rule::requiredIf($request->input('last_championship_season_id'))],
-            'last_championship_season_id' => [Rule::exists('seasons', 'id'), Rule::requiredIf($request->input('championships_number') != null)]
+            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255',
+                Rule::requiredIf($request->input('last_championship_season_id'))],
+            'last_championship_season_id' => [Rule::exists('seasons', 'id'),
+                Rule::requiredIf($request->input('championships_number') != null)]
         ]);
         $name = $request->input('name');
         if ($request->file('logo')) {
@@ -171,7 +179,21 @@ class ClubController extends Controller
                 ['club_id', $club->id],
                 ['league_id', $club->league_id]
             ])->get();
-            foreach ($championships as $championship) {
+            if (count($championships) > 0) {
+                foreach ($championships as $championship) {
+                    $request->validate([
+                        'last_championship_season_id' => [
+                            Rule::unique('championships', 'last_championship_season_id')->where('league_id', $request->input('league_id'))->ignore($championship->id)
+                        ]
+                    ]);
+                    $championship->championships_number = $request->input('championships_number');
+                    $championship->last_championship_season_id = $request->input('last_championship_season_id');
+                    $championship->save();
+                }
+            } else {
+                $championship = new Championship();
+                $championship->league_id = $club->league_id;
+                $championship->club_id = $club->id;
                 $championship->championships_number = $request->input('championships_number');
                 $championship->last_championship_season_id = $request->input('last_championship_season_id');
                 $championship->save();

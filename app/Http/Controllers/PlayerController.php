@@ -45,7 +45,7 @@ class PlayerController extends Controller
         $validated_timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y') - 16);
         $validated_birth_date = date("Y-m-d", $validated_timestamp);
         $request->validate([
-            'name' => ['required', Rule::unique('players', 'name'), 'min:3', 'max:50'],
+            'name' => ['required', 'min:3', 'max:50', Rule::unique('players', 'name'),],
             'photo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'number' => ['required', 'integer', 'min:1', 'max:99'],
             'birth_date' => ['required', 'date', 'before_or_equal:' . $validated_birth_date],
@@ -115,7 +115,7 @@ class PlayerController extends Controller
         $validated_timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y') - 16);
         $validated_birth_date = date("Y-m-d", $validated_timestamp);
         $request->validate([
-            'name' => ['required', Rule::unique('players', 'name')->ignore($player->id), 'min:3', 'max:50'],
+            'name' => ['required', 'min:3', 'max:50', Rule::unique('players', 'name')->ignore($player->id)],
             'photo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'number' => ['required', 'integer', 'min:1', 'max:99'],
             'birth_date' => ['required', 'date', 'before_or_equal:' . $validated_birth_date],
@@ -126,7 +126,9 @@ class PlayerController extends Controller
             'main_position_id' => ['required', Rule::exists('positions', 'id')],
             'foot' => ['required', 'prohibited_unless:foot,Left,Right'],
             'club_id' => ['required', Rule::exists('clubs', 'id')],
-            'signed_from_club_id' => ['required', Rule::exists('clubs', 'id'), 'prohibited_if:club_id,' . $request->signed_from_club_id],
+            'signed_from_club_id' => ['required',
+                Rule::exists('clubs', 'id'),
+                'prohibited_if:club_id,' . $request->input('signed_from_club_id')],
             'joined' => ['required', 'date', 'after:' . $validated_birth_date],
             'contract_expires' => ['required', 'date', 'after:joined'],
             'market_value' => ['required', 'numeric', 'min:0.00']

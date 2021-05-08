@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', $league->name)
+@section('title', strtoupper($league->name))
 
 @section('content')
     <div class="container-fluid">
@@ -72,8 +72,8 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <b class="me-1">UEFA coefficient:</b>
-                                @if($league->uefa_position & $league->uefa_coefficient_points)
-                                    <span class="badge bg-primary rounded-pill">{{ $league->uefa_position }}. Pos. {{ $league->uefa_coefficient_points }} Points</span>
+                                @if($league->country->uefa_position & $league->country->uefa_coefficient_points)
+                                    <span class="badge bg-primary rounded-pill">{{ $league->country->uefa_position }}. Pos. {{ $league->country->uefa_coefficient_points }} Points</span>
                                 @else
                                     <span class="badge bg-primary rounded-pill">Undefined</span>
                                 @endif

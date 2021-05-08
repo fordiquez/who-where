@@ -1,6 +1,6 @@
 @extends('assets.layout')
 
-@section('title', $club->name)
+@section('title', strtoupper($club->name))
 
 @section('content')
     <div class="container-fluid">
@@ -126,35 +126,50 @@
                                 <input type="text" name="head_coach" id="head_coach" class="form-control @error('head_coach') is-invalid @enderror" value="{{ old('head_coach') ? old('head_coach') : $club->head_coach }}" placeholder="Enter the number of points">
                             </div>
 
-                            @foreach($championships as $championship)
-                                <div class="mb-3">
-                                    <label for="championships-number" class="form-label">
-                                        <i class="bi bi-trophy-fill me-1"></i>
-                                        <span class="ms-1">The number of championships</span>
-                                        <span class="badge bg-primary rounded-pill">Not required</span>
-                                    </label>
-                                    <input type="number" name="championships_number" id="championships-number" class="form-control @error('championships_number') is-invalid @enderror" value="{{ old('championships_number') ? old('championships_number') : $championship->championships_number }}" placeholder="Enter the championships number">
-                                </div>
+                            <div class="mb-3">
+                                <label for="championships-number" class="form-label">
+                                    <i class="bi bi-trophy-fill me-1"></i>
+                                    <span class="ms-1">The number of championships</span>
+                                    <span class="badge bg-primary rounded-pill">Not required</span>
+                                </label>
+                                @if(count($championships) != null)
+                                    @foreach($championships as $championship)
+                                        <input type="number" name="championships_number" id="championships-number" class="form-control @error('championships_number') is-invalid @enderror" value="{{ old('championships_number') ? old('championships_number') : $championship->championships_number }}" placeholder="Enter the championships number">
+                                    @endforeach
+                                @else
+                                    <input type="number" name="championships_number" id="championships-number" class="form-control @error('championships_number') is-invalid @enderror" value="{{ old('championships_number') ? old('championships_number') : '' }}" placeholder="Enter the championships number">
+                                @endif
+                            </div>
 
-                                <div class="mb-3">
-                                    <label for="last-championship-season" class="form-label">
-                                        <i class="bi bi-alarm-fill me-1"></i>
-                                        <span>The last championship season</span>
-                                        <span class="badge bg-primary rounded-pill">Not required</span>
-                                    </label>
-                                    <select class="form-select @error('last_championship_season_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
-                                        <option selected disabled>Choose the season...</option>
+                            <div class="mb-3">
+                                <label for="last-championship-season" class="form-label">
+                                    <i class="bi bi-alarm-fill me-1"></i>
+                                    <span>The last championship season</span>
+                                    <span class="badge bg-primary rounded-pill">Not required</span>
+                                </label>
+                                <select class="form-select @error('last_championship_season_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
+                                    <option selected disabled>Choose the season...</option>
+                                    @if(count($championships) != null)
+                                        @foreach($championships as $championship)
+                                            @foreach($seasons as $season)
+                                                @if($season->id == $championship->last_championship_season_id)
+                                                    <option value="{{ $season->id }}" selected>{{ $season->year }}</option>
+                                                @else
+                                                    <option value="{{ $season->id }}">{{ $season->year }}</option>
+                                                @endif
+                                            @endforeach
+                                        @endforeach
+                                    @else
                                         @foreach($seasons as $season)
-                                            @if($season->id == $championship->last_championship_season_id)
+                                            @if($season->id == old('last_championship_season_id'))
                                                 <option value="{{ $season->id }}" selected>{{ $season->year }}</option>
                                             @else
                                                 <option value="{{ $season->id }}">{{ $season->year }}</option>
                                             @endif
                                         @endforeach
-                                    </select>
-                                </div>
-                            @endforeach
-
+                                    @endif
+                                </select>
+                            </div>
                         </div>
 
                         <div class="card-footer footer-links">

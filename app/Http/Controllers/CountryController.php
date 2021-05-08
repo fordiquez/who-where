@@ -47,8 +47,10 @@ class CountryController extends Controller
             'name' => ['required', 'unique:countries', 'min:3', 'max:30'],
             'code' => ['required', 'unique:countries', 'min:2', 'max:6'],
             'flag' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255'],
-            'uefa_coefficient_points' => ['numeric', 'nullable', 'min:0.000', 'max:150.000']
+            'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255',
+                Rule::unique('countries', 'uefa_position')],
+            'uefa_coefficient_points' => ['numeric', 'nullable', 'min:0.000', 'max:150.000',
+                Rule::requiredIf($request->input('uefa_position'))]
         ]);
         $code = $request->input('code');
         $flag = $request->file('flag');
@@ -85,8 +87,9 @@ class CountryController extends Controller
             'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:30'],
             'code' => ['required', Rule::unique('countries', 'code')->ignore($country->id), 'min:2', 'max:6'],
             'flag' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'first_tier_league_id' => [Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)],
-            'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255'],
+            'first_tier_league_id' => Rule::unique('countries', 'first_tier_league_id')->ignore($country->id),
+            'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255',
+                Rule::unique('countries', 'uefa_position')->ignore($country->id)],
             'uefa_coefficient_points' => ['numeric', 'nullable', 'min:0.000', 'max:150.000']
         ]);
         $country->name = $request->input('name');
