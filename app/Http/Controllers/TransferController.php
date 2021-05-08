@@ -89,7 +89,6 @@ class TransferController extends Controller
     public function update($id, Request $request)
     {
         $transfer = Transfer::find($id);
-        $player = Player::find($transfer->player_id);
         $request->validate([
             'season_id' => ['required', Rule::exists('seasons', 'id'),
                 Rule::unique('transfers', 'season_id')->where('player_id', $request->input('player_id'))->ignore($transfer->id)],

@@ -46,8 +46,8 @@
                         <a class="nav-link" href="{{ route('transfer.index') }}">Transfers</a>
                     </li>
                 </ul>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <form class="d-flex" method="get" action="{{ route('players.search') }}">
+                    <input class="form-control me-2" type="search" name="query" placeholder="Search players">
                     <button class="btn btn-outline-success" type="submit">
                         <i class="bi bi-search"></i>
                     </button>

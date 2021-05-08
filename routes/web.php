@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 Route::redirect('/', '/home')->name('root');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home.index');
+Route::get('/players-search', [HomeController::class, 'search'])->name('players.search');
 
 Route::get('/countries', [CountryController::class, 'index'])->name('country.index');
 Route::get('/country/show/{id}', [CountryController::class, 'show'])->name('country.show');

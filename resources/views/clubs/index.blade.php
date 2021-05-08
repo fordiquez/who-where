@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="club-title">
                         <h4 class="card-title club-title text-center text-uppercase bg-indigo rounded p-1">
-                            @if ($league)
+                            @isset($league)
                                 <span>Clubs –</span>
                                 <img src="{{ asset($league->logo) }}" class="medium-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
                                 <span>{{ $league->name }}</span>
