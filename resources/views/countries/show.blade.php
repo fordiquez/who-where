@@ -27,7 +27,13 @@
                                 <p class="card-text">
                                     <i class="bi bi-bookmark-star"></i>
                                     <b>Total leagues:</b>
-                                    <span class="badge bg-primary rounded-pill">0</span>
+                                    <span class="badge bg-primary rounded-pill">
+                                        @foreach($totalLeagues as $league)
+                                            @if ($league->id == $country->id)
+                                                <span>{{ $league->total_count }}</span>
+                                            @endif
+                                        @endforeach
+                                    </span>
                                 </p>
                             </li>
                             <li class="list-group-item">
@@ -49,14 +55,26 @@
                                 <p class="card-text">
                                     <i class="bi bi-shop"></i>
                                     <b>Total clubs:</b>
-                                    <span class="badge bg-primary rounded-pill">0</span>
+                                    <span class="badge bg-primary rounded-pill">
+                                        @foreach($totalClubs as $club)
+                                            @if ($club->id == $country->id)
+                                                {{ $club->total_count }}
+                                            @endif
+                                        @endforeach
+                                    </span>
                                 </p>
                             </li>
                             <li class="list-group-item">
                                 <p class="card-text">
                                     <i class="bi bi-people"></i>
                                     <b>Total players:</b>
-                                    <span class="badge bg-primary rounded-pill">0</span>
+                                    <span class="badge bg-primary rounded-pill">
+                                        @foreach($totalPlayers as $player)
+                                            @if ($player->id == $country->id)
+                                                {{ $player->total_count }}
+                                            @endif
+                                        @endforeach
+                                    </span>
                                 </p>
                             </li>
                         </ul>

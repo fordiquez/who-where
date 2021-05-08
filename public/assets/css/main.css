@@ -1,4 +1,7 @@
 /* Generals */
+:root {
+    --indigo: #6610F2;
+}
 
 body {
     font-family: 'Nunito', sans-serif;
@@ -74,7 +77,17 @@ a.custom-link:hover {
     width: 100%;
 }
 
+.bg-indigo {
+    background-color: var(--indigo);
+}
+
 /* Countries */
+
+.country-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 @media only screen and (max-width: 575px) {
     .country-item {

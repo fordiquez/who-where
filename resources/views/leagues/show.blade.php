@@ -7,12 +7,12 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="league-title">
-                        <h5 class="mt-2">
-                            <a href="{{ route('league.index', $league->country->id) }}">
+                    <div class="league-title mb-2">
+                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-1">
+                            <a href="{{ route('league.index', $league->country->id) }}" class="me-2">
                                 <img src="{{ asset($league->country->flag) }}" class="small-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
                             </a>
-                            <span>{{ $league->name }}</span>
+                            <span>– {{ $league->name }}</span>
                         </h5>
                     </div>
                     <div class="col-md-2 league-logo-column">
@@ -22,100 +22,214 @@
                     </div>
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>League level:</span>
-                                <span>{{ $league->league_level }} – </span>
-                                <img src="{{ asset($league->country->flag) }}" class="tiny-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
-                                <span>{{ $league->country->name }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">League level:</b>
+                                <span>
+                                    <span class="badge bg-primary rounded-pill">{{ $league->league_level }}</span>
+                                    <img src="{{ asset($league->country->flag) }}" class="tiny-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
+                                    <span class="badge bg-primary rounded-pill">{{ $league->country->name }}</span>
+                                </span>
                             </li>
-                            <li class="list-group-item">
-                                <span>Number of teams:</span>
-                                <span>20</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">Number of teams:</b>
+                                @foreach($totalClubs as $club)
+                                    @if($club->id == $league->id)
+                                        <span class="badge bg-primary rounded-pill">{{ $club->total_count }}</span>
+                                    @endif
+                                @endforeach
                             </li>
-                            <li class="list-group-item">
-                                <span>Players:</span>
-                                <span>516</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">Players:</b>
+                                @foreach($totalPlayers as $player)
+                                    @if($player->id == $league->id)
+                                        <span class="badge bg-primary rounded-pill">{{ $player->total_count }}</span>
+                                    @endif
+                                @endforeach
                             </li>
-                            <li class="list-group-item">
-                                <span>Foreigners:</span>
-                                <span>326 Players  63.2%</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">ø-Age:</b>
+                                @foreach($avgAge as $age)
+                                    @if($age->id == $league->id)
+                                        @if($age->avg_age != null)
+                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
                             </li>
-                            <li class="list-group-item">
-                                <span>ø-Market value:</span>
-                                <span>€16.61m</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">Foreigners:</b>
+                                @foreach($foreigners as $foreigner)
+                                    @if($foreigner->id == $league->id)
+                                        <span class="badge bg-primary rounded-pill">{{ $foreigner->total_count }} players</span>
+                                    @endif
+                                @endforeach
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>UEFA coefficient:</span>
-                                <span>1. Pos. 98.283 Points</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">UEFA coefficient:</b>
+                                @if($league->uefa_position & $league->uefa_coefficient_points)
+                                    <span class="badge bg-primary rounded-pill">{{ $league->uefa_position }}. Pos. {{ $league->uefa_coefficient_points }} Points</span>
+                                @else
+                                    <span class="badge bg-primary rounded-pill">Undefined</span>
+                                @endif
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">Record-holding champions:</b>
+                                @if($league->record_holding_champion_id && $league->record_holding_times)
+                                    <a href="{{ route('club.show', $league->record_holding_champion_id) }}" class="badge bg-primary rounded-pill custom-link">
+                                        <span>{{ $league->record->name }} {{ $league->record_holding_times }} time(s)</span>
+                                    </a>
+                                @else
+                                    <span class="badge bg-primary rounded-pill">Undefined</span>
+                                @endif
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">Reigning champion:</b>
+                                @if($league->reigning_champion_id)
+                                    <a href="{{ route('club.show', $league->reigning_champion_id) }}" class="badge bg-primary rounded-pill custom-link">
+                                        <span>{{ $league->reigning->name }}</span>
+                                    </a>
+                                @else
+                                    <span class="badge bg-primary rounded-pill">Undefined</span>
+                                @endif
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <b class="me-1">ø-Market value:</b>
+                                @foreach($avgMarketValue as $marketValue)
+                                    @if($marketValue->id == $league->id)
+                                        @if($marketValue->avg_value != null)
+                                            <span class="badge bg-primary rounded-pill">€ {{ round($marketValue->avg_value, 2) }} m</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
                             </li>
                             <li class="list-group-item">
-                                <span>Record-holding champions:</span>
-                                <span>Manchester United 20 time(s)</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>ø-Age:</span>
-                                <span>27.3</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>Reigning champion:</span>
-                                <span>Liverpool FC</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>Most valuable player:</span>
-                                <span>Harry Kane €120.00m</span>
+                                <b>Most valuable player(s):</b>
+                                @if(count($mostValuablePlayer) > 0)
+                                    @foreach($mostValuablePlayer as $player)
+                                        @if($loop->first)
+                                            @php $max = $player->market_value @endphp
+                                        @endif
+                                        @if($player->market_value == $max)
+                                            <a href="{{ route('player.show', $player->id) }}" class="badge bg-primary rounded-pill custom-link">
+                                                <span>{{ $player->name }} € {{ $player->market_value }} m</span>
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <span class="badge bg-primary rounded-pill custom-link">Undefined</span>
+                                @endif
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 league-market-column">
-                        <h5 class="card-title">Total Market Value:</h5>
-                        <p class="card-text">€ 8.57 bn</p>
-                        <p class="card-text">
-                            <small class="text-muted">Last updated 3 mins ago</small>
-                        </p>
+                    <div class="col-md-2 league-market-column bg-indigo rounded">
+                        <h5 class="card-title fw-bold">Total Market Value:</h5>
+                        @foreach($totalMarketValue as $marketValue)
+                            @if($marketValue->id == $league->id)
+                                @if($marketValue->sum_value != null)
+                                    <p class="card-text text-uppercase display-6">€ {{ round($marketValue->sum_value, 2) }} m</p>
+                                @else
+                                    <p class="card-text text-uppercase">Undefined</p>
+                                @endif
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-dark table-hover">
-                            <h5 class="text-center">Clubs – {{ $league->name }}</h5>
-                            <thead>
-                            <tr>
-                                <th scope="col">Club</th>
-                                <th scope="col" class="text-center">Squad</th>
-                                <th scope="col" class="text-center">ø age</th>
-                                <th scope="col" class="text-center">Foreigners</th>
-                                <th scope="col" class="text-center">Total market value</th>
-                                <th scope="col" class="text-center">ø market value</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($clubs as $club)
+                    @if(count($clubs) > 0)
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover">
+                                <div class="league-title">
+                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-1">
+                                        <span>Clubs – {{ $league->name }}</span>
+                                    </h5>
+                                </div>
+                                <thead>
                                 <tr>
-                                    <th scope="row">
-                                        <a href="{{ route('club.show', $club) }}">
-                                            <img src="{{ asset($club->logo) }}" class="medium-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
-                                            <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
-                                        </a>
-                                    </th>
-                                    <td class="text-center">
-                                        24
-                                    </td>
-                                    <td class="text-center">27.1</td>
-                                    <td class="text-center">19</td>
-                                    <td class="text-center">€ 1.03bn</td>
-                                    <td class="text-center">€ 42.79m</td>
+                                    <th scope="col">Club</th>
+                                    <th scope="col" class="text-center">Squad</th>
+                                    <th scope="col" class="text-center">ø age</th>
+                                    <th scope="col" class="text-center">Foreigners</th>
+                                    <th scope="col" class="text-center">Total market value</th>
+                                    <th scope="col" class="text-center">ø market value</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                @foreach($clubs as $club)
+                                    <tr>
+                                        <th scope="row">
+                                            <a href="{{ route('club.show', $club) }}">
+                                                <img src="{{ asset($club->logo) }}" class="medium-logo" alt="{{ $club->name }}" title="{{ $club->name }}">
+                                                <span class="badge bg-primary rounded-pill">{{ $club->name }}</span>
+                                            </a>
+                                        </th>
+                                        <td class="text-center">
+                                            @foreach($totalClubsPlayers as $player)
+                                                @if($player->id == $club->id)
+                                                    <span class="badge bg-primary rounded-pill">{{ $player->total_count }}</span>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            @foreach($totalClubsAvgAge as $player)
+                                                @if($player->id == $club->id)
+                                                    @if($player->avg_age != null)
+                                                        <span class="badge bg-primary rounded-pill">{{ $player->avg_age }}</span>
+                                                    @else
+                                                        <span class="badge bg-primary rounded-pill">Undefined</span>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            @foreach($totalClubsForeigners as $foreigner)
+                                                @if($foreigner->id == $club->id)
+                                                    <span class="badge bg-primary rounded-pill">{{ $foreigner->total_count }}</span>
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            @foreach($totalClubsMarketValue as $marketValue)
+                                                @if($marketValue->id == $club->id)
+                                                    @if($marketValue->sum_value != null)
+                                                        <span class="badge bg-primary rounded-pill">€ {{ round($marketValue->sum_value, 2) }} m</span>
+                                                    @else
+                                                        <span class="badge bg-primary rounded-pill">Undefined</span>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                        <td class="text-center">
+                                            @foreach($avgClubsMarketValue as $marketValue)
+                                                @if($marketValue->id == $club->id)
+                                                    @if($marketValue->avg_value != null)
+                                                        <span class="badge bg-primary rounded-pill">€ {{ round($marketValue->avg_value, 2) }} m</span>
+                                                    @else
+                                                        <span class="badge bg-primary rounded-pill">Undefined</span>
+                                                    @endif
+                                                @endif
+                                            @endforeach
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <h5 class="card-text text-center text-uppercase m-5">
+                            <span class="p-1 bg-indigo rounded">This league has not any club</span>
+                        </h5>
+                    @endif
                 </div>
             </div>
         </div>

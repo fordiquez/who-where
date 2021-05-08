@@ -4,20 +4,29 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use App\Models\League;
+use App\Repositories\CountryRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Throwable;
 
 class CountryController extends Controller
 {
     private $path = '/assets/images/countries';
+    private $countryRepository;
+
+    public function __construct(CountryRepository $countryRepository)
+    {
+        $this->countryRepository = $countryRepository;
+    }
 
     public function index() {
         $countries = Country::all();
         $leagues = League::all();
         return view('countries.index', [
             'countries' => $countries,
-            'leagues' => $leagues
+            'leagues' => $leagues,
+            'totalLeagues' => $this->countryRepository->getTotalLeagues(),
+            'totalClubs' => $this->countryRepository->getTotalClubs(),
+            'totalPlayers' => $this->countryRepository->getTotalPlayers()
         ]);
     }
 
@@ -26,16 +35,16 @@ class CountryController extends Controller
         $leagues = League::all();
         return view('countries.show', [
             'country' => $country,
-            'leagues' => $leagues
+            'leagues' => $leagues,
+            'totalLeagues' => $this->countryRepository->getTotalLeagues(),
+            'totalClubs' => $this->countryRepository->getTotalClubs(),
+            'totalPlayers' => $this->countryRepository->getTotalPlayers()
         ]);
     }
 
-    /**
-     * @throws Throwable
-     */
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', 'unique:countries', 'min:3', 'max:50'],
+            'name' => ['required', 'unique:countries', 'min:3', 'max:25'],
             'code' => ['required', 'unique:countries', 'min:2', 'max:6'],
             'flag' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
         ]);
@@ -66,7 +75,7 @@ class CountryController extends Controller
     public function update($id, Request $request) {
         $country = Country::find($id);
         $request->validate([
-            'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:50'],
+            'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:25'],
             'code' => ['required', Rule::unique('countries', 'code')->ignore($country->id), 'min:2', 'max:6'],
             'flag' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'first_tier_league_id' => [Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)]

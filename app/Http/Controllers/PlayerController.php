@@ -6,36 +6,41 @@ use App\Models\Club;
 use App\Models\Country;
 use App\Models\Player;
 use App\Models\Position;
+use App\Models\Transfer;
+use App\Repositories\PlayerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Throwable;
 
 class PlayerController extends Controller
 {
-    public $path = '/assets/images/players';
+    private $path = '/assets/images/players';
+    private $playerRepository;
+
+    public function __construct(PlayerRepository $playerRepository)
+    {
+        $this->playerRepository = $playerRepository;
+    }
 
     public function index($clubId = null) {
         $club = Club::find($clubId);
         if ($clubId) {
-            $players = Player::where('club_id', $clubId)->get();
+            $players = Player::where('club_id', $clubId)->orderBy('position_id')->get();
         } else {
-            $players = Player::all();
+            $players = Player::orderBy('position_id')->get();
         }
         $countries = Country::all();
         $positions = Position::all();
-        $clubs = Club::all();
+        $clubs = Club::orderBy('name')->get();
         return view('players.index', [
             'club' => $club,
             'players' => $players,
             'countries' => $countries,
             'positions' => $positions,
-            'clubs' => $clubs
+            'clubs' => $clubs,
+            'playersAge' => $this->playerRepository->playersAge()
         ]);
     }
 
-    /**
-     * @throws Throwable
-     */
     public function store(Request $request) {
         $validated_timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y') - 16);
         $validated_birth_date = date("Y-m-d", $validated_timestamp);
@@ -84,8 +89,11 @@ class PlayerController extends Controller
 
     public function show($id) {
         $player = Player::find($id);
+        $transfers = Transfer::where('player_id', $player->id)->get();
         return view('players.show', [
-            'player' => $player
+            'player' => $player,
+            'transfers' => $transfers,
+            'playerAge' => $this->playerRepository->playerAge($player->id)
         ]);
     }
 
@@ -93,7 +101,7 @@ class PlayerController extends Controller
         $player = Player::find($id);
         $countries = Country::all();
         $positions = Position::all();
-        $clubs = Club::all();
+        $clubs = Club::orderBy('name')->get();
         return view('players.edit', [
             'player' => $player,
             'countries' => $countries,

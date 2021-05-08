@@ -7,29 +7,34 @@ use App\Models\Country;
 use App\Models\Player;
 use App\Models\Season;
 use App\Models\Transfer;
+use App\Repositories\PlayerRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class TransferController extends Controller
 {
+    private $playerRepository;
+
+    public function __construct(PlayerRepository $playerRepository)
+    {
+        $this->playerRepository = $playerRepository;
+    }
+
     public function index(Request $request) {
         $season = $request->input('season_id');
         $window = $request->input('transfer_window');
         $loan = $request->input('loan');
         $transfers = $this->filters($season, $window, $loan);
-        $countries = Country::all();
-        $players = Player::all();
-        $seasons = Season::all();
-        $clubs = Club::all();
+        $players = Player::orderBy('name')->get();
+        $seasons = Season::orderByDesc('year')->get();
+        $clubs = Club::orderBy('name')->get();
         return view('transfers.index', [
-            'countries' => $countries,
-            'players' => $players,
             'transfers' => $transfers,
+            'players' => $players,
             'seasons' => $seasons,
             'clubs' => $clubs,
-            'playersAge' => $this->playersAge()
+            'playersAge' => $this->playerRepository->playersAge()
         ]);
     }
 
@@ -72,8 +77,8 @@ class TransferController extends Controller
 
     public function edit($id) {
         $transfer = Transfer::find($id);
-        $seasons = Season::all();
-        $clubs = Club::all();
+        $seasons = Season::orderByDesc('year')->get();
+        $clubs = Club::orderBy('name')->get();
         return view('transfers.edit', [
             'transfer' => $transfer,
             'seasons' => $seasons,
@@ -134,22 +139,17 @@ class TransferController extends Controller
             $transfers = Transfer::where([
                 ['transfer_window', $window],
                 ['loan', $loan]
-            ])->get();
+            ])->orderByDesc('season_id')->get();
         } elseif ($season) {
             $transfers = Transfer::where('season_id', $season)->get();
         } elseif ($window) {
-            $transfers = Transfer::where('transfer_window', $window)->get();
+            $transfers = Transfer::where('transfer_window', $window)->orderByDesc('season_id')->get();
         } elseif ($loan) {
-            $transfers = Transfer::where('loan', $loan)->get();
+            $transfers = Transfer::where('loan', $loan)->orderByDesc('season_id')->get();
         }
         else {
-            $transfers = Transfer::all();
+            $transfers = Transfer::orderByDesc('season_id')->get();
         }
         return $transfers;
-    }
-
-    public function playersAge(): array
-    {
-        return DB::select('select id, dbo.getPlayersAge(birth_date) age from players');
     }
 }

@@ -7,12 +7,12 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="club-title">
-                        <h5 class="mt-2">
+                    <div class="club-title mb-2">
+                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-1">
                             <a href="{{ route('club.index', $club->league->id) }}">
                                 <img src="{{ asset($club->league->logo) }}" class="medium-logo" alt="{{ $club->league->name }}" title="{{ $club->league->name }}">
                             </a>
-                            <span>{{ $club->name }}</span>
+                            <span>– {{ $club->name }}</span>
                         </h5>
                     </div>
                     <div class="col-md-2 club-logo-column">
@@ -22,113 +22,201 @@
                     </div>
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>Squad size:</span>
-                                <span>24</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Squad size:</span>
+                                @foreach($totalPlayers as $player)
+                                    @if($player->id == $club->id)
+                                        <span class="badge bg-primary rounded-pill">{{ $player->total_count }} players</span>
+                                    @endif
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Foreigners:</span>
+                                @foreach($foreigners as $foreigner)
+                                    @if($foreigner->id == $club->id)
+                                        <span class="badge bg-primary rounded-pill">{{ $foreigner->total_count }} players</span>
+                                    @endif
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">ø-age:</span>
+                                @foreach($avgAge as $age)
+                                    @if($age->id == $club->id)
+                                        @if($age->avg_age != null)
+                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">ø-Market value:</span>
+                                @foreach($avgMarketValue as $marketValue)
+                                    @if($marketValue->id == $club->id)
+                                        @if($marketValue->avg_value != null)
+                                            <span class="badge bg-primary rounded-pill">€ {{ round($marketValue->avg_value, 2) }} m</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
                             </li>
                             <li class="list-group-item">
-                                <span>Foreigners:</span>
-                                <span>19 79.2%</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>ø-age:</span>
-                                <span>27.1</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>ø-Market value:</span>
-                                <span>€16.61m</span>
-                            </li>
-                            <li class="list-group-item">
-                                <span>Most valuable player:</span>
-                                <span>Harry Kane €120.00m</span>
+                                <span class="fw-bold">Most valuable player(s):</span>
+                                @if(count($mostValuablePlayer) > 0)
+                                    @foreach($mostValuablePlayer as $player)
+                                        @if($loop->first)
+                                            @php $max = $player->market_value @endphp
+                                        @endif
+                                        @if($player->market_value == $max)
+                                            <a href="{{ route('player.show', $player->id) }}" class="badge bg-primary rounded-pill custom-link">
+                                                <span>{{ $player->name }} € {{ $player->market_value }} m</span>
+                                            </a>
+                                        @endif
+                                    @endforeach
+                                @else
+                                    <span class="badge bg-primary rounded-pill">Undefined</span>
+                                @endif
                             </li>
                         </ul>
                     </div>
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>Founded:</span>
-                                <span>{{ $club->founded }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Founded:</span>
+                                <span class="badge bg-primary rounded-pill">{{ $club->founded }}</span>
                             </li>
-                            <li class="list-group-item">
-                                <span>Address:</span>
-                                <span>{{ $club->city }}, {{ $club->address }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Address:</span>
+                                <span class="badge bg-primary rounded-pill">{{ $club->city }}, {{ $club->address }}</span>
                             </li>
-                            <li class="list-group-item">
-                                <span>Stadium:</span>
-                                <span>{{ $club->stadium }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Stadium:</span>
+                                <span class="badge bg-primary rounded-pill">{{ $club->stadium }}</span>
                             </li>
-                            <li class="list-group-item">
-                                <span>Capacity:</span>
-                                <span>{{ $club->capacity }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Capacity:</span>
+                                <span class="badge bg-primary rounded-pill">{{ $club->capacity }} seats</span>
                             </li>
-                            <li class="list-group-item">
-                                <span>Head coach:</span>
-                                <span>{{ $club->head_coach }}</span>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Head coach:</span>
+                                <span class="badge bg-primary rounded-pill">{{ $club->head_coach }}</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 club-market-column">
-                        <h5 class="card-title">Total Market Value:</h5>
-                        <p class="card-text">€ 8.57 bn</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                    <div class="col-md-2 club-market-column bg-indigo rounded">
+                        <h5 class="card-title fw-bold">Total Market Value:</h5>
+                        @foreach($totalMarketValue as $marketValue)
+                            @if($marketValue->id == $club->id)
+                                @if($marketValue->sum_value != null)
+                                    <p class="card-text text-uppercase display-6">€ {{ round($marketValue->sum_value, 2) }} m</p>
+                                @else
+                                    <p class="card-text text-uppercase">Undefined</p>
+                                @endif
+                            @endif
+                        @endforeach
                     </div>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-dark table-hover">
-                            <h5 class="text-center">Players – {{ $club->name }}</h5>
-                            <thead>
-                            <tr>
-                                <th scope="col" class="text-center">#</th>
-                                <th scope="col">Player</th>
-                                <th scope="col" class="text-center">Date of birth / Age</th>
-                                <th scope="col" class="text-center">Nat.</th>
-                                <th scope="col" class="text-center">Height</th>
-                                <th scope="col" class="text-center">Foot</th>
-                                <th scope="col" class="text-center">Joined</th>
-                                <th scope="col" class="text-center">Signed from</th>
-                                <th scope="col" class="text-center">Contract expires</th>
-                                <th scope="col" class="text-center">Market value</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($players as $player)
+                    @if(count($players) > 0)
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover">
+                                <div class="club-title">
+                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-1">
+                                        <span>Players – {{ $club->name }}</span>
+                                    </h5>
+                                </div>
+                                <thead>
                                 <tr>
-                                    <th scope="row" class="text-center">{{ $player->number }}</th>
-                                    <td class="text-center">
-                                        <div class="player-container">
-                                            <div class="player-photo">
-                                                <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
-                                            </div>
-                                            <div class="player-info">
-                                                <a href="{{ route('player.show', $player->id) }}">
-                                                    <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
-                                                </a>
-                                                <small>{{ $player->main_position->name }}</small>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="text-center">{{ $player->birth_date }} (27)</td>
-                                    <td class="text-center">
-                                        <a href="{{ route('league.index', $player->nation->id) }}">
-                                            <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
-                                        </a>
-                                    </td>
-                                    <td class="text-center">{{ $player->height }} m</td>
-                                    <td class="text-center">{{ $player->foot }}</td>
-                                    <td class="text-center">{{ $player->joined }}</td>
-                                    <td class="text-center">Club</td>
-                                    <td class="text-center">{{ $player->contract_expires }}</td>
-                                    <td class="text-center">{{ $player->market_value }}</td>
+                                    <th scope="col" class="text-center">#</th>
+                                    <th scope="col">Player</th>
+                                    <th scope="col" class="text-center">Date of birth / Age</th>
+                                    <th scope="col" class="text-center">Nat.</th>
+                                    <th scope="col" class="text-center">Height</th>
+                                    <th scope="col" class="text-center">Foot</th>
+                                    <th scope="col" class="text-center">Joined</th>
+                                    <th scope="col" class="text-center">Signed from</th>
+                                    <th scope="col" class="text-center">Contract expires</th>
+                                    <th scope="col" class="text-center">Market value</th>
                                 </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
+                                </thead>
+                                <tbody>
+                                @foreach($players as $player)
+                                    <tr>
+                                        <th scope="row" class="text-center">
+                                            <span>{{ $player->number }}</span>
+                                        </th>
+                                        <td class="text-center">
+                                            <div class="player-container">
+                                                <div class="player-photo">
+                                                    <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
+                                                </div>
+                                                <div class="player-info">
+                                                    <a href="{{ route('player.show', $player->id) }}">
+                                                        <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
+                                                    </a>
+                                                    <small>{{ $player->main_position->name }}</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>
+                                                {{ $player->birth_date }}
+                                                @foreach($playersAge as $playerAge)
+                                                    @if($playerAge->id == $player->id)
+                                                        ({{ $playerAge->age }})
+                                                    @endif
+                                                @endforeach
+                                            </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('league.index', $player->nation->id) }}">
+                                                <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
+                                            </a>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>{{ $player->height }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>{{ $player->foot }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>{{ $player->joined }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="club-container">
+                                                <div class="club-logo">
+                                                    <a href="{{ route('club.show', $player->signed->id) }}">
+                                                        <img src="{{ asset($player->signed->logo) }}" class="medium-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
+                                                    </a>
+                                                </div>
+                                                <div class="club-name">
+                                                    <a href="{{ route('club.show', $player->signed->id) }}">
+                                                        <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>{{ $player->contract_expires }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span>€ {{ $player->market_value }} m</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <h5 class="card-text text-center text-uppercase m-5">
+                            <span class="p-1 bg-indigo rounded">This club has not any player</span>
+                        </h5>
+                    @endif
                 </div>
             </div>
         </div>

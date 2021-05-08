@@ -6,20 +6,29 @@ use App\Models\Club;
 use App\Models\Country;
 use App\Models\League;
 use App\Models\Player;
+use App\Repositories\ClubRepository;
+use App\Repositories\PlayerRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Throwable;
 
 class ClubController extends Controller
 {
     private $path = '/assets/images/clubs';
+    private $clubRepository;
+    private $playerRepository;
+
+    public function __construct(ClubRepository $clubRepository, PlayerRepository $playerRepository)
+    {
+        $this->clubRepository = $clubRepository;
+        $this->playerRepository = $playerRepository;
+    }
 
     public function index($leagueId = null) {
         $league = League::find($leagueId);
         if ($leagueId) {
             $clubs = Club::where('league_id', $leagueId)->get();
         } else {
-            $clubs = Club::all();
+            $clubs = Club::orderBy('league_id')->get();
         }
         $countries = Country::all();
         $leagues = League::all();
@@ -27,25 +36,27 @@ class ClubController extends Controller
             'league' => $league,
             'clubs' => $clubs,
             'countries' => $countries,
-            'leagues' => $leagues
+            'leagues' => $leagues,
+            'totalPlayers' => $this->clubRepository->getTotalPlayers(),
+            'avgAge' => $this->clubRepository->getAvgAge(),
+            'foreigners' => $this->clubRepository->getForeigners(),
+            'totalMarketValue' => $this->clubRepository->getTotalMarketValue(),
+            'avgMarketValue' => $this->clubRepository->getAvgMarketValue()
         ]);
     }
 
-    /**
-     * @throws Throwable
-     */
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:50'],
+            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:25'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'founded' => ['required', 'integer', 'min:1857'],
-            'stadium' => ['required', 'min:1', 'max:100'],
-            'address' => ['required', 'min:1', 'max:100'],
-            'city' => ['required', 'min:1', 'max:50',],
-            'capacity' => ['required', 'integer', 'min:1', 'max:110000'],
-            'head_coach' => ['required', 'min:1', 'max:50']
+            'stadium' => ['required', 'min:1', 'max:50'],
+            'address' => ['required', 'min:1', 'max:50'],
+            'city' => ['required', 'min:1', 'max:25',],
+            'capacity' => ['required', 'integer', 'min:0', 'max:110000'],
+            'head_coach' => ['required', 'min:1', 'max:25']
         ]);
         $name = $request->input('name');
         $logo = $request->file('logo');
@@ -70,10 +81,17 @@ class ClubController extends Controller
 
     public function show($id) {
         $club = Club::find($id);
-        $players = Player::where('club_id', $club->id)->get();
+        $players = Player::where('club_id', $club->id)->orderBy('position_id')->get();
         return view('clubs.show', [
             'club' => $club,
-            'players' => $players
+            'players' => $players,
+            'totalPlayers' => $this->clubRepository->getTotalPlayers(),
+            'avgAge' => $this->clubRepository->getAvgAge(),
+            'foreigners' => $this->clubRepository->getForeigners(),
+            'totalMarketValue' => $this->clubRepository->getTotalMarketValue(),
+            'avgMarketValue' => $this->clubRepository->getAvgMarketValue(),
+            'mostValuablePlayer' => $this->clubRepository->getMostValuablePlayer($club->id),
+            'playersAge' => $this->playerRepository->playersAge()
         ]);
     }
 

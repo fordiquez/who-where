@@ -5,12 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\Club;
 use App\Models\Country;
 use App\Models\League;
+use App\Repositories\ClubRepository;
+use App\Repositories\LeagueRepository;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class LeagueController extends Controller
 {
     private $path = '/assets/images/leagues';
+    private $leagueRepository;
+    private $clubRepository;
+
+    public function __construct(LeagueRepository $leagueRepository, ClubRepository $clubRepository)
+    {
+        $this->leagueRepository = $leagueRepository;
+        $this->clubRepository = $clubRepository;
+    }
 
     public function index($countryId = null) {
         $country = Country::find($countryId);
@@ -25,13 +35,19 @@ class LeagueController extends Controller
             'country' => $country,
             'leagues' => $leagues,
             'countries' => $countries,
-            'clubs' => $clubs
+            'clubs' => $clubs,
+            'totalClubs' => $this->leagueRepository->getTotalClubs(),
+            'totalPlayers' => $this->leagueRepository->getTotalPlayers(),
+            'avgAge' => $this->leagueRepository->getAvgAge(),
+            'foreigners' => $this->leagueRepository->getForeigners(),
+            'totalMarketValue' => $this->leagueRepository->getTotalMarketValue(),
+            'avgMarketValue' => $this->leagueRepository->getAvgMarketValue()
         ]);
     }
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id')), 'min:3', 'max:50'],
+            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id')), 'min:3', 'max:25'],
             'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id')), 'max:25'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
@@ -71,7 +87,19 @@ class LeagueController extends Controller
         $clubs = Club::where('league_id', $id)->get();
         return view('leagues.show', [
             'league' => $league,
-            'clubs' => $clubs
+            'clubs' => $clubs,
+            'totalClubs' => $this->leagueRepository->getTotalClubs(),
+            'totalPlayers' => $this->leagueRepository->getTotalPlayers(),
+            'avgAge' => $this->leagueRepository->getAvgAge(),
+            'foreigners' => $this->leagueRepository->getForeigners(),
+            'totalMarketValue' => $this->leagueRepository->getTotalMarketValue(),
+            'avgMarketValue' => $this->leagueRepository->getAvgMarketValue(),
+            'mostValuablePlayer' => $this->leagueRepository->getMostValuablePlayer($league->id),
+            'totalClubsPlayers' => $this->clubRepository->getTotalPlayers(),
+            'totalClubsAvgAge' => $this->clubRepository->getAvgAge(),
+            'totalClubsForeigners' => $this->clubRepository->getForeigners(),
+            'totalClubsMarketValue' => $this->clubRepository->getTotalMarketValue(),
+            'avgClubsMarketValue' => $this->clubRepository->getAvgMarketValue()
         ]);
     }
 
