@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($league->logo) }}">
+@endsection
+
 @section('title', strtoupper($league->name))
 
 @section('content')
@@ -8,7 +12,7 @@
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="league-title mb-2">
-                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-1">
+                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-2">
                             <a href="{{ route('league.index', $league->country->id) }}" class="me-2">
                                 <img src="{{ asset($league->country->flag) }}" class="small-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
                             </a>
@@ -150,7 +154,7 @@
                         <div class="table-responsive">
                             <table class="table table-dark table-hover">
                                 <div class="league-title">
-                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-1">
+                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-2">
                                         <span>Clubs – {{ $league->name }}</span>
                                     </h5>
                                 </div>
@@ -227,7 +231,7 @@
                         </div>
                     @else
                         <h5 class="card-text text-center text-uppercase m-5">
-                            <span class="p-1 bg-indigo rounded">This league has not any club</span>
+                            <span class="bg-indigo rounded p-2">This league has not any club</span>
                         </h5>
                     @endif
                 </div>

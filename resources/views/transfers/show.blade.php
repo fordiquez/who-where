@@ -1,12 +1,16 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($transfer->player->photo) }}">
+@endsection
+
 @section('title', strtoupper($transfer->player->name))
 
 @section('content')
     <div class="container-fluid">
         <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <div class="player-title">
-                <h5 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                <h5 class="card-title player-title text-center text-uppercase p-2 bg-indigo rounded">
                     <span>Player transfer information</span>
                 </h5>
             </div>

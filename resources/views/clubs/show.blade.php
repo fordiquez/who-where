@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($club->logo) }}">
+@endsection
+
 @section('title', strtoupper($club->name))
 
 @section('content')
@@ -8,7 +12,7 @@
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="club-title mb-2">
-                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-1">
+                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-2">
                             <a href="{{ route('club.index', $club->league->id) }}">
                                 <img src="{{ asset($club->league->logo) }}" class="medium-logo" alt="{{ $club->league->name }}" title="{{ $club->league->name }}">
                             </a>
@@ -256,7 +260,7 @@
                         </div>
                     @else
                         <h5 class="card-text text-center text-uppercase m-5">
-                            <span class="p-1 bg-indigo rounded">This club has not any player</span>
+                            <span class="bg-indigo rounded p-2">This club has not any player</span>
                         </h5>
                     @endif
                 </div>

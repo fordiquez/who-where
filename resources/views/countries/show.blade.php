@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($country->flag) }}">
+@endsection
+
 @section('title', strtoupper($country->name))
 
 @section('content')

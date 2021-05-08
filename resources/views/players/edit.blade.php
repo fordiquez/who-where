@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($player->photo) }}">
+@endsection
+
 @section('title', strtoupper($player->name))
 
 @section('content')
@@ -10,7 +14,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-header player-title">
-                            <h4 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                            <h4 class="card-title player-title text-center text-uppercase p-2 bg-indigo rounded">
                                 <span>Editing information about {{ $player->name }}</span>
                             </h4>
                         </div>

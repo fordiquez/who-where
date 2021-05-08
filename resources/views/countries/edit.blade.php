@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($country->flag) }}">
+@endsection
+
 @section('title', strtoupper($country->name))
 
 @section('content')
@@ -10,7 +14,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-header country-title">
-                            <h5 class="card-title country-title text-center text-uppercase p-1 bg-indigo rounded">
+                            <h5 class="card-title country-title text-center text-uppercase p-2 bg-indigo rounded">
                                 <span>Editing information about {{ $country->name }}</span>
                             </h5>
                         </div>

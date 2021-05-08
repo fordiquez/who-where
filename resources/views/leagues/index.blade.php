@@ -1,6 +1,18 @@
 @extends('assets.layout')
 
-@section('title', strtoupper('Leagues list'))
+@isset($country)
+    @section('icon')
+        <link rel="icon" type="image/png" href="{{ asset($country->flag) }}">
+    @endsection
+@endisset
+
+@isset($country)
+    @section('title', strtoupper("$country->name leagues"))
+@endisset
+
+@empty($country)
+    @section('title', strtoupper('Leagues list'))
+@endempty
 
 @section('content')
     <div class="container-fluid">
@@ -8,11 +20,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="league-title">
-                        <h4 class="card-title league-title text-center text-uppercase bg-indigo rounded p-1">
+                        <h4 class="card-title league-title text-center text-uppercase bg-indigo rounded p-2">
                             @isset($country)
-                                <span class="me-2">Leagues – </span>
                                 <img src="{{ asset($country->flag) }}" class="medium-logo me-2" alt="{{ $country->name }}" title="{{ $country->name }}">
-                                <span>{{ $country->name }}</span>
+                                <span class="me-2">{{ $country->name }}</span>
+                                <span>– Leagues</span>
                             @else
                                 <span class="bg-indigo p-1">Leagues list</span>
                             @endif

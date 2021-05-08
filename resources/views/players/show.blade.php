@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($player->photo) }}">
+@endsection
+
 @section('title', strtoupper($player->name))
 
 @section('content')
@@ -8,7 +12,7 @@
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="player-title mb-2">
-                        <h4 class="d-flex align-items-center text-uppercase bg-indigo rounded mt-2 p-1">
+                        <h4 class="d-flex align-items-center text-uppercase bg-indigo rounded mt-2 p-2">
                             <a href="{{ route('club.show', $player->club->id) }}" class="me-2">
                                 <img src="{{ asset($player->club->logo) }}" class="medium-logo" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
                             </a>
@@ -96,7 +100,7 @@
                         <div class="table-responsive">
                             <table class="table table-dark table-hover">
                                 <div class="player-title">
-                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-1">
+                                    <h5 class="text-center text-uppercase text-uppercase bg-indigo rounded p-2">
                                         <span>Transfer History – {{ $player->name }}</span>
                                     </h5>
                                 </div>
@@ -140,7 +144,7 @@
                         </div>
                     @else
                         <h5 class="card-text text-center text-uppercase m-5">
-                            <span class="p-1 bg-indigo rounded">This player has not any completed transfer</span>
+                            <span class="bg-indigo rounded p-2">This player has not any completed transfer</span>
                         </h5>
                     @endif
                 </div>

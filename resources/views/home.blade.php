@@ -1,12 +1,12 @@
 @extends('assets.layout')
 
-@section('title', strtoupper('Countries'))
+@section('title', strtoupper('Countries list'))
 
 @section('content')
     <div class="container-fluid">
         <div class="row">
             <div class="country-title">
-                <h4 class="card-title country-title text-center text-uppercase p-1 bg-indigo rounded">
+                <h4 class="card-title country-title text-center text-uppercase p-2 bg-indigo rounded">
                     <span>Countries list</span>
                 </h4>
             </div>

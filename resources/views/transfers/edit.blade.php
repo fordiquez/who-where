@@ -1,5 +1,9 @@
 @extends('assets.layout')
 
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($transfer->player->photo) }}">
+@endsection
+
 @section('title', strtoupper($transfer->player->name))
 
 @section('content')
@@ -10,7 +14,7 @@
                     @csrf
                     <div class="card">
                         <div class="card-header player-title">
-                            <h5 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                            <h5 class="card-title player-title text-center text-uppercase p-2 bg-indigo rounded">
                                 <span>Editing  transfer's {{ $transfer->player->name }}</span>
                             </h5>
                         </div>

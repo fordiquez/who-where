@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="country-title">
-                            <h4 class="card-title country-title text-center text-uppercase p-1 bg-indigo rounded">
+                            <h4 class="card-title country-title text-center text-uppercase p-2 bg-indigo rounded">
                                 <span>Countries list</span>
                             </h4>
                         </div>

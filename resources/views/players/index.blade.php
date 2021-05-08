@@ -1,6 +1,18 @@
 @extends('assets.layout')
 
-@section('title', strtoupper('Players list'))
+@isset($club)
+@section('icon')
+    <link rel="icon" type="image/png" href="{{ asset($club->logo) }}">
+@endsection
+@endisset
+
+@isset($club)
+    @section('title', strtoupper("$club->name players"))
+@endisset
+
+@empty($club)
+    @section('title', strtoupper('Clubs list'))
+@endempty
 
 @section('content')
     <div class="container-fluid">
@@ -8,11 +20,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="player-title">
-                        <h4 class="card-title player-title text-center text-uppercase bg-indigo rounded p-1">
+                        <h4 class="card-title player-title text-center text-uppercase bg-indigo rounded p-2">
                             @isset($club)
-                                <span class="me-2">Players – </span>
                                 <img src="{{ asset($club->logo) }}" class="medium-logo me-2" alt="{{ $club->name }}" title="{{ $club->name }}">
-                                <span>{{ $club->name }}</span>
+                                <span class="me-2">{{ $club->name }}</span>
+                                <span>– Players</span>
                             @else
                                 <span>Players list</span>
                             @endif
@@ -128,7 +140,7 @@
                         </div>
                     @else
                         <h5 class="card-text text-center text-uppercase m-5">
-                            <span class="p-1 bg-indigo rounded">This club has not any player</span>
+                            <span class="bg-indigo rounded p-2">This club has not any player</span>
                         </h5>
                     @endif
                 </div>

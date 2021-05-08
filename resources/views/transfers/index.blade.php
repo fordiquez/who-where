@@ -7,7 +7,7 @@
         <div class="card">
             <div class="card-header mb-3">
                 <h4 class="card-title text-center text-uppercase">
-                    <span class="bg-indigo rounded p-1">Transfers filters</span>
+                    <span class="bg-indigo rounded p-2">Transfers filters</span>
                 </h4>
             </div>
             <form method="get" action="{{ route('transfer.index') }}" class="row g-3 col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
@@ -62,7 +62,7 @@
         <div class="card mt-3">
             <div class="card-header">
                 <h4 class="card-title text-center text-uppercase">
-                    <span class="text-uppercase bg-indigo rounded p-1">Transfers list</span>
+                    <span class="text-uppercase bg-indigo rounded p-2">Transfers list</span>
                 </h4>
             </div>
             @if(count($transfers) > 0)
@@ -176,7 +176,7 @@
                 </div>
             @else
                 <h5 class="card-text text-center text-uppercase m-5">
-                    <span class="p-1 bg-indigo rounded">No transfer were found</span>
+                    <span class="bg-indigo rounded p-2">No transfer were found</span>
                 </h5>
             @endif
         </div>
