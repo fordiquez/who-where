@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Championship;
 use App\Models\Club;
 use App\Models\Country;
 use App\Models\League;
 use App\Models\Player;
+use App\Models\Season;
 use App\Repositories\ClubRepository;
 use App\Repositories\PlayerRepository;
 use Illuminate\Http\Request;
@@ -32,11 +34,13 @@ class ClubController extends Controller
         }
         $countries = Country::all();
         $leagues = League::all();
+        $seasons = Season::orderByDesc('year')->get();
         return view('clubs.index', [
             'league' => $league,
             'clubs' => $clubs,
             'countries' => $countries,
             'leagues' => $leagues,
+            'seasons' => $seasons,
             'totalPlayers' => $this->clubRepository->getTotalPlayers(),
             'avgAge' => $this->clubRepository->getAvgAge(),
             'foreigners' => $this->clubRepository->getForeigners(),
@@ -47,16 +51,18 @@ class ClubController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:25'],
+            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:50'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'founded' => ['required', 'integer', 'min:1857'],
             'stadium' => ['required', 'min:1', 'max:50'],
             'address' => ['required', 'min:1', 'max:50'],
-            'city' => ['required', 'min:1', 'max:25',],
+            'city' => ['required', 'min:1', 'max:50',],
             'capacity' => ['required', 'integer', 'min:0', 'max:110000'],
-            'head_coach' => ['required', 'min:1', 'max:25']
+            'head_coach' => ['required', 'min:1', 'max:50'],
+            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255', Rule::requiredIf($request->input('last_championship_season_id'))],
+            'last_championship_season_id' => [Rule::exists('seasons', 'id'), Rule::requiredIf($request->input('championships_number') != null)]
         ]);
         $name = $request->input('name');
         $logo = $request->file('logo');
@@ -74,16 +80,27 @@ class ClubController extends Controller
             $club->city = $request->input('city');
             $club->capacity = $request->input('capacity');
             $club->head_coach = $request->input('head_coach');
-            $club->saveOrFail();
+            $club->save();
+
+            if ($request->input('last_championship_season_id')) {
+                $championship = new Championship();
+                $championship->league_id = $request->input('league_id');
+                $championship->club_id = $club->id;
+                $championship->championships_number = $request->input('championships_number');
+                $championship->last_championship_season_id = $request->input('last_championship_season_id');
+                $championship->save();
+            }
         }
         return back()->withMessage('The club was added successfully');
     }
 
     public function show($id) {
         $club = Club::find($id);
+        $championships = Championship::where('club_id', $club->id)->get();
         $players = Player::where('club_id', $club->id)->orderBy('position_id')->get();
         return view('clubs.show', [
             'club' => $club,
+            'championships' => $championships,
             'players' => $players,
             'totalPlayers' => $this->clubRepository->getTotalPlayers(),
             'avgAge' => $this->clubRepository->getAvgAge(),
@@ -99,10 +116,17 @@ class ClubController extends Controller
         $club = Club::find($id);
         $countries = Country::all();
         $leagues = League::all();
+        $championships = Championship::where([
+            ['club_id', $club->id],
+            ['league_id', $club->league_id]
+        ])->get();
+        $seasons = Season::orderByDesc('year')->get();
         return view('clubs.edit', [
             'club' => $club,
             'countries' => $countries,
-            'leagues' => $leagues
+            'leagues' => $leagues,
+            'championships' => $championships,
+            'seasons' => $seasons
         ]);
     }
 
@@ -114,11 +138,13 @@ class ClubController extends Controller
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'founded' => ['required', 'integer', 'min:1857'],
-            'stadium' => ['required', 'min:1', 'max:100'],
-            'address' => ['required', 'min:1', 'max:100'],
+            'stadium' => ['required', 'min:1', 'max:50'],
+            'address' => ['required', 'min:1', 'max:50'],
             'city' => ['required', 'min:1', 'max:50',],
             'capacity' => ['required', 'integer', 'min:1', 'max:110000'],
-            'head_coach' => ['required', 'min:1', 'max:50']
+            'head_coach' => ['required', 'min:1', 'max:50'],
+            'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255', Rule::requiredIf($request->input('last_championship_season_id'))],
+            'last_championship_season_id' => [Rule::exists('seasons', 'id'), Rule::requiredIf($request->input('championships_number') != null)]
         ]);
         $name = $request->input('name');
         if ($request->file('logo')) {
@@ -139,6 +165,18 @@ class ClubController extends Controller
         $club->capacity = $request->input('capacity');
         $club->head_coach = $request->input('head_coach');
         $club->save();
+
+        if ($request->input('last_championship_season_id')) {
+            $championships = Championship::where([
+                ['club_id', $club->id],
+                ['league_id', $club->league_id]
+            ])->get();
+            foreach ($championships as $championship) {
+                $championship->championships_number = $request->input('championships_number');
+                $championship->last_championship_season_id = $request->input('last_championship_season_id');
+                $championship->save();
+            }
+        }
         return back()->withMessage('The club was updated successfully');
     }
 }

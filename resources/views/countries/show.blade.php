@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row row-cols-1 col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
             <div class="card">
-                <img src="{{ asset($country->flag) }}" class="card-img-top" alt="{{ $country->name }}" title="{{ $country->name }}">
+                <img src="{{ asset($country->flag) }}" class="card-img-top mt-3" alt="{{ $country->name }}" title="{{ $country->name }}">
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
-                                <i class="bi bi-flag"></i>
+                                <i class="bi bi-flag-fill"></i>
                                 {{ $country->name }}
                             </h5>
                         </div>
@@ -23,9 +23,27 @@
                                     <span class="badge bg-primary rounded-pill">{{ $country->code }}</span>
                                 </p>
                             </li>
+                            @if($country->uefa_position)
+                                <li class="list-group-item">
+                                    <p class="card-text">
+                                        <i class="bi bi-list-ol"></i>
+                                        <b>UEFA position:</b>
+                                        <span class="badge bg-primary rounded-pill">{{ $country->uefa_position }}</span>
+                                    </p>
+                                </li>
+                            @endif
+                            @if($country->uefa_coefficient_points)
+                                <li class="list-group-item">
+                                    <p class="card-text">
+                                        <i class="bi bi-star-fill"></i>
+                                        <b>UEFA coefficient points:</b>
+                                        <span class="badge bg-primary rounded-pill">{{ $country->uefa_coefficient_points }}</span>
+                                    </p>
+                                </li>
+                            @endif
                             <li class="list-group-item">
                                 <p class="card-text">
-                                    <i class="bi bi-bookmark-star"></i>
+                                    <i class="bi bi-bookmark-star-fill"></i>
                                     <b>Total leagues:</b>
                                     <span class="badge bg-primary rounded-pill">
                                         @foreach($totalLeagues as $league)
@@ -66,7 +84,7 @@
                             </li>
                             <li class="list-group-item">
                                 <p class="card-text">
-                                    <i class="bi bi-people"></i>
+                                    <i class="bi bi-people-fill"></i>
                                     <b>Total players:</b>
                                     <span class="badge bg-primary rounded-pill">
                                         @foreach($totalPlayers as $player)

@@ -9,10 +9,12 @@
                 <form method="post" action="{{ route('country.update', $country) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Editing country {{ $country->name }}</h3>
+                        <div class="card-header country-title">
+                            <h5 class="card-title country-title text-center text-uppercase p-1 bg-indigo rounded">
+                                <span>Editing information about {{ $country->name }}</span>
+                            </h5>
                         </div>
-                        <img src="{{ asset($country->flag) }}" class="card-img-top" alt="{{ $country->name }}" title="{{ $country->name }}">
+                        <img src="{{ asset($country->flag) }}" class="card-img-top mt-3" alt="{{ $country->name }}" title="{{ $country->name }}">
                         <div class="card-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -65,6 +67,24 @@
                                         @endif
                                     @endforeach
                                 </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="uefa-position" class="form-label">
+                                    <i class="bi bi-list-ol"></i>
+                                    <span class="ms-1">UEFA position</span>
+                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
+                                </label>
+                                <input type="number" name="uefa_position" id="uefa-position" class="form-control @error('uefa_position') is-invalid @enderror" value="{{ old('uefa_position') ? old('uefa_position') : $country->uefa_position }}" placeholder="Enter the place number">
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="uefa-coefficient-points" class="form-label">
+                                    <i class="bi bi-star-fill"></i>
+                                    <span class="ms-1">UEFA coefficient points</span>
+                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
+                                </label>
+                                <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" value="{{ old('uefa_coefficient_points') ? old('uefa_coefficient_points') : $country->uefa_coefficient_points }}" placeholder="Enter the number of points">
                             </div>
                         </div>
 

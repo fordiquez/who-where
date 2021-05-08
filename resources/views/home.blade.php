@@ -5,7 +5,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="row">
-            <h4 class="text-center">Countries list</h4>
+            <div class="country-title">
+                <h4 class="card-title country-title text-center text-uppercase p-1 bg-indigo rounded">
+                    <span>Countries list</span>
+                </h4>
+            </div>
             @foreach($countries as $country)
                 <div class="col-md-6 g-2">
                     <div class="card">

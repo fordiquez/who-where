@@ -9,8 +9,10 @@
                 <form method="post" action="{{ route('club.update', $club) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Editing {{ $club->name }}</h3>
+                        <div class="card-header club-title">
+                            <h5 class="card-title club-title text-center text-uppercase p-1 bg-indigo rounded">
+                                <span>Editing information about {{ $club->name }}</span>
+                            </h5>
                         </div>
                         <div class="card-photo">
                             <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
@@ -123,6 +125,36 @@
                                 </label>
                                 <input type="text" name="head_coach" id="head_coach" class="form-control @error('head_coach') is-invalid @enderror" value="{{ old('head_coach') ? old('head_coach') : $club->head_coach }}" placeholder="Enter the number of points">
                             </div>
+
+                            @foreach($championships as $championship)
+                                <div class="mb-3">
+                                    <label for="championships-number" class="form-label">
+                                        <i class="bi bi-trophy-fill me-1"></i>
+                                        <span class="ms-1">The number of championships</span>
+                                        <span class="badge bg-primary rounded-pill">Not required</span>
+                                    </label>
+                                    <input type="number" name="championships_number" id="championships-number" class="form-control @error('championships_number') is-invalid @enderror" value="{{ old('championships_number') ? old('championships_number') : $championship->championships_number }}" placeholder="Enter the championships number">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="last-championship-season" class="form-label">
+                                        <i class="bi bi-alarm-fill me-1"></i>
+                                        <span>The last championship season</span>
+                                        <span class="badge bg-primary rounded-pill">Not required</span>
+                                    </label>
+                                    <select class="form-select @error('last_championship_season_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
+                                        <option selected disabled>Choose the season...</option>
+                                        @foreach($seasons as $season)
+                                            @if($season->id == $championship->last_championship_season_id)
+                                                <option value="{{ $season->id }}" selected>{{ $season->year }}</option>
+                                            @else
+                                                <option value="{{ $season->id }}">{{ $season->year }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @endforeach
+
                         </div>
 
                         <div class="card-footer footer-links">

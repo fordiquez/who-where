@@ -9,10 +9,12 @@
                 <form method="post" action="{{ route('league.update', $league) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Editing {{ $league->name }}</h3>
+                        <div class="card-header league-title">
+                            <h5 class="card-title league-title text-center text-uppercase p-1 bg-indigo rounded">
+                                <span>Editing information about {{ $league->name }}</span>
+                            </h5>
                         </div>
-                        <div class="card-photo">
+                        <div class="card-photo mt-3">
                             <img src="{{ asset($league->logo) }}" class="full-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
                         </div>
                         <div class="card-body">
@@ -65,69 +67,6 @@
                                     <span class="badge bg-primary rounded-pill">Not required</span>
                                 </label>
                                 <input type="file" name="logo" id="logo-file" class="form-control @error('logo') is-invalid @enderror">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="record-holding-club-select" class="form-label">
-                                    <i class="bi bi-trophy-fill me-1"></i>
-                                    <span>Record-holding champion</span>
-                                    <span class="badge bg-primary rounded-pill">Not required</span>
-                                </label>
-                                <select class="form-select @error('record_holding_champion_id') is-invalid @enderror" name="record_holding_champion_id" id="record-holding-club-select">
-                                    <option selected disabled>Choose the club...</option>
-                                    @foreach($clubs as $club)
-                                        @if($club->id == $league->record_holding_champion_id)
-                                            <option value="{{ $league->record->id }}" selected>{{ $league->record->name }}</option>
-                                        @else
-                                            <option value="{{ $club->id }}">{{ $club->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="record-holding-times" class="form-label">
-                                    <i class="bi bi-arrow-counterclockwise"></i>
-                                    <span class="ms-1">Number of championships</span>
-                                    <span class="badge bg-primary rounded-pill">Not required</span>
-                                </label>
-                                <input type="number" name="record_holding_times" id="record-holding-times" class="form-control @error('record_holding_times') is-invalid @enderror" value="{{ old('record_holding_times') ? old('record_holding_times') : $league->record_holding_times }}" placeholder="Enter the times number">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="reigning-club-select" class="form-label">
-                                    <i class="bi bi-alarm-fill me-1"></i>
-                                    <span>Reigning champion</span>
-                                    <span class="badge bg-primary rounded-pill">Not required</span>
-                                </label>
-                                <select class="form-select @error('reigning_champion_id') is-invalid @enderror" name="reigning_champion_id" id="reigning-club-select">
-                                    <option selected disabled>Choose the club...</option>
-                                    @foreach($clubs as $club)
-                                        @if($club->id == $league->reigning_champion_id)
-                                            <option value="{{ $league->reigning->id }}" selected>{{ $league->reigning->name }}</option>
-                                        @else
-                                            <option value="{{ $club->id }}">{{ $club->name }}</option>
-                                        @endif
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="uefa-position" class="form-label">
-                                    <i class="bi bi-list-ol"></i>
-                                    <span class="ms-1">UEFA position</span>
-                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
-                                </label>
-                                <input type="number" name="uefa_position" id="uefa-position" class="form-control @error('uefa_position') is-invalid @enderror" value="{{ old('uefa_position') ? old('uefa_position') : $league->uefa_position }}" placeholder="Enter the place number">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="uefa-coefficient-points" class="form-label">
-                                    <i class="bi bi-star-fill"></i>
-                                    <span class="ms-1">UEFA coefficient points</span>
-                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
-                                </label>
-                                <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" value="{{ old('uefa_coefficient_points') ? old('uefa_coefficient_points') : $league->uefa_coefficient_points }}" placeholder="Enter the number of points">
                             </div>
                         </div>
 

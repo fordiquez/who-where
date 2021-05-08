@@ -61,69 +61,6 @@
                         </label>
                         <input type="file" name="logo" id="logo-upload" class="form-control @error('logo') is-invalid @enderror">
                     </div>
-
-                    <div class="input-group mb-3">
-                        <label for="record-holding-club-select" class="input-group-text">
-                            <i class="bi bi-trophy-fill"></i>
-                            <span class="ms-1 me-1">Record-holding champion</span>
-                            <span class="badge bg-primary rounded-pill">Not required</span>
-                        </label>
-                        <select class="form-select @error('record_holding_champion_id') is-invalid @enderror" name="record_holding_champion_id" id="record-holding-club-select">
-                            <option selected disabled>Choose the club...</option>
-                            @foreach($clubs as $club)
-                                @if($club->id == old('record_holding_champion_id'))
-                                    <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
-                                @else
-                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label for="record-holding-times" class="input-group-text">
-                            <i class="bi bi-arrow-counterclockwise"></i>
-                            <span class="ms-1 me-1">Number of championships</span>
-                            <span class="badge bg-primary rounded-pill">Not required</span>
-                        </label>
-                        <input type="number" name="record_holding_times" id="record-holding-times" class="form-control @error('record_holding_times') is-invalid @enderror" value="{{ old('record_holding_times') }}" placeholder="Enter the times number">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label class="input-group-text" for="reigning-club-select">
-                            <i class="bi bi-alarm-fill"></i>
-                            <span class="ms-1 me-1">Reigning champion</span>
-                            <span class="badge bg-primary rounded-pill">Not required</span>
-                        </label>
-                        <select class="form-select @error('reigning_champion_id') is-invalid @enderror" name="reigning_champion_id" id="reigning-club-select">
-                            <option selected disabled>Choose the club...</option>
-                            @foreach($clubs as $club)
-                                @if($club->id == old('reigning_champion_id'))
-                                    <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
-                                @else
-                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label for="uefa-position" class="input-group-text">
-                            <i class="bi bi-list-ol"></i>
-                            <span class="ms-1 me-1">UEFA position</span>
-                            <span class="badge bg-primary rounded-pill">Not required</span>
-                        </label>
-                        <input type="number" name="uefa_position" id="uefa-position" class="form-control @error('uefa_position') is-invalid @enderror" value="{{ old('uefa_position') }}" placeholder="Enter the place number">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label for="uefa-coefficient-points" class="input-group-text">
-                            <i class="bi bi-star-fill"></i>
-                            <span class="ms-1 me-1">UEFA coefficient points</span>
-                            <span class="badge bg-primary rounded-pill">Not required</span>
-                        </label>
-                        <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" value="{{ old('uefa_coefficient_points') }}" placeholder="Enter the number of points">
-                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">

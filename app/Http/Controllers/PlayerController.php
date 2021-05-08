@@ -56,7 +56,7 @@ class PlayerController extends Controller
             'main_position_id' => ['required', Rule::exists('positions', 'id')],
             'foot' => ['required', 'prohibited_unless:foot,Left,Right'],
             'club_id' => ['required', Rule::exists('clubs', 'id')],
-            'signed_from_club_id' => ['required', Rule::exists('clubs', 'id'), 'prohibited_if:club_id,' . $request->signed_from_club_id],
+            'signed_from_club_id' => ['required', Rule::exists('clubs', 'id'), 'prohibited_if:club_id,' . $request->input('signed_from_club_id')],
             'joined' => ['required', 'date', 'after:' . $validated_birth_date],
             'contract_expires' => ['required', 'date', 'after:joined'],
             'market_value' => ['required', 'numeric', 'min:0.00']

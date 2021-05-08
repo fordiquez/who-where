@@ -47,15 +47,10 @@ class LeagueController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id')), 'min:3', 'max:25'],
-            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id')), 'max:25'],
+            'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id')), 'min:3', 'max:50'],
+            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id')), 'max:50'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
-            'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'record_holding_champion_id' => [Rule::exists('clubs', 'id')],
-            'record_holding_times' => ['nullable', 'min:1', 'max:100',],
-            'reigning_champion_id' => [Rule::exists('clubs', 'id')],
-            'uefa_position' => ['nullable', 'min:1', 'max:255'],
-            'uefa_coefficient_points' => ['nullable', 'min:0.000', 'max:99.999']
+            'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);
         $name = $request->input('name');
         $country = Country::find($request->input('country_id'));
@@ -68,15 +63,6 @@ class LeagueController extends Controller
             $league->league_level = $request->input('league_level');
             $league->country_id = $request->input('country_id');
             $league->logo = $path;
-            if ($request->input('record_holding_champion_id')) {
-                $league->record_holding_champion_id = $request->input('record_holding_champion_id');
-            }
-            $league->record_holding_times = $request->input('record_holding_times');
-            if ($request->input('reigning_champion_id')) {
-                $league->reigning_champion_id = $request->input('reigning_champion_id');
-            }
-            $league->uefa_position = $request->input('uefa_position');
-            $league->uefa_coefficient_points = $request->input('uefa_coefficient_points');
             $league->saveOrFail();
         }
         return back()->withMessage('The league was added successfully');
@@ -118,14 +104,9 @@ class LeagueController extends Controller
         $league = League::find($id);
         $request->validate([
             'name' => ['required', Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))->ignore($league->id), 'min:3', 'max:50'],
-            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))->ignore($league->id), 'max:25'],
+            'league_level' => ['required', Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))->ignore($league->id), 'max:50'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
-            'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'record_holding_champion_id' => [Rule::exists('clubs', 'id')],
-            'record_holding_times' => ['nullable', 'min:1', 'max:100',],
-            'reigning_champion_id' => [Rule::exists('clubs', 'id')],
-            'uefa_position' => ['nullable', 'min:1', 'max:255'],
-            'uefa_coefficient_points' => ['nullable', 'min:0.000', 'max:99.999']
+            'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);
         $name = $request->input('name');
         $country = Country::find($request->input('country_id'));
@@ -137,18 +118,9 @@ class LeagueController extends Controller
                 $league->logo = $path;
             }
         }
-        if ($request->input('record_holding_champion_id')) {
-            $league->record_holding_champion_id = $request->input('record_holding_champion_id');
-        }
-        $league->record_holding_times = $request->input('record_holding_times');
-        if ($request->input('reigning_champion_id')) {
-            $league->reigning_champion_id = $request->input('reigning_champion_id');
-        }
         $league->name = $name;
         $league->league_level = $request->input('league_level');
         $league->country_id = $request->input('country_id');
-        $league->uefa_position = $request->input('uefa_position');
-        $league->uefa_coefficient_points = $request->input('uefa_coefficient_points');
         $league->saveOrFail();
         return back()->withMessage('The league was updated successfully');
     }

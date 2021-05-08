@@ -9,8 +9,10 @@
                 <form method="post" action="{{ route('transfer.update', $transfer) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Editing transfer's {{ $transfer->player->name }}</h3>
+                        <div class="card-header player-title">
+                            <h5 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                                <span>Editing  transfer's {{ $transfer->player->name }}</span>
+                            </h5>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())

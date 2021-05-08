@@ -39,6 +39,30 @@
                                 @endforeach
                             </li>
                             <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">The youngest player:</span>
+                                @foreach($avgAge as $age)
+                                    @if($age->id == $club->id)
+                                        @if($age->avg_age != null)
+                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">The oldest player:</span>
+                                @foreach($avgAge as $age)
+                                    @if($age->id == $club->id)
+                                        @if($age->avg_age != null)
+                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
+                                        @else
+                                            <span class="badge bg-primary rounded-pill">Undefined</span>
+                                        @endif
+                                    @endif
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1 fw-bold">ø-age:</span>
                                 @foreach($avgAge as $age)
                                     @if($age->id == $club->id)
@@ -103,6 +127,18 @@
                                 <span class="me-1 fw-bold">Head coach:</span>
                                 <span class="badge bg-primary rounded-pill">{{ $club->head_coach }}</span>
                             </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">Championships number:</span>
+                                @foreach($championships as $championship)
+                                    <span class="badge bg-primary rounded-pill">{{ $championship->championships_number }}</span>
+                                @endforeach
+                            </li>
+                            <li class="list-group-item d-flex align-items-center">
+                                <span class="me-1 fw-bold">The last championship season:</span>
+                                @foreach($championships as $championship)
+                                    <span class="badge bg-primary rounded-pill">{{ $championship->season->year }}</span>
+                                @endforeach
+                            </li>
                         </ul>
                     </div>
                     <div class="col-md-2 club-market-column bg-indigo rounded">
@@ -112,7 +148,7 @@
                                 @if($marketValue->sum_value != null)
                                     <p class="card-text text-uppercase display-6">€ {{ round($marketValue->sum_value, 2) }} m</p>
                                 @else
-                                    <p class="card-text text-uppercase">Undefined</p>
+                                    <h4 class="card-text text-uppercase">Undefined</h4>
                                 @endif
                             @endif
                         @endforeach

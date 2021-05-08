@@ -108,7 +108,7 @@
                             <i class="bi bi-person-lines-fill"></i>
                             <span class="ms-1">Capacity</span>
                         </label>
-                        <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') }}" placeholder="Enter the capacity of stadium">
+                        <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') }}" placeholder="Enter the stadium capacity">
                     </div>
 
                     <div class="input-group mb-3">
@@ -117,6 +117,33 @@
                             <span class="ms-1">Head coach</span>
                         </label>
                         <input type="text" name="head_coach" id="head-coach" class="form-control @error('head_coach') is-invalid @enderror" value="{{ old('head_coach') }}" placeholder="Enter the name of head coach">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label for="championships-number" class="input-group-text">
+                            <i class="bi bi-trophy-fill"></i>
+                            <span class="ms-1 me-1">Championships number</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
+                        </label>
+                        <input type="number" name="championships_number" id="championships-number" class="form-control @error('championships_number') is-invalid @enderror" value="{{ old('championships_number') }}" placeholder="Enter the number">
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <label class="input-group-text" for="last-championship-season">
+                            <i class="bi bi-alarm-fill"></i>
+                            <span class="ms-1 me-1">Last championship</span>
+                            <span class="badge bg-primary rounded-pill">Not required</span>
+                        </label>
+                        <select class="form-select @error('reigning_champion_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
+                            <option selected disabled>Choose the season...</option>
+                            @foreach($seasons as $season)
+                                @if($season->id == old('last_championship_season_id'))
+                                    <option value="{{ $season->id }}" selected>{{ $season->year }}</option>
+                                @else
+                                    <option value="{{ $season->id }}">{{ $season->year }}</option>
+                                @endif
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -5,7 +5,11 @@
 @section('content')
     <div class="container-fluid">
         <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-            <h3 class="text-center">Player transfer information</h3>
+            <div class="player-title">
+                <h5 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                    <span>Player transfer information</span>
+                </h5>
+            </div>
             <div class="card">
                 <h5 class="card-header">
                     <i class="bi bi-person-lines-fill"></i>

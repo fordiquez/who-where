@@ -9,8 +9,10 @@
                 <form method="post" action="{{ route('player.update', $player) }}" enctype="multipart/form-data">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3 class="text-center">Editing {{ $player->name }}</h3>
+                        <div class="card-header player-title">
+                            <h4 class="card-title player-title text-center text-uppercase p-1 bg-indigo rounded">
+                                <span>Editing information about {{ $player->name }}</span>
+                            </h4>
                         </div>
                         <div class="card-photo">
                             <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">

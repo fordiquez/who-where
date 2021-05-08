@@ -7,7 +7,7 @@ use App\Models\Country;
 class HomeController extends Controller
 {
     public function index() {
-        $countries = Country::all();
+        $countries = Country::orderBy('name')->get();
         return view('home', [
             'countries' => $countries,
         ]);
