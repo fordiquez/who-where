@@ -32,8 +32,8 @@ class ClubController extends Controller
         } else {
             $clubs = Club::orderBy('league_id')->get();
         }
-        $countries = Country::all();
-        $leagues = League::all();
+        $countries = Country::orderBy('name')->get();
+        $leagues = League::orderBy('country_id')->get();
         $seasons = Season::orderByDesc('year')->get();
         return view('clubs.index', [
             'league' => $league,
@@ -65,7 +65,8 @@ class ClubController extends Controller
                 Rule::requiredIf($request->input('last_championship_season_id'))],
             'last_championship_season_id' => [Rule::exists('seasons', 'id'),
                 Rule::requiredIf($request->input('championships_number') != null),
-                Rule::unique('championships', 'last_championship_season_id')->where('league_id', $request->input('league_id'))
+                Rule::unique('championships', 'last_championship_season_id')
+                    ->where('league_id', $request->input('league_id'))
             ]
         ]);
         $name = $request->input('name');
@@ -120,8 +121,8 @@ class ClubController extends Controller
 
     public function edit($id) {
         $club = Club::find($id);
-        $countries = Country::all();
-        $leagues = League::all();
+        $countries = Country::orderBy('name')->get();
+        $leagues = League::orderBy('country_id')->get();
         $championships = Championship::where([
             ['club_id', $club->id],
             ['league_id', $club->league_id]
@@ -183,7 +184,9 @@ class ClubController extends Controller
                 foreach ($championships as $championship) {
                     $request->validate([
                         'last_championship_season_id' => [
-                            Rule::unique('championships', 'last_championship_season_id')->where('league_id', $request->input('league_id'))->ignore($championship->id)
+                            Rule::unique('championships', 'last_championship_season_id')
+                                ->where('league_id', $request->input('league_id'))
+                                ->ignore($championship->id)
                         ]
                     ]);
                     $championship->championships_number = $request->input('championships_number');

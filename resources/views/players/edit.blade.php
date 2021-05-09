@@ -30,7 +30,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">
                                     <i class="bi bi-type"></i>
-                                    <span>Name</span>
+                                    <span class="ms-1">Name</span>
                                 </label>
                                 <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') ? old('name') : $player->name }}" placeholder="Enter the player name">
                             </div>
@@ -38,7 +38,7 @@
                             <div class="mb-3">
                                 <label for="photo-file" class="form-label">
                                     <i class="bi bi-file-earmark-person"></i>
-                                    <span>Photo Image</span>
+                                    <span class="ms-1">Photo Image</span>
                                     <span class="badge bg-primary rounded-pill">Not required</span>
                                 </label>
                                 <input type="file" name="photo" id="photo-file" class="form-control @error('photo') is-invalid @enderror">
@@ -47,22 +47,22 @@
                             <div class="mb-3">
                                 <label for="number" class="form-label">
                                     <i class="bi bi-sort-numeric-up-alt"></i>
-                                    <span>Number</span>
+                                    <span class="ms-1">Number</span>
                                 </label>
                                 <input type="number" name="number" id="number" class="form-control @error('number') is-invalid @enderror" value="{{ old('number') ? old('number') : $player->number }}" placeholder="Enter the player number">
                             </div>
 
                             <div class="mb-3">
                                 <label for="birth-date" class="form-label">
-                                    <i class="bi bi-calendar-date me-1"></i>
-                                    <span>Birth Date</span>
+                                    <i class="bi bi-calendar-date-fill"></i>
+                                    <span class="ms-1">Birth Date</span>
                                 </label>
                                 <input type="date" name="birth_date" id="birth-date" class="form-control @error('birth_date') is-invalid @enderror" value="{{ old('birth_date') ? old('birth_date') : $player->birth_date }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="birth-country-select" class="form-label">
-                                    <i class="bi bi-flag me-1"></i>
+                                    <i class="bi bi-flag-fill"></i>
                                     <span class="ms-1">Birth Country</span>
                                 </label>
                                 <select name="birth_country_id" id="birth-country-select" class="form-select @error('birth_country_id') is-invalid @enderror">
@@ -79,8 +79,8 @@
 
                             <div class="mb-3">
                                 <label for="height" class="form-label">
-                                    <i class="bi bi-arrow-up-circle"></i>
-                                    <span>Height</span>
+                                    <i class="bi bi-arrow-up-circle-fill"></i>
+                                    <span class="ms-1">Height</span>
                                     <span class="badge bg-primary rounded-pill">In meters</span>
                                 </label>
                                 <input type="text" name="height" id="height" class="form-control @error('height') is-invalid @enderror" value="{{ old('height') ? old('height') : $player->height }}" placeholder="Enter the player height">
@@ -88,7 +88,7 @@
 
                             <div class="mb-3">
                                 <label for="citizenship-country-select" class="form-label">
-                                    <i class="bi bi-flag me-1"></i>
+                                    <i class="bi bi-flag-fill"></i>
                                     <span class="ms-1">Citizenship</span>
                                 </label>
                                 <select name="citizenship_country_id" id="citizenship-country-select" class="form-select @error('citizenship_country_id') is-invalid @enderror">
@@ -105,7 +105,7 @@
 
                             <div class="mb-3">
                                 <label for="position-select" class="form-label">
-                                    <i class="bi bi-star me-1"></i>
+                                    <i class="bi bi-star-fill"></i>
                                     <span class="ms-1">Position</span>
                                 </label>
                                 <select name="position_id" id="position-select" class="form-select @error('position_id') is-invalid @enderror">
@@ -124,7 +124,7 @@
 
                             <div class="mb-3">
                                 <label for="main-position-select" class="form-label">
-                                    <i class="bi bi-bookmark-plus me-1"></i>
+                                    <i class="bi bi-bookmark-plus-fill"></i>
                                     <span class="ms-1">Main Position</span>
                                 </label>
                                 <select name="main_position_id" id="main-position-select" class="form-select @error('main_position_id') is-invalid @enderror">
@@ -143,8 +143,8 @@
 
                             <div class="mb-3">
                                 <label for="foot" class="form-label">
-                                    <i class="bi bi-arrow-left-right me-1"></i>
-                                    <span>Foot</span>
+                                    <i class="bi bi-arrow-left-right"></i>
+                                    <span class="ms-1">Foot</span>
                                 </label>
                                 <div class="radio-switches">
                                     <div class="form-check form-check-inline form-switch">
@@ -160,7 +160,7 @@
 
                             <div class="mb-3">
                                 <label for="club-select" class="form-label">
-                                    <i class="bi bi-shop me-1"></i>
+                                    <i class="bi bi-house-fill"></i>
                                     <span class="ms-1">Current Club</span>
                                 </label>
                                 <select name="club_id" id="club-select" class="form-select @error('club_id') is-invalid @enderror">
@@ -177,7 +177,7 @@
 
                             <div class="mb-3">
                                 <label for="signed-from-club-select" class="form-label">
-                                    <i class="bi bi-arrow-right-square me-1"></i>
+                                    <i class="bi bi-arrow-right-square-fill"></i>
                                     <span class="ms-1">Signed from</span>
                                 </label>
                                 <select name="signed_from_club_id" id="signed-from-club-select" class="form-select @error('signed_from_club_id') is-invalid @enderror">
@@ -194,23 +194,23 @@
 
                             <div class="mb-3">
                                 <label for="joined" class="form-label">
-                                    <i class="bi bi-calendar-check me-1"></i>
-                                    <span>Joined</span>
+                                    <i class="bi bi-calendar-check-fill"></i>
+                                    <span class="ms-1">Joined date</span>
                                 </label>
                                 <input type="date" name="joined" id="joined" class="form-control @error('joined') is-invalid @enderror" value="{{ old('joined') ? old('joined') : $player->joined }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="contract-expires" class="form-label">
-                                    <i class="bi bi-calendar-x me-1"></i>
-                                    <span>Contract expires</span>
+                                    <i class="bi bi-calendar-x-fill"></i>
+                                    <span class="ms-1">Contract expires</span>
                                 </label>
                                 <input type="date" name="contract_expires" id="contract-expires" class="form-control @error('contract_expires') is-invalid @enderror" value="{{ old('contract_expires') ? old('contract_expires') : $player->contract_expires }}">
                             </div>
 
                             <div class="mb-3">
                                 <label for="market-value" class="form-label">
-                                    <i class="bi bi-clock-history"></i>
+                                    <i class="bi bi-shop-window"></i>
                                     <span class="ms-1">Market value</span>
                                     <span class="badge bg-primary rounded-pill">millions €</span>
                                 </label>

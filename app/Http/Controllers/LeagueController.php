@@ -29,13 +29,11 @@ class LeagueController extends Controller
         } else {
             $leagues = League::all();
         }
-        $countries = Country::all();
-        $clubs = Club::all();
+        $countries = Country::orderBy('name')->get();
         return view('leagues.index', [
             'country' => $country,
             'leagues' => $leagues,
             'countries' => $countries,
-            'clubs' => $clubs,
             'totalClubs' => $this->leagueRepository->getTotalClubs(),
             'totalPlayers' => $this->leagueRepository->getTotalPlayers(),
             'avgAge' => $this->leagueRepository->getAvgAge(),
@@ -48,9 +46,11 @@ class LeagueController extends Controller
     public function store(Request $request) {
         $request->validate([
             'name' => ['required', 'min:3', 'max:50',
-                Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))],
+                Rule::unique('leagues', 'name')
+                    ->where('country_id', $request->input('country_id'))],
             'league_level' => ['required', 'min:3', 'max:50',
-                Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))],
+                Rule::unique('leagues', 'league_level')
+                    ->where('country_id', $request->input('country_id'))],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);
@@ -93,12 +93,10 @@ class LeagueController extends Controller
 
     public function edit($id) {
         $league = League::find($id);
-        $countries = Country::all();
-        $clubs = Club::all();
+        $countries = Country::orderBy('name')->get();
         return view('leagues.edit', [
             'league' => $league,
-            'countries' => $countries,
-            'clubs' => $clubs
+            'countries' => $countries
         ]);
     }
 
@@ -106,9 +104,11 @@ class LeagueController extends Controller
         $league = League::find($id);
         $request->validate([
             'name' => ['required', 'min:3', 'max:50',
-                Rule::unique('leagues', 'name')->where('country_id', $request->input('country_id'))->ignore($league->id)],
+                Rule::unique('leagues', 'name')
+                    ->where('country_id', $request->input('country_id'))->ignore($league->id)],
             'league_level' => ['required', 'min:3', 'max:50',
-                Rule::unique('leagues', 'league_level')->where('country_id', $request->input('country_id'))->ignore($league->id)],
+                Rule::unique('leagues', 'league_level')
+                    ->where('country_id', $request->input('country_id'))->ignore($league->id)],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp']
         ]);

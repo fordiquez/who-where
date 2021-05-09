@@ -46,18 +46,18 @@ class TransferController extends Controller
 
     public function store(Request $request)
     {
-        $player = Player::find($request->input('player_id'));
-        if (!$player) {
-            return back()->withMessage('Request data is invalid');
-        }
         $request->validate([
             'player_id' => ['required', Rule::exists('players', 'id')],
             'season_id' => ['required', Rule::exists('seasons', 'id'),
-                Rule::unique('transfers', 'season_id')->where('player_id', $request->input('player_id'))],
+                Rule::unique('transfers', 'season_id')
+                    ->where('player_id', $request->input('player_id'))],
             'transfer_date' => ['required', 'date'],
             'transfer_window' => ['required', 'prohibited_unless:transfer_window,Winter,Summer'],
             'contract_expires' => ['required', 'date', 'after:transfer_date'],
-            'joined_club_id' => ['required', Rule::exists('clubs', 'id')->whereNot('id', $player->club_id)],
+            'left_club_id' => ['required', Rule::exists('clubs', 'id'),
+                'prohibited_if:joined_club_id,' . $request->input('left_club_id')],
+            'joined_club_id' => ['required', Rule::exists('clubs', 'id'),
+                'prohibited_if:left_club_id,' . $request->input('joined_club_id')],
             'fee' => ['required', 'numeric', 'min:0.00'],
             'is_loan' => ['required', 'prohibited_unless:is_loan,0,1']
         ]);
@@ -67,7 +67,7 @@ class TransferController extends Controller
         $transfer->transfer_date = $request->input('transfer_date');
         $transfer->transfer_window = $request->input('transfer_window');
         $transfer->contract_expires = $request->input('contract_expires');
-        $transfer->left_club_id = $player->club_id;
+        $transfer->left_club_id = $request->input('left_club_id');
         $transfer->joined_club_id = $request->input('joined_club_id');
         $transfer->fee = $request->input('fee');
         $transfer->is_loan = $request->input('is_loan');
@@ -90,13 +90,19 @@ class TransferController extends Controller
     {
         $transfer = Transfer::find($id);
         $request->validate([
-            'season_id' => ['required', Rule::exists('seasons', 'id'),
-                Rule::unique('transfers', 'season_id')->where('player_id', $request->input('player_id'))->ignore($transfer->id)],
+            'season_id' => ['required', Rule::exists('seasons', 'id'), Rule::unique('transfers')
+                    ->where('season_id', $request->input('season_id'))
+                    ->where('player_id', $transfer->player_id)->ignore($transfer->id)
+            ],
             'transfer_date' => ['required', 'date'],
             'transfer_window' => ['required', 'prohibited_unless:transfer_window,Winter,Summer'],
             'contract_expires' => ['required', 'date', 'after:transfer_date'],
-            'joined_club_id' => ['required',
-                Rule::exists('clubs', 'id')->whereNot('id', $transfer->left_club_id)],
+            'left_club_id' => ['required', Rule::exists('clubs', 'id'),
+                'prohibited_if:joined_club_id,' . $request->input('left_club_id')
+            ],
+            'joined_club_id' => ['required', Rule::exists('clubs', 'id'),
+                'prohibited_if:left_club_id,' . $request->input('joined_club_id')
+            ],
             'fee' => ['required', 'numeric', 'min:0.00'],
             'is_loan' => ['required', 'prohibited_unless:is_loan,0,1']
         ]);
@@ -105,6 +111,7 @@ class TransferController extends Controller
         $transfer->transfer_date = $request->input('transfer_date');
         $transfer->transfer_window = $request->input('transfer_window');
         $transfer->contract_expires = $request->input('contract_expires');
+        $transfer->left_club_id = $request->input('left_club_id');
         $transfer->joined_club_id = $request->input('joined_club_id');
         $transfer->fee = $request->input('fee');
         $transfer->is_loan = $request->input('is_loan');

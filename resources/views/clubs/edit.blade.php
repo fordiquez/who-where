@@ -147,7 +147,7 @@
 
                             <div class="mb-3">
                                 <label for="last-championship-season" class="form-label">
-                                    <i class="bi bi-alarm-fill me-1"></i>
+                                    <i class="bi bi-bell-fill me-1"></i>
                                     <span>The last championship season</span>
                                     <span class="badge bg-primary rounded-pill">Not required</span>
                                 </label>

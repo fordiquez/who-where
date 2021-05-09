@@ -130,11 +130,11 @@
 
                     <div class="input-group mb-3">
                         <label class="input-group-text" for="last-championship-season">
-                            <i class="bi bi-alarm-fill"></i>
+                            <i class="bi bi-bell-fill"></i>
                             <span class="ms-1 me-1">Last championship</span>
                             <span class="badge bg-primary rounded-pill">Not required</span>
                         </label>
-                        <select class="form-select @error('reigning_champion_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
+                        <select class="form-select @error('last_championship_season_id') is-invalid @enderror" name="last_championship_season_id" id="last-championship-season">
                             <option selected disabled>Choose the season...</option>
                             @foreach($seasons as $season)
                                 @if($season->id == old('last_championship_season_id'))

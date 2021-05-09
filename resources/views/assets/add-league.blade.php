@@ -39,8 +39,8 @@
 
                     <div class="input-group mb-3">
                         <label for="country-select" class="input-group-text">
-                            <i class="bi bi-flag-fill me-1"></i>
-                            <span>Country</span>
+                            <i class="bi bi-flag-fill"></i>
+                            <span class="ms-1">Country</span>
                         </label>
                         <select class="form-select @error('country_id') is-invalid @enderror" name="country_id" id="country-select">
                             <option selected disabled>Choose country...</option>

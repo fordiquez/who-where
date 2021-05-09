@@ -23,8 +23,8 @@
 
                     <div class="input-group mb-3">
                         <label for="player-select" class="input-group-text">
-                            <i class="bi bi-person-lines-fill me-1"></i>
-                            <span>Player</span>
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span class="ms-1">Player</span>
                         </label>
                         <select class="form-select @error('player_id') is-invalid @enderror" name="player_id" id="player-select">
                             <option selected disabled>Choose the player...</option>
@@ -40,8 +40,8 @@
 
                     <div class="input-group mb-3">
                         <label for="season-select" class="input-group-text">
-                            <i class="bi bi-calendar-month-fill me-1"></i>
-                            <span>Season</span>
+                            <i class="bi bi-calendar-month-fill"></i>
+                            <span class="ms-1">Season</span>
                         </label>
                         <select class="form-select @error('season_id') is-invalid @enderror" name="season_id" id="season-select">
                             <option selected disabled>Choose the season...</option>
@@ -57,16 +57,16 @@
 
                     <div class="input-group mb-3">
                         <label for="transfer-date" class="input-group-text">
-                            <i class="bi bi-calendar-check-fill me-1"></i>
-                            <span>Transfer Date</span>
+                            <i class="bi bi-calendar-check-fill"></i>
+                            <span class="ms-1">Transfer Date</span>
                         </label>
                         <input type="date" name="transfer_date" id="transfer-date" class="form-control @error('transfer_date') is-invalid @enderror" value="{{ old('transfer_date') }}">
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="transfer-window" class="input-group-text">
-                            <i class="bi bi-thermometer-sun me-1"></i>
-                            <span>Transfer Window</span>
+                            <i class="bi bi-thermometer-sun"></i>
+                            <span class="ms-1">Transfer Window</span>
                         </label>
                         <div class="radio-switches">
                             <div class="form-check form-check-inline form-switch">
@@ -82,16 +82,33 @@
 
                     <div class="input-group mb-3">
                         <label for="contract-expires" class="input-group-text">
-                            <i class="bi bi-calendar-x-fill me-1"></i>
-                            <span>Contract Expires</span>
+                            <i class="bi bi-calendar-x-fill"></i>
+                            <span class="ms-1">Contract Expires</span>
                         </label>
                         <input type="date" name="contract_expires" id="contract-expires" class="form-control @error('contract_expires') is-invalid @enderror" value="{{ old('contract_expires') }}">
                     </div>
 
                     <div class="input-group mb-3">
+                        <label for="left-club-select" class="input-group-text">
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span class="ms-1">Left Club</span>
+                        </label>
+                        <select class="form-select @error('left_club_id') is-invalid @enderror" name="left_club_id" id="left-club-select">
+                            <option selected disabled>Choose left club...</option>
+                            @foreach($clubs as $club)
+                                @if($club->id == old('left_club_id'))
+                                    <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
+                                @else
+                                    <option value="{{ $club->id }}">{{ $club->name }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="input-group mb-3">
                         <label for="joined-club-select" class="input-group-text">
-                            <i class="bi bi-box-arrow-right me-1"></i>
-                            <span>Joined Club</span>
+                            <i class="bi bi-box-arrow-right"></i>
+                            <span class="ms-1">Joined Club</span>
                         </label>
                         <select class="form-select @error('joined_club_id') is-invalid @enderror" name="joined_club_id" id="joined-club-select">
                             <option selected disabled>Choose joined club...</option>
@@ -107,16 +124,16 @@
 
                     <div class="input-group mb-3">
                         <label for="fee" class="input-group-text">
-                            <i class="bi bi-cash me-1"></i>
-                            <span>Fee</span>
+                            <i class="bi bi-cash-stack"></i>
+                            <span class="ms-1">Fee</span>
                         </label>
                         <input type="number" name="fee" id="fee" class="form-control @error('fee') is-invalid @enderror" value="{{ old('fee') }}" placeholder="Enter the transfer fee">
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="is-loan" class="input-group-text">
-                            <i class="bi bi-hourglass-split me-1"></i>
-                            <span>Loaned transfer</span>
+                            <i class="bi bi-hourglass-split"></i>
+                            <span class="ms-1">Loaned transfer</span>
                         </label>
                         <div class="radio-switches">
                             <div class="form-check form-check-inline form-switch">

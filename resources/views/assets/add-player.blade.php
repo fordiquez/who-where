@@ -47,16 +47,16 @@
 
                     <div class="input-group mb-3">
                         <label for="birth-date" class="input-group-text">
-                            <i class="bi bi-calendar-date-fill me-1"></i>
-                            <span>Birth date</span>
+                            <i class="bi bi-calendar-date-fill"></i>
+                            <span class="ms-1">Birth date</span>
                         </label>
                         <input type="date" name="birth_date" id="birth-date" class="form-control @error('birth_date') is-invalid @enderror" value="{{ old('birth_date') }}">
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="birth-country-select" class="input-group-text">
-                            <i class="bi bi-flag-fill me-1"></i>
-                            <span>Birth country</span>
+                            <i class="bi bi-flag-fill"></i>
+                            <span class="ms-1">Birth country</span>
                         </label>
                         <select class="form-select @error('birth_country_id') is-invalid @enderror" name="birth_country_id" id="birth-country-select">
                             <option selected disabled>Choose the country...</option>
@@ -80,8 +80,8 @@
 
                     <div class="input-group mb-3">
                         <label for="citizenship-select" class="input-group-text">
-                            <i class="bi bi-flag-fill me-1"></i>
-                            <span>Citizenship</span>
+                            <i class="bi bi-flag-fill"></i>
+                            <span class="ms-1">Citizenship</span>
                         </label>
                         <select class="form-select @error('citizenship_country_id') is-invalid @enderror" name="citizenship_country_id" id="citizenship-select">
                             <option selected disabled>Choose the country...</option>
@@ -97,8 +97,8 @@
 
                     <div class="input-group mb-3">
                         <label for="position-select" class="input-group-text">
-                            <i class="bi bi-star-fill me-1"></i>
-                            <span>Position</span>
+                            <i class="bi bi-star-fill"></i>
+                            <span class="ms-1">Position</span>
                         </label>
                         <select class="form-select @error('position_id') is-invalid @enderror" name="position_id" id="position-select">
                             <option selected disabled>Choose the player role...</option>
@@ -116,8 +116,8 @@
 
                     <div class="input-group mb-3">
                         <label for="main-position-select" class="input-group-text">
-                            <i class="bi bi-bookmark-plus-fill me-1"></i>
-                            <span>Main position</span>
+                            <i class="bi bi-bookmark-plus-fill"></i>
+                            <span class="ms-1">Main position</span>
                         </label>
                         <select class="form-select @error('main_position_id') is-invalid @enderror" name="main_position_id" id="main-position-select">
                             <option selected disabled>Choose the main position...</option>
@@ -135,8 +135,8 @@
 
                     <div class="input-group mb-3">
                         <label for="foot-radio" class="input-group-text">
-                            <i class="bi bi-arrow-left-right me-1"></i>
-                            <span>Foot</span>
+                            <i class="bi bi-arrow-left-right"></i>
+                            <span class="ms-1">Foot</span>
                         </label>
                         <div class="radio-switches">
                             <div class="form-check form-check-inline form-switch">
@@ -152,8 +152,8 @@
 
                     <div class="input-group mb-3">
                         <label for="club-select" class="input-group-text">
-                            <i class="bi bi-shop me-1"></i>
-                            <span>Current club</span>
+                            <i class="bi bi-house-fill"></i>
+                            <span class="ms-1">Current club</span>
                         </label>
                         <select class="form-select @error('club_id') is-invalid @enderror" name="club_id" id="club-select">
                             <option selected disabled>Choose the current club...</option>
@@ -169,8 +169,8 @@
 
                     <div class="input-group mb-3">
                         <label for="signed-from-club-select" class="input-group-text">
-                            <i class="bi bi-arrow-right-square-fill me-1"></i>
-                            <span>Signed from</span>
+                            <i class="bi bi-arrow-right-square-fill"></i>
+                            <span class="ms-1">Signed from</span>
                         </label>
                         <select class="form-select @error('signed_from_club_id') is-invalid @enderror" name="signed_from_club_id" id="signed-from-club-select">
                             <option selected disabled>Choose the signed from club...</option>
@@ -186,23 +186,23 @@
 
                     <div class="input-group mb-3">
                         <label for="joined" class="input-group-text">
-                            <i class="bi bi-calendar-check-fill me-1"></i>
-                            <span>Joined</span>
+                            <i class="bi bi-calendar-check-fill"></i>
+                            <span class="ms-1">Joined</span>
                         </label>
                         <input type="date" name="joined" id="joined" class="form-control @error('joined') is-invalid @enderror" value="{{ old('joined') }}">
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="contract-expires" class="input-group-text">
-                            <i class="bi bi-calendar-x-fill me-1"></i>
-                            <span>Contract Expires</span>
+                            <i class="bi bi-calendar-x-fill"></i>
+                            <span class="ms-1">Contract Expires</span>
                         </label>
                         <input type="date" name="contract_expires" id="contract-expires" class="form-control @error('contract_expires') is-invalid @enderror" value="{{ old('contract_expires') }}">
                     </div>
 
                     <div class="input-group mb-3">
                         <label for="market-value" class="input-group-text">
-                            <i class="bi bi-clock-history"></i>
+                            <i class="bi bi-shop-window"></i>
                             <span class="ms-1">Market value</span>
                         </label>
                         <input type="text" name="market_value" id="market-value" class="form-control @error('market_value') is-invalid @enderror" value="{{ old('market_value') }}" placeholder="Enter the player market value">

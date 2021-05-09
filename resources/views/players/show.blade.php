@@ -24,7 +24,8 @@
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Date of birth / Age:</span>
+                                <i class="bi bi-calendar-date-fill"></i>
+                                <b class="ms-1 me-1">Date of birth / Age:</b>
                                 <span class="badge bg-primary rounded-pill">
                                     {{ $player->birth_date }}
                                     @foreach($playerAge as $age)
@@ -33,25 +34,29 @@
                                 </span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Birth country:</span>
+                                <i class="bi bi-flag-fill"></i>
+                                <b class="ms-1 me-1">Birth country:</b>
                                 <a href="{{ route('league.index', $player->birth->id) }}">
                                     <img src="{{ asset($player->birth->flag) }}" class="tiny-logo" alt="{{ $player->birth->name }}" title="{{ $player->birth->name }}">
                                     <span class="badge bg-primary rounded-pill">{{ $player->birth->name }}</span>
                                 </a>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Citizenship:</span>
+                                <i class="bi bi-flag-fill"></i>
+                                <b class="ms-1 me-1">Citizenship:</b>
                                 <a href="{{ route('league.index', $player->nation->id) }}">
                                     <img src="{{ asset($player->nation->flag) }}" class="tiny-logo" alt="{{ $player->nation->name }}" title="{{ $player->nation->name }}">
                                     <span class="badge bg-primary rounded-pill">{{ $player->nation->name }}</span>
                                 </a>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Height:</span>
+                                <i class="bi bi-arrow-up-circle-fill"></i>
+                                <b class="ms-1 me-1">Height:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->height }} m</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Foot:</span>
+                                <i class="bi bi-arrow-left-right"></i>
+                                <b class="ms-1 me-1">Foot:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->foot }}</span>
                             </li>
                         </ul>
@@ -59,19 +64,23 @@
                     <div class="col-md-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Role:</span>
+                                <i class="bi bi-star-fill"></i>
+                                <b class="ms-1 me-1">Role:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->position->name }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Main position:</span>
+                                <i class="bi bi-bookmark-plus-fill"></i>
+                                <b class="ms-1 me-1">Main position:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->main_position->name }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Joined:</span>
+                                <i class="bi bi-calendar-check-fill"></i>
+                                <b class="ms-1 me-1">Joined date:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->joined }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Signed from:</span>
+                                <i class="bi bi-arrow-right-square-fill"></i>
+                                <b class="ms-1 me-1">Signed from:</b>
                                 @if($player->signed_from_club_id)
                                     <a href="{{ route('club.show', $player->signed->id) }}">
                                         <img src="{{ asset($player->signed->logo) }}" class="tiny-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
@@ -82,7 +91,8 @@
                                 @endif
                             </li>
                             <li class="list-group-item d-flex align-items-center">
-                                <span class="me-1">Contract expires:</span>
+                                <i class="bi bi-calendar-x-fill"></i>
+                                <b class="ms-1 me-1">Contract expires:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $player->contract_expires }}</span>
                             </li>
                         </ul>
@@ -124,13 +134,13 @@
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('club.show', $transfer->left_club_id) }}">
-                                                <img src="{{ $transfer->left_club->logo }}" class="small-logo" alt="{{ $transfer->left_club->name }}" title="{{ $transfer->left_club->name }}">
+                                                <img src="{{ asset($transfer->left_club->logo) }}" class="small-logo" alt="{{ $transfer->left_club->name }}" title="{{ $transfer->left_club->name }}">
                                                 <span class="badge bg-primary rounded-pill">{{ $transfer->left_club->name }}</span>
                                             </a>
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('club.show', $transfer->joined_club_id) }}">
-                                                <img src="{{ $transfer->joined_club->logo }}" class="small-logo" alt="{{ $transfer->joined_club->name }}" title="{{ $transfer->joined_club->name }}">
+                                                <img src="{{ asset($transfer->joined_club->logo) }}" class="small-logo" alt="{{ $transfer->joined_club->name }}" title="{{ $transfer->joined_club->name }}">
                                                 <span class="badge bg-primary rounded-pill">{{ $transfer->joined_club->name }}</span>
                                             </a>
                                         </td>

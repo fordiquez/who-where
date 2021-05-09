@@ -21,11 +21,9 @@ class CountryController extends Controller
     public function index() {
         $uefaCountries = Country::where('uefa_position', '!=', null)->orderBy('uefa_position')->get();
         $otherCountries = Country::where('uefa_position', null)->orderBy('name')->get();
-        $leagues = League::all();
         return view('countries.index', [
             'uefaCountries' => $uefaCountries,
             'otherCountries' => $otherCountries,
-            'leagues' => $leagues,
             'totalLeagues' => $this->countryRepository->getTotalLeagues(),
             'totalClubs' => $this->countryRepository->getTotalClubs(),
             'totalPlayers' => $this->countryRepository->getTotalPlayers()
@@ -44,8 +42,8 @@ class CountryController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', 'unique:countries', 'min:3', 'max:30'],
-            'code' => ['required', 'unique:countries', 'min:2', 'max:6'],
+            'name' => ['required', 'min:3', 'max:30', Rule::unique('countries', 'name')],
+            'code' => ['required', 'min:2', 'max:6', Rule::unique('countries', 'code')],
             'flag' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255',
                 Rule::unique('countries', 'uefa_position')],
@@ -84,10 +82,13 @@ class CountryController extends Controller
     public function update($id, Request $request) {
         $country = Country::find($id);
         $request->validate([
-            'name' => ['required', Rule::unique('countries', 'name')->ignore($country->id), 'min:3', 'max:30'],
-            'code' => ['required', Rule::unique('countries', 'code')->ignore($country->id), 'min:2', 'max:6'],
+            'name' => ['required', 'min:3', 'max:30',
+                Rule::unique('countries', 'name')->ignore($country->id)],
+            'code' => ['required', 'min:2', 'max:6',
+                Rule::unique('countries', 'code')->ignore($country->id)],
             'flag' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
-            'first_tier_league_id' => Rule::unique('countries', 'first_tier_league_id')->ignore($country->id),
+            'first_tier_league_id' => [Rule::exists('leagues', 'id'),
+                Rule::unique('countries', 'first_tier_league_id')->ignore($country->id)],
             'uefa_position' => ['numeric', 'nullable', 'min:1', 'max:255',
                 Rule::unique('countries', 'uefa_position')->ignore($country->id)],
             'uefa_coefficient_points' => ['numeric', 'nullable', 'min:0.000', 'max:150.000']

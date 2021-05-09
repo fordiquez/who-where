@@ -19,14 +19,14 @@
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <p class="card-text">
-                                <i class="bi bi-calendar2-check"></i>
+                                <i class="bi bi-calendar2-check-fill"></i>
                                 <b>Transfer date:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $transfer->transfer_date }}</span>
                             </p>
                         </li>
                         <li class="list-group-item">
                             <p class="card-text">
-                                <i class="bi bi-calendar-month"></i>
+                                <i class="bi bi-calendar-month-fill"></i>
                                 <b>Season:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $transfer->season->year }}</span>
                             </p>
@@ -40,7 +40,7 @@
                         </li>
                         <li class="list-group-item">
                             <p class="card-text">
-                                <i class="bi bi-calendar2-x"></i>
+                                <i class="bi bi-calendar2-x-fill"></i>
                                 <b>Contract expires:</b>
                                 <span class="badge bg-primary rounded-pill">{{ $transfer->contract_expires }}</span>
                             </p>
@@ -75,13 +75,13 @@
                         <li class="list-group-item">
                             @if ($transfer->loan)
                                 <p class="card-text">
-                                    <i class="bi bi-cash"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                     <b>Loaned transfer for:</b>
                                     <span class="badge bg-primary rounded-pill">€ {{ $transfer->fee }} m</span>
                                 </p>
                             @else
                                 <p class="card-text">
-                                    <i class="bi bi-cash"></i>
+                                    <i class="bi bi-cash-stack"></i>
                                     <b>Fee value:</b>
                                     <span class="badge bg-primary rounded-pill">€ {{ $transfer->fee }} m</span>
                                 </p>
