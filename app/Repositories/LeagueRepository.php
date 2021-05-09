@@ -23,21 +23,31 @@ class LeagueRepository
 
     public function getForeigners(): array
     {
-        return DB::select('exec getForeignersByLeagues');
+        return DB::select('exec dbo.getForeignersByLeagues');
     }
 
     public function getTotalMarketValue(): array
     {
-        return DB::select('exec getTotalMarketValueByLeagues');
+        return DB::select('exec dbo.getTotalMarketValueByLeagues');
     }
 
     public function getAvgMarketValue(): array
     {
-        return DB::select('exec getAvgMarketValueByLeagues');
+        return DB::select('exec dbo.getAvgMarketValueByLeagues');
     }
 
     public function getMostValuablePlayer($leagueId): array
     {
-        return DB::select('exec getMostValuablePlayerByLeague ' . $leagueId);
+        return DB::select('exec dbo.getMostValuablePlayerByLeague ' . $leagueId);
+    }
+
+    public function getRecordHoldingChampions($leagueId): array
+    {
+        return DB::select('exec dbo.getRecordHoldingChampions ' . $leagueId);
+    }
+
+    public function getReigningChampion($leagueId): array
+    {
+        return DB::select('exec dbo.getReigningChampion ' . $leagueId);
     }
 }

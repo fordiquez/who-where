@@ -8,16 +8,16 @@ class CountryRepository
 {
     public function getTotalLeagues(): array
     {
-        return DB::select('exec getTotalLeaguesByCountries');
+        return DB::select('exec dbo.getTotalLeaguesByCountries');
     }
 
     public function getTotalClubs(): array
     {
-        return DB::select('exec getTotalClubsByCountries');
+        return DB::select('exec dbo.getTotalClubsByCountries');
     }
 
     public function getTotalPlayers(): array
     {
-        return DB::select('exec getTotalPlayersByCountries');
+        return DB::select('exec dbo.getTotalPlayersByCountries');
     }
 }

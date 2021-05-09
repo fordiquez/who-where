@@ -82,6 +82,8 @@ class LeagueController extends Controller
             'foreigners' => $this->leagueRepository->getForeigners(),
             'totalMarketValue' => $this->leagueRepository->getTotalMarketValue(),
             'avgMarketValue' => $this->leagueRepository->getAvgMarketValue(),
+            'recordHoldingChampions' => $this->leagueRepository->getRecordHoldingChampions($league->id),
+            'reigningChampion' => $this->leagueRepository->getReigningChampion($league->id),
             'mostValuablePlayer' => $this->leagueRepository->getMostValuablePlayer($league->id),
             'totalClubsPlayers' => $this->clubRepository->getTotalPlayers(),
             'totalClubsAvgAge' => $this->clubRepository->getAvgAge(),

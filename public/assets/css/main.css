@@ -157,6 +157,17 @@ a.custom-link:hover {
     text-align: center;
 }
 
+/* Leagues */
+.record-holding-champions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.record-holding-champions a:not(:first-child) {
+    margin-top: 10px;
+}
+
 /* Players */
 
 .player-container, .club-container {

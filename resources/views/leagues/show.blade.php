@@ -91,10 +91,19 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-trophy-fill"></i>
                                 <b class="ms-1 me-1">Record-holding champions:</b>
-                                @if($league->record_holding_champion_id && $league->record_holding_times)
-                                    <a href="{{ route('club.show', $league->record_holding_champion_id) }}" class="badge bg-primary rounded-pill custom-link">
-                                        <span>{{ $league->record->name }} {{ $league->record_holding_times }} time(s)</span>
-                                    </a>
+                                @if($recordHoldingChampions)
+                                    <div class="record-holding-champions">
+                                        @foreach($recordHoldingChampions as $champion)
+                                            @if($loop->first)
+                                                @php $max_championships_number = $champion->championships_number @endphp
+                                            @endif
+                                            @if($champion->championships_number == $max_championships_number)
+                                                <a href="{{ route('club.show', $champion->club_id) }}" class="badge bg-primary rounded-pill custom-link">
+                                                    <span>{{ $champion->name }} {{ $champion->championships_number }} time(s)</span>
+                                                </a>
+                                            @endif
+                                        @endforeach
+                                    </div>
                                 @else
                                     <span class="badge bg-primary rounded-pill">Undefined</span>
                                 @endif
@@ -102,10 +111,14 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-bell-fill"></i>
                                 <b class="ms-1 me-1">Reigning champion:</b>
-                                @if($league->reigning_champion_id)
-                                    <a href="{{ route('club.show', $league->reigning_champion_id) }}" class="badge bg-primary rounded-pill custom-link">
-                                        <span>{{ $league->reigning->name }}</span>
-                                    </a>
+                                @if($reigningChampion)
+                                    @foreach($reigningChampion as $champion)
+                                        @if($loop->first)
+                                            <a href="{{ route('club.show', $champion->club_id) }}" class="badge bg-primary rounded-pill custom-link">
+                                                <span>{{ $champion->name }} {{ $champion->year }} season</span>
+                                            </a>
+                                        @endif
+                                    @endforeach
                                 @else
                                     <span class="badge bg-primary rounded-pill">Undefined</span>
                                 @endif
