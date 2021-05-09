@@ -24,7 +24,7 @@
                             <img src="{{ asset($league->logo) }}" class="full-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5 col-lg-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-graph-up"></i>
@@ -77,12 +77,12 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-5 col-lg-4">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-star-fill"></i>
                                 <b class="ms-1 me-1">UEFA coefficient:</b>
-                                @if($league->country->uefa_position & $league->country->uefa_coefficient_points)
+                                @if($league->country->uefa_position && $league->country->uefa_coefficient_points)
                                     <span class="badge bg-primary rounded-pill">{{ $league->country->uefa_position }}. Pos. {{ $league->country->uefa_coefficient_points }} Points</span>
                                 @else
                                     <span class="badge bg-primary rounded-pill">Undefined</span>
@@ -156,7 +156,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div class="col-md-2 league-market-column bg-indigo rounded">
+                    <div class="col-lg-2 league-market-column bg-indigo rounded">
                         <h5 class="card-title fw-bold">Total Market Value:</h5>
                         @foreach($totalMarketValue as $marketValue)
                             @if($marketValue->id == $league->id)
