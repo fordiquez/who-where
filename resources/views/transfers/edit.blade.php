@@ -1,9 +1,5 @@
 @extends('assets.layout')
 
-@section('icon')
-    <link rel="icon" type="image/png" href="{{ asset($transfer->player->photo) }}">
-@endsection
-
 @section('title', strtoupper($transfer->player->name))
 
 @section('content')

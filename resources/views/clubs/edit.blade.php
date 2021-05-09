@@ -18,7 +18,7 @@
                                 <span>Editing information about {{ $club->name }}</span>
                             </h5>
                         </div>
-                        <div class="card-photo">
+                        <div class="card-photo mt-3">
                             <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
                         </div>
                         <div class="card-body">

@@ -1,9 +1,5 @@
 @extends('assets.layout')
 
-@section('icon')
-    <link rel="icon" type="image/png" href="{{ asset($player->photo) }}">
-@endsection
-
 @section('title', strtoupper($player->name))
 
 @section('content')
@@ -18,8 +14,8 @@
                                 <span>Editing information about {{ $player->name }}</span>
                             </h4>
                         </div>
-                        <div class="card-photo">
-                            <img src="{{ asset($player->photo) }}" alt="{{ $player->name }}" title="{{ $player->name }}">
+                        <div class="card-photo mt-3">
+                            <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
                         </div>
                         <div class="card-body">
                             @if ($errors->any())

@@ -1,9 +1,5 @@
 @extends('assets.layout')
 
-@section('icon')
-    <link rel="icon" type="image/png" href="{{ asset($player->photo) }}">
-@endsection
-
 @section('title', strtoupper($player->name))
 
 @section('content')
@@ -76,10 +72,14 @@
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1">Signed from:</span>
-                                <a href="{{ route('club.show', $player->signed->id) }}">
-                                    <img src="{{ asset($player->signed->logo) }}" class="tiny-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
-                                    <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
-                                </a>
+                                @if($player->signed_from_club_id)
+                                    <a href="{{ route('club.show', $player->signed->id) }}">
+                                        <img src="{{ asset($player->signed->logo) }}" class="tiny-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
+                                        <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
+                                    </a>
+                                @else
+                                    <span class="badge bg-primary rounded-pill">Undefined</span>
+                                @endif
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <span class="me-1">Contract expires:</span>

@@ -11,7 +11,7 @@
 @endisset
 
 @empty($club)
-    @section('title', strtoupper('Clubs list'))
+    @section('title', strtoupper('Players list'))
 @endempty
 
 @section('content')
@@ -109,18 +109,28 @@
                                             <span class="badge bg-primary rounded-pill">{{ $player->joined }}</span>
                                         </td>
                                         <td>
-                                            <div class="club-container">
-                                                <div class="club-logo">
-                                                    <a href="{{ route('club.show', $player->signed->id) }}">
-                                                        <img src="{{ asset($player->signed->logo) }}" class="medium-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
-                                                    </a>
+                                            @if($player->signed_from_club_id)
+                                                <div class="club-container">
+                                                    <div class="club-logo">
+                                                        <a href="{{ route('club.show', $player->signed->id) }}">
+                                                            <img src="{{ asset($player->signed->logo) }}" class="medium-logo" alt="{{ $player->signed->name }}" title="{{ $player->signed->name }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="club-name">
+                                                        <a href="{{ route('club.show', $player->signed->id) }}">
+                                                            <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                                <div class="club-name">
-                                                    <a href="{{ route('club.show', $player->signed->id) }}">
-                                                        <span class="badge bg-primary rounded-pill">{{ $player->signed->name }}</span>
-                                                    </a>
+                                            @else
+                                                <div class="club-container">
+                                                    <div class="club-logo">
+                                                    </div>
+                                                    <div class="club-name">
+                                                        <span class="badge bg-primary rounded-pill">Undefined</span>
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
                                         </td>
                                         <td class="text-center">
                                             <span class="badge bg-primary rounded-pill">{{ $player->contract_expires }}</span>
