@@ -19,7 +19,9 @@
                             </h5>
                         </div>
                         <div class="card-photo mt-3">
-                            <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
+                            <a href="{{ route('club.show', $club) }}">
+                                <img src="{{ asset($club->logo) }}" alt="{{ $club->name }}" title="{{ $club->name }}">
+                            </a>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -99,6 +101,14 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="capacity" class="form-label">
+                                    <i class="bi bi-person-lines-fill"></i>
+                                    <span class="ms-1">Capacity</span>
+                                </label>
+                                <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') ? old('capacity') : $club->capacity }}" placeholder="Enter the number of points">
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="address" class="form-label">
                                     <i class="bi bi-geo-alt-fill"></i>
                                     <span class="ms-1">Address</span>
@@ -112,14 +122,6 @@
                                     <span class="ms-1">City</span>
                                 </label>
                                 <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') ? old('city') : $club->city }}" placeholder="Enter the number of points">
-                            </div>
-
-                            <div class="mb-3">
-                                <label for="capacity" class="form-label">
-                                    <i class="bi bi-person-lines-fill"></i>
-                                    <span class="ms-1">Capacity</span>
-                                </label>
-                                <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') ? old('capacity') : $club->capacity }}" placeholder="Enter the number of points">
                             </div>
 
                             <div class="mb-3">

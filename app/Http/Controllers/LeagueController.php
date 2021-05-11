@@ -25,9 +25,9 @@ class LeagueController extends Controller
     public function index($countryId = null) {
         $country = Country::find($countryId);
         if ($countryId) {
-            $leagues = League::where('country_id', $countryId)->get();
+            $leagues = League::where('country_id', $countryId)->orderBy('league_level')->paginate(5);
         } else {
-            $leagues = League::all();
+            $leagues = League::orderBy('league_level')->orderBy('country_id')->paginate(10);
         }
         $countries = Country::orderBy('name')->get();
         return view('leagues.index', [

@@ -18,7 +18,9 @@
                                 <span>Editing information about {{ $country->name }}</span>
                             </h5>
                         </div>
-                        <img src="{{ asset($country->flag) }}" class="card-img-top mt-3" alt="{{ $country->name }}" title="{{ $country->name }}">
+                        <a href="{{ route('country.show', $country) }}">
+                            <img src="{{ asset($country->flag) }}" class="card-img-top mt-3" alt="{{ $country->name }}" title="{{ $country->name }}">
+                        </a>
                         <div class="card-body">
                             @if ($errors->any())
                                 <div class="alert alert-danger">
@@ -74,10 +76,27 @@
                             </div>
 
                             <div class="mb-3">
+                                <label for="is-european-country" class="form-label">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                    <span class="ms-1">European country</span>
+                                </label>
+                                <div class="radio-switches">
+                                    <div class="form-check form-check-inline form-switch">
+                                        <input type="radio" name="is_european_country" id="european-country-true" class="form-check-input @error('is_european_country') is-invalid @enderror" value="1" @if($country->is_european_country == 1) checked @endif>
+                                        <label class="form-check-label" for="european-country-true">Yes</label>
+                                    </div>
+                                    <div class="form-check form-check-inline form-switch">
+                                        <input type="radio" name="is_european_country" id="european-country-false" class="form-check-input @error('is_european_country') is-invalid @enderror" value="0" @if($country->is_european_country == 0) checked @endif>
+                                        <label class="form-check-label" for="european-country-false">No</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
                                 <label for="uefa-position" class="form-label">
                                     <i class="bi bi-list-ol"></i>
                                     <span class="ms-1">UEFA position</span>
-                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
+                                    <span class="badge bg-primary rounded-pill">Required only for European countries</span>
                                 </label>
                                 <input type="number" name="uefa_position" id="uefa-position" class="form-control @error('uefa_position') is-invalid @enderror" value="{{ old('uefa_position') ? old('uefa_position') : $country->uefa_position }}" placeholder="Enter the place number">
                             </div>
@@ -86,7 +105,7 @@
                                 <label for="uefa-coefficient-points" class="form-label">
                                     <i class="bi bi-star-fill"></i>
                                     <span class="ms-1">UEFA coefficient points</span>
-                                    <span class="badge bg-primary rounded-pill">Not required & only for European countries</span>
+                                    <span class="badge bg-primary rounded-pill">Required only for European countries</span>
                                 </label>
                                 <input type="text" name="uefa_coefficient_points" id="uefa-coefficient-points" class="form-control @error('uefa_coefficient_points') is-invalid @enderror" value="{{ old('uefa_coefficient_points') ? old('uefa_coefficient_points') : $country->uefa_coefficient_points }}" placeholder="Enter the number of points">
                             </div>

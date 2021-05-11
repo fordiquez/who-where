@@ -24,13 +24,13 @@ class PlayerController extends Controller
     public function index($clubId = null) {
         $club = Club::find($clubId);
         if ($clubId) {
-            $players = Player::where('club_id', $clubId)->orderBy('position_id')->get();
+            $players = Player::where('club_id', $clubId)->orderBy('position_id')->paginate(10);
         } else {
-            $players = Player::orderBy('position_id')->get();
+            $players = Player::orderBy('position_id')->paginate(10);
         }
-        $countries = Country::all();
+        $countries = Country::orderBy('name')->get();
         $positions = Position::all();
-        $clubs = Club::orderBy('name')->get();
+        $clubs = Club::orderBy('league_id')->orderBy('name')->get();
         return view('players.index', [
             'club' => $club,
             'players' => $players,
@@ -100,9 +100,9 @@ class PlayerController extends Controller
 
     public function edit($id) {
         $player = Player::find($id);
-        $countries = Country::all();
+        $countries = Country::orderBy('name')->get();
         $positions = Position::all();
-        $clubs = Club::orderBy('name')->get();
+        $clubs = Club::orderBy('league_id')->orderBy('name')->get();
         return view('players.edit', [
             'player' => $player,
             'countries' => $countries,

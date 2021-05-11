@@ -19,7 +19,9 @@
                             </h5>
                         </div>
                         <div class="card-photo mt-3">
-                            <img src="{{ asset($league->logo) }}" class="full-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
+                            <a href="{{ route('league.show', $league) }}">
+                                <img src="{{ asset($league->logo) }}" class="full-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
+                            </a>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())

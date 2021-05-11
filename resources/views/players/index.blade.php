@@ -18,18 +18,20 @@
     <div class="container-fluid">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    <div class="player-title">
-                        <h4 class="card-title player-title text-center text-uppercase bg-indigo rounded p-2">
-                            @isset($club)
+                <div class="card-header player-title">
+                    <h4 class="card-title player-title text-center text-uppercase bg-indigo rounded p-2">
+                        @isset($club)
+                            <a href="{{ route('club.show', $club) }}">
                                 <img src="{{ asset($club->logo) }}" class="medium-logo me-2" alt="{{ $club->name }}" title="{{ $club->name }}">
-                                <span class="me-2">{{ $club->name }}</span>
-                                <span>– Players</span>
-                            @else
-                                <span>Players list</span>
-                            @endif
-                        </h4>
-                    </div>
+                            </a>
+                            <span class="me-2">{{ $club->name }}</span>
+                            <span>– Players</span>
+                        @else
+                            <span>Players list</span>
+                        @endif
+                    </h4>
+                </div>
+                <div class="card-body">
                     @if(count($players) > 0)
                         <div class="table-responsive">
                             <table class="table table-dark table-hover">
@@ -153,6 +155,11 @@
                             <span class="bg-indigo rounded p-2">This club has not any player</span>
                         </h5>
                     @endif
+                </div>
+                <div class="card-footer mb-3">
+                    <div class="d-flex justify-content-center">
+                        {!! $players->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

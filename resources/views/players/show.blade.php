@@ -7,14 +7,26 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="player-title mb-2">
-                        <h4 class="d-flex align-items-center text-uppercase bg-indigo rounded mt-2 p-2">
+                    <div class="league-header mb-2">
+                        <a href="{{ route('player.index', $player->club_id) }}" class="btn btn-primary">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-arrow-left-circle"></i>
+                                <span class="ms-2">Return to club players list</span>
+                            </h5>
+                        </a>
+                        <h5 class="player-title text-uppercase bg-indigo rounded mt-2 p-2">
                             <a href="{{ route('club.show', $player->club->id) }}" class="me-2">
                                 <img src="{{ asset($player->club->logo) }}" class="medium-logo" alt="{{ $player->club->name }}" title="{{ $player->club->name }}">
                             </a>
                             <span class="me-2"># {{ $player->number }} –</span>
                             <span>{{ $player->name }}</span>
-                        </h4>
+                        </h5>
+                        <a href="{{ route('player.edit', $player) }}" class="btn btn-primary">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-pencil-fill"></i>
+                                <span class="ms-2">Edit player information</span>
+                            </h5>
+                        </a>
                     </div>
                     <div class="col-md-2 player-photo-column">
                         <div class="player-photo-item">

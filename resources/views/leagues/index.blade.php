@@ -18,18 +18,20 @@
     <div class="container-fluid">
         <div class="col-12">
             <div class="card">
-                <div class="card-body">
-                    <div class="league-title">
-                        <h4 class="card-title league-title text-center text-uppercase bg-indigo rounded p-2">
-                            @isset($country)
+                <div class="card-header league-title">
+                    <h4 class="card-title league-title text-center text-uppercase bg-indigo rounded p-2">
+                        @isset($country)
+                            <a href="{{ route('country.show', $country) }}">
                                 <img src="{{ asset($country->flag) }}" class="medium-logo me-2" alt="{{ $country->name }}" title="{{ $country->name }}">
-                                <span class="me-2">{{ $country->name }}</span>
-                                <span>– Leagues</span>
-                            @else
-                                <span class="bg-indigo p-1">Leagues list</span>
-                            @endif
-                        </h4>
-                    </div>
+                            </a>
+                            <span class="me-2">{{ $country->name }}</span>
+                            <span>– Leagues</span>
+                        @else
+                            <span class="bg-indigo p-1">Leagues list</span>
+                        @endif
+                    </h4>
+                </div>
+                <div class="card-body">
                     @if(count($leagues) > 0)
                         <div class="table-responsive">
                             <table class="table table-dark table-hover">
@@ -53,10 +55,10 @@
                                 @foreach($leagues as $league)
                                     <tr>
                                         <th scope="row">
-                                            <a href="{{ route('club.index', $league) }}" class="custom-link">
+                                            <a href="{{ route('club.index', $league) }}" class="custom-link d-flex align-items-center">
                                                 <img src="{{ asset($league->logo) }}" class="medium-logo" alt="{{ $league->name }}" title="{{ $league->name }}">
-                                                <span class="badge bg-primary rounded-pill">{{ $league->league_level }}</span>
-                                                <span>{{ $league->name }}</span>
+                                                <span class="badge bg-primary rounded-pill ms-1">{{ $league->league_level }}</span>
+                                                <span class="ms-1">{{ $league->name }}</span>
                                             </a>
                                         </th>
                                         <td class="text-center">
@@ -131,6 +133,11 @@
                             <span class="p-1 bg-indigo rounded">This country has not any league</span>
                         </h5>
                     @endif
+                </div>
+                <div class="card-footer mb-3">
+                    <div class="d-flex justify-content-center">
+                        {!! $leagues->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

@@ -36,5 +36,10 @@
                 </div>
             @endforeach
         </div>
+        <div class="card-footer mb-3 mt-3">
+            <div class="d-flex justify-content-center">
+                {!! $countries->links() !!}
+            </div>
+        </div>
     </div>
 @endsection

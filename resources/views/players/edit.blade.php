@@ -15,7 +15,9 @@
                             </h4>
                         </div>
                         <div class="card-photo mt-3">
-                            <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
+                            <a href="{{ route('player.show', $player) }}" class="player-photo-item">
+                                <img src="{{ asset($player->photo) }}" class="rounded" alt="{{ $player->name }}" title="{{ $player->name }}">
+                            </a>
                         </div>
                         <div class="card-body">
                             @if ($errors->any())
@@ -106,10 +108,10 @@
                             <div class="mb-3">
                                 <label for="position-select" class="form-label">
                                     <i class="bi bi-star-fill"></i>
-                                    <span class="ms-1">Position</span>
+                                    <span class="ms-1">Role</span>
                                 </label>
                                 <select name="position_id" id="position-select" class="form-select @error('position_id') is-invalid @enderror">
-                                    <option selected disabled>Choose the position...</option>
+                                    <option selected disabled>Choose the role...</option>
                                     @foreach($positions as $position)
                                         @if($position->is_role == 1)
                                             @if($player->position_id == $position->id)

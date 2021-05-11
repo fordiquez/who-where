@@ -43,7 +43,7 @@
                             <span class="ms-1">Country</span>
                         </label>
                         <select class="form-select @error('country_id') is-invalid @enderror" name="country_id" id="country-select">
-                            <option selected disabled>Choose country...</option>
+                            <option selected disabled>Choose the country...</option>
                             @foreach($countries as $country)
                                 @if($country->id == old('country_id'))
                                     <option value="{{ $country->id }}" selected>{{ $country->name }}</option>

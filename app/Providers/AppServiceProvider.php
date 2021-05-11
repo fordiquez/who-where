@@ -6,6 +6,7 @@ use App\Repositories\ClubRepository;
 use App\Repositories\CountryRepository;
 use App\Repositories\LeagueRepository;
 use App\Repositories\PlayerRepository;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,6 +31,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Paginator::useBootstrap();
     }
 }

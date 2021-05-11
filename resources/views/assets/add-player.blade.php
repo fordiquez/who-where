@@ -98,7 +98,7 @@
                     <div class="input-group mb-3">
                         <label for="position-select" class="input-group-text">
                             <i class="bi bi-star-fill"></i>
-                            <span class="ms-1">Position</span>
+                            <span class="ms-1">Role</span>
                         </label>
                         <select class="form-select @error('position_id') is-invalid @enderror" name="position_id" id="position-select">
                             <option selected disabled>Choose the player role...</option>

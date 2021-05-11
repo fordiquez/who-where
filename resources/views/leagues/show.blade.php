@@ -11,13 +11,25 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="league-title mb-2">
-                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-2">
-                            <a href="{{ route('league.index', $league->country->id) }}" class="me-2">
+                    <div class="league-header mb-2">
+                        <a href="{{ route('league.index', $league) }}" class="btn btn-primary">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-arrow-left-circle"></i>
+                                <span class="ms-2">Return to country leagues list</span>
+                            </h5>
+                        </a>
+                        <h5 class="league-title text-uppercase mt-2 bg-indigo rounded p-2">
+                            <a href="{{ route('country.show', $league->country->id) }}" class="me-2">
                                 <img src="{{ asset($league->country->flag) }}" class="small-logo" alt="{{ $league->country->name }}" title="{{ $league->country->name }}">
                             </a>
                             <span>– {{ $league->name }}</span>
                         </h5>
+                        <a href="{{ route('league.edit', $league) }}" class="btn btn-primary">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-pencil-fill"></i>
+                                <span class="ms-2">Edit league information</span>
+                            </h5>
+                        </a>
                     </div>
                     <div class="col-md-2 league-logo-column">
                         <div class="league-logo-item">
@@ -82,8 +94,8 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-star-fill"></i>
                                 <b class="ms-1 me-1">UEFA coefficient:</b>
-                                @if($league->country->uefa_position && $league->country->uefa_coefficient_points)
-                                    <span class="badge bg-primary rounded-pill">{{ $league->country->uefa_position }}. Pos. {{ $league->country->uefa_coefficient_points }} Points</span>
+                                @if($league->country->is_european_country)
+                                    <span class="badge bg-primary rounded-pill white-space">{{ $league->country->uefa_position }}. Pos. {{ $league->country->uefa_coefficient_points }} Points</span>
                                 @else
                                     <span class="badge bg-primary rounded-pill">Undefined</span>
                                 @endif
@@ -99,7 +111,7 @@
                                             @endif
                                             @if($champion->championships_number == $max_championships_number)
                                                 <a href="{{ route('club.show', $champion->club_id) }}" class="badge bg-primary rounded-pill custom-link">
-                                                    <span>{{ $champion->name }} {{ $champion->championships_number }} time(s)</span>
+                                                    <span class="white-space">{{ $champion->name }} {{ $champion->championships_number }} time(s)</span>
                                                 </a>
                                             @endif
                                         @endforeach
@@ -115,7 +127,7 @@
                                     @foreach($reigningChampion as $champion)
                                         @if($loop->first)
                                             <a href="{{ route('club.show', $champion->club_id) }}" class="badge bg-primary rounded-pill custom-link">
-                                                <span>{{ $champion->name }} {{ $champion->year }} season</span>
+                                                <span class="white-space">{{ $champion->name }} {{ $champion->year }} season</span>
                                             </a>
                                         @endif
                                     @endforeach
@@ -146,7 +158,7 @@
                                         @endif
                                         @if($player->market_value == $max)
                                             <a href="{{ route('player.show', $player->id) }}" class="badge bg-primary rounded-pill custom-link">
-                                                <span>{{ $player->name }} € {{ $player->market_value }} m</span>
+                                                <span class="white-space">{{ $player->name }} € {{ $player->market_value }} m</span>
                                             </a>
                                         @endif
                                     @endforeach

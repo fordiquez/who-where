@@ -27,7 +27,7 @@
                                     <span class="badge bg-primary rounded-pill">{{ $country->code }}</span>
                                 </p>
                             </li>
-                            @if($country->uefa_position)
+                            @if($country->is_european_country)
                                 <li class="list-group-item">
                                     <p class="card-text">
                                         <i class="bi bi-list-ol"></i>
@@ -35,8 +35,6 @@
                                         <span class="badge bg-primary rounded-pill">{{ $country->uefa_position }}</span>
                                     </p>
                                 </li>
-                            @endif
-                            @if($country->uefa_coefficient_points)
                                 <li class="list-group-item">
                                     <p class="card-text">
                                         <i class="bi bi-star-fill"></i>
@@ -58,21 +56,23 @@
                                     </span>
                                 </p>
                             </li>
-                            <li class="list-group-item">
-                                <p class="card-text">
-                                    <i class="bi bi-list-ol"></i>
-                                    <b>First Tier League:</b>
-                                    <span class="badge bg-primary rounded-pill">
+                            @isset($country->first_tier_league_id)
+                                <li class="list-group-item">
+                                    <p class="card-text">
+                                        <i class="bi bi-list-ol"></i>
+                                        <b>First Tier League:</b>
+                                        <span class="badge bg-primary rounded-pill">
                                         @if ($country->league)
-                                            <a href="{{ route('league.show', $country->league->id) }}" class="custom-link">
+                                                <a href="{{ route('league.show', $country->league->id) }}" class="custom-link">
                                                 {{ $country->league->name }}
                                             </a>
-                                        @else
-                                            Undefined
-                                        @endif
+                                            @else
+                                                Undefined
+                                            @endif
                                     </span>
-                                </p>
-                            </li>
+                                    </p>
+                                </li>
+                            @endisset
                             <li class="list-group-item">
                                 <p class="card-text">
                                     <i class="bi bi-shop"></i>

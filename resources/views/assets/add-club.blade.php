@@ -57,7 +57,7 @@
                                 @if($league->id == old('league_id'))
                                     <option value="{{ $league->id }}" selected>{{ $league->name }}</option>
                                 @else
-                                    <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                    <option value="{{ $league->id }}">{{ $league->country->code }} | {{ $league->name }}</option>
                                 @endif
                             @endforeach
                         </select>
@@ -88,6 +88,14 @@
                     </div>
 
                     <div class="input-group mb-3">
+                        <label for="capacity" class="input-group-text">
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span class="ms-1">Capacity</span>
+                        </label>
+                        <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') }}" placeholder="Enter the stadium capacity">
+                    </div>
+
+                    <div class="input-group mb-3">
                         <label for="address" class="input-group-text">
                             <i class="bi bi-geo-alt-fill"></i>
                             <span class="ms-1">Address</span>
@@ -101,14 +109,6 @@
                             <span class="ms-1">City</span>
                         </label>
                         <input type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror" value="{{ old('city') }}" placeholder="Enter the city name">
-                    </div>
-
-                    <div class="input-group mb-3">
-                        <label for="capacity" class="input-group-text">
-                            <i class="bi bi-person-lines-fill"></i>
-                            <span class="ms-1">Capacity</span>
-                        </label>
-                        <input type="number" name="capacity" id="capacity" class="form-control @error('capacity') is-invalid @enderror" value="{{ old('capacity') }}" placeholder="Enter the stadium capacity">
                     </div>
 
                     <div class="input-group mb-3">

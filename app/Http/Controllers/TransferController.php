@@ -27,7 +27,7 @@ class TransferController extends Controller
         $transfers = $this->filters($season, $window, $is_loan);
         $players = Player::orderBy('name')->get();
         $seasons = Season::orderByDesc('year')->get();
-        $clubs = Club::orderBy('name')->get();
+        $clubs = Club::orderBy('league_id')->orderBy('name')->get();
         return view('transfers.index', [
             'transfers' => $transfers,
             'players' => $players,
@@ -78,7 +78,7 @@ class TransferController extends Controller
     public function edit($id) {
         $transfer = Transfer::find($id);
         $seasons = Season::orderByDesc('year')->get();
-        $clubs = Club::orderBy('name')->get();
+        $clubs = Club::orderBy('league_id')->orderBy('name')->get();
         return view('transfers.edit', [
             'transfer' => $transfer,
             'seasons' => $seasons,
@@ -90,7 +90,8 @@ class TransferController extends Controller
     {
         $transfer = Transfer::find($id);
         $request->validate([
-            'season_id' => ['required', Rule::exists('seasons', 'id'), Rule::unique('transfers')
+            'season_id' => ['required', Rule::exists('seasons', 'id'),
+                Rule::unique('transfers')
                     ->where('season_id', $request->input('season_id'))
                     ->where('player_id', $transfer->player_id)->ignore($transfer->id)
             ],
@@ -132,31 +133,31 @@ class TransferController extends Controller
                 ['season_id', $season],
                 ['transfer_window', $window],
                 ['is_loan', $is_loan]
-            ])->get();
+            ])->paginate(10);
         } elseif ($season && $window) {
             $transfers = Transfer::where([
                 ['season_id', $season],
                 ['transfer_window', $window]
-            ])->get();
+            ])->paginate(10);
         } elseif ($season && $is_loan) {
             $transfers = Transfer::where([
                 ['season_id', $season],
                 ['is_loan', $is_loan]
-            ])->get();
+            ])->paginate(10);
         } elseif ($window && $is_loan) {
             $transfers = Transfer::where([
                 ['transfer_window', $window],
                 ['is_loan', $is_loan]
-            ])->orderByDesc('season_id')->get();
+            ])->orderByDesc('season_id')->paginate(10);
         } elseif ($season) {
-            $transfers = Transfer::where('season_id', $season)->get();
+            $transfers = Transfer::where('season_id', $season)->paginate(10);
         } elseif ($window) {
-            $transfers = Transfer::where('transfer_window', $window)->orderByDesc('season_id')->get();
+            $transfers = Transfer::where('transfer_window', $window)->orderByDesc('season_id')->paginate(10);
         } elseif ($is_loan) {
-            $transfers = Transfer::where('is_loan', $is_loan)->orderByDesc('season_id')->get();
+            $transfers = Transfer::where('is_loan', $is_loan)->orderByDesc('season_id')->paginate(10);
         }
         else {
-            $transfers = Transfer::orderByDesc('season_id')->get();
+            $transfers = Transfer::orderByDesc('season_id')->paginate(10);
         }
         return $transfers;
     }

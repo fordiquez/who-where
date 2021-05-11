@@ -11,13 +11,25 @@
         <div class="col-12">
             <div class="card mb-3">
                 <div class="row g-0">
-                    <div class="club-title mb-2">
-                        <h5 class="d-flex align-items-center text-uppercase mt-2 bg-indigo rounded p-2">
-                            <a href="{{ route('club.index', $club->league->id) }}">
+                    <div class="club-header mb-2">
+                        <a href="{{ route('club.index', $club->league) }}" class="btn btn-primary p-2">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-arrow-left-circle"></i>
+                                <span class="ms-2">Return to league clubs list</span>
+                            </h5>
+                        </a>
+                        <h5 class="club-title text-uppercase mt-2 bg-indigo rounded p-2">
+                            <a href="{{ route('league.show', $club->league) }}">
                                 <img src="{{ asset($club->league->logo) }}" class="medium-logo" alt="{{ $club->league->name }}" title="{{ $club->league->name }}">
                             </a>
-                            <span>– {{ $club->name }}</span>
+                            <span class="ms-2">– {{ $club->name }}</span>
                         </h5>
+                        <a href="{{ route('club.edit', $club) }}" class="btn btn-primary p-2">
+                            <h5 class="d-flex align-items-center justify-content-between mb-0">
+                                <i class="bi bi-pencil-fill"></i>
+                                <span class="ms-2">Edit club information</span>
+                            </h5>
+                        </a>
                     </div>
                     <div class="col-md-2 club-logo-column">
                         <div class="club-logo-item">
@@ -31,7 +43,7 @@
                                 <b class="ms-2 me-1">Squad size:</b>
                                 @foreach($totalPlayers as $player)
                                     @if($player->id == $club->id)
-                                        <span class="badge bg-primary rounded-pill">{{ $player->total_count }} players</span>
+                                        <span class="badge bg-primary rounded-pill">{{ $player->total_count }} player(s)</span>
                                     @endif
                                 @endforeach
                             </li>
@@ -40,22 +52,22 @@
                                 <b class="ms-2 me-1">Foreigners:</b>
                                 @foreach($foreigners as $foreigner)
                                     @if($foreigner->id == $club->id)
-                                        <span class="badge bg-primary rounded-pill">{{ $foreigner->total_count }} players</span>
+                                        <span class="badge bg-primary rounded-pill">{{ $foreigner->total_count }} player(s)</span>
                                     @endif
                                 @endforeach
                             </li>
                             @foreach($youngestPlayer as $player)
                                 @if($player->id)
-                                    <li class="list-group-item d-flex align-items-center justify-content-sm-between">
+                                    <li class="list-group-item d-md-flex align-items-center justify-content-md-between d-sm-inline-flex">
                                         <div>
                                             <i class="bi bi-sort-down"></i>
-                                            <b>The youngest player:</b>
+                                            <b class="ms-1 me-1">The youngest player:</b>
                                         </div>
                                         <div class="youngest-player">
                                             <a href="{{ route('player.show', $player->id) }}" class="custom-link">
-                                                <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
+                                                <span class="badge bg-primary rounded-pill white-space">{{ $player->name }}</span>
                                             </a>
-                                            <span class="badge bg-primary rounded-pill mt-1">
+                                            <span class="badge bg-primary rounded-pill white-space mt-md-1">
                                                 Years: {{ $player->years }} – Months: {{ $player->months }} – Days: {{ $player->days }}
                                             </span>
                                         </div>
@@ -64,16 +76,16 @@
                             @endforeach
                             @foreach($oldestPlayer as $player)
                                 @if($player->id)
-                                    <li class="list-group-item d-flex align-items-center justify-content-between">
+                                    <li class="list-group-item d-md-flex align-items-center justify-content-md-between d-sm-inline-flex">
                                         <div>
                                             <i class="bi bi-sort-up"></i>
-                                            <b>The oldest player:</b>
+                                            <b class="ms-1 me-1">The oldest player:</b>
                                         </div>
                                         <div class="oldest-player">
                                             <a href="{{ route('player.show', $player->id) }}" class="custom-link">
-                                                <span class="badge bg-primary rounded-pill">{{ $player->name }}</span>
+                                                <span class="badge bg-primary rounded-pill white-space">{{ $player->name }}</span>
                                             </a>
-                                            <span class="badge bg-primary rounded-pill mt-1">
+                                            <span class="badge bg-primary rounded-pill white-space mt-md-1">
                                                 Years: {{ $player->years }} – Months: {{ $player->months }} – Days: {{ $player->days }}
                                             </span>
                                         </div>
@@ -86,7 +98,7 @@
                                 @foreach($avgAge as $age)
                                     @if($age->id == $club->id)
                                         @if($age->avg_age != null)
-                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }}</span>
+                                            <span class="badge bg-primary rounded-pill">{{ $age->avg_age }} years</span>
                                         @else
                                             <span class="badge bg-primary rounded-pill">Undefined</span>
                                         @endif
@@ -116,7 +128,7 @@
                                         @endif
                                         @if($player->market_value == $max)
                                             <a href="{{ route('player.show', $player->id) }}" class="badge bg-primary rounded-pill custom-link">
-                                                <span>{{ $player->name }} € {{ $player->market_value }} m</span>
+                                                <span class="white-space">{{ $player->name }} € {{ $player->market_value }} m</span>
                                             </a>
                                         @endif
                                     @endforeach
@@ -136,12 +148,12 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <b class="ms-2 me-1">Address:</b>
-                                <span class="badge bg-primary rounded-pill">{{ $club->city }}, {{ $club->address }}</span>
+                                <span class="badge bg-primary rounded-pill white-space">{{ $club->city }}, {{ $club->address }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-building"></i>
                                 <b class="ms-2 me-1">Stadium:</b>
-                                <span class="badge bg-primary rounded-pill">{{ $club->stadium }}</span>
+                                <span class="badge bg-primary rounded-pill white-space">{{ $club->stadium }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-person-lines-fill"></i>
@@ -151,7 +163,7 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-person-badge-fill"></i>
                                 <b class="ms-2 me-1">Head coach:</b>
-                                <span class="badge bg-primary rounded-pill">{{ $club->head_coach }}</span>
+                                <span class="badge bg-primary rounded-pill white-space">{{ $club->head_coach }}</span>
                             </li>
                             @foreach($championships as $championship)
                                 @if($championship)

@@ -19,7 +19,7 @@ class HomeController extends Controller
     }
 
     public function index() {
-        $countries = Country::orderBy('name')->get();
+        $countries = Country::orderBy('name')->paginate(10);
         return view('home', [
             'countries' => $countries,
         ]);

@@ -7,12 +7,12 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+                    <div class="card-header country-title">
+                        <h4 class="card-title country-title text-center text-uppercase p-2 bg-indigo rounded">
+                            <span>Countries list</span>
+                        </h4>
+                    </div>
                     <div class="card-body">
-                        <div class="country-title">
-                            <h4 class="card-title country-title text-center text-uppercase p-2 bg-indigo rounded">
-                                <span>Countries list</span>
-                            </h4>
-                        </div>
                         <div class="table-responsive">
                             <table class="table table-dark table-hover">
                                 <thead>
@@ -34,127 +34,72 @@
                                 </thead>
                                 <tbody>
                                 @php $index = 0; @endphp
-                                @foreach($uefaCountries as $country)
-                                    @php $index++ @endphp
-                                    <tr>
-                                        <th scope="row" class="text-center">
-                                            <span>{{ $index }}</span>
-                                        </th>
-                                        <td>
-                                            <a href="{{ route('league.index', $country) }}">
-                                                <img src="{{ asset($country->flag) }}" class="small-logo" alt="{{ $country->name }}" title="{{ $country->name }}">
-                                                <span class="badge bg-primary rounded-pill">{{ $country->name }}</span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @if($country->league)
-                                                <a href="{{ route('league.show', $country->league) }}">
-                                                    <img src="{{ asset($country->league->logo) }}" class="small-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
-                                                    <span class="badge bg-primary rounded-pill">{{ $country->league->name }}</span>
+                                @foreach($countries as $country)
+                                        @php $index++ @endphp
+                                        <tr>
+                                            <th scope="row" class="text-center">
+                                                <span>{{ $index }}</span>
+                                            </th>
+                                            <td>
+                                                <a href="{{ route('league.index', $country) }}">
+                                                    <img src="{{ asset($country->flag) }}" class="small-logo" alt="{{ $country->name }}" title="{{ $country->name }}">
+                                                    <span class="badge bg-primary rounded-pill">{{ $country->name }}</span>
                                                 </a>
-                                            @else
-                                                <span class="badge bg-primary rounded-pill">Undefined</span>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalLeagues as $league)
-                                                @if ($league->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $league->total_count }}</span>
+                                            </td>
+                                            <td>
+                                                @if($country->league)
+                                                    <a href="{{ route('league.show', $country->league) }}">
+                                                        <img src="{{ asset($country->league->logo) }}" class="small-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
+                                                        <span class="badge bg-primary rounded-pill">{{ $country->league->name }}</span>
+                                                    </a>
+                                                @else
+                                                    <span class="badge bg-primary rounded-pill">Undefined</span>
                                                 @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalClubs as $club)
-                                                @if ($club->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $club->total_count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalPlayers as $player)
-                                                @if ($player->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $player->total_count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-primary rounded-pill">{{ $country->uefa_position }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-primary rounded-pill">{{ $country->uefa_coefficient_points }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ route('country.show', $country) }}" class="btn btn-secondary me-1">
-                                                <i class="bi bi-cursor-fill"></i>
-                                            </a>
-                                            <a href="{{ route('country.edit', $country) }}" class="btn btn-primary me-1">
-                                                <i class="bi bi-pencil-fill"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                                @foreach($otherCountries as $country)
-                                    @php $index++ @endphp
-                                    <tr>
-                                        <th scope="row" class="text-center">
-                                            <span>{{ $index }}</span>
-                                        </th>
-                                        <td>
-                                            <a href="{{ route('league.index', $country) }}">
-                                                <img src="{{ asset($country->flag) }}" class="small-logo" alt="{{ $country->name }}" title="{{ $country->name }}">
-                                                <span class="badge bg-primary rounded-pill">
-                                            {{ $country->name }}</span>
-                                            </a>
-                                        </td>
-                                        <td>
-                                            @if($country->league)
-                                                <a href="{{ route('league.show', $country->league) }}">
-                                                    <img src="{{ asset($country->league->logo) }}" class="small-logo" alt="{{ $country->league->name }}" title="{{ $country->league->name }}">
-                                                    <span class="badge bg-primary rounded-pill">{{ $country->league->name }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                @foreach($totalLeagues as $league)
+                                                    @if ($league->id == $country->id)
+                                                        <span class="badge bg-primary rounded-pill">{{ $league->total_count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center">
+                                                @foreach($totalClubs as $club)
+                                                    @if ($club->id == $country->id)
+                                                        <span class="badge bg-primary rounded-pill">{{ $club->total_count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center">
+                                                @foreach($totalPlayers as $player)
+                                                    @if ($player->id == $country->id)
+                                                        <span class="badge bg-primary rounded-pill">{{ $player->total_count }}</span>
+                                                    @endif
+                                                @endforeach
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-primary rounded-pill">{{ $country->uefa_position }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <span class="badge bg-primary rounded-pill">{{ $country->uefa_coefficient_points }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('country.show', $country) }}" class="btn btn-secondary me-1">
+                                                    <i class="bi bi-cursor-fill"></i>
                                                 </a>
-                                            @else
-                                                <span class="badge bg-primary rounded-pill">Undefined</span>
-                                            @endif
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalLeagues as $league)
-                                                @if ($league->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $league->total_count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalClubs as $club)
-                                                @if ($club->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $club->total_count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            @foreach($totalPlayers as $player)
-                                                @if ($player->id == $country->id)
-                                                    <span class="badge bg-primary rounded-pill">{{ $player->total_count }}</span>
-                                                @endif
-                                            @endforeach
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-primary rounded-pill">{{ $country->uefa_position }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span class="badge bg-primary rounded-pill">{{ $country->uefa_coefficient_points }}</span>
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ route('country.show', $country) }}" class="btn btn-secondary me-1">
-                                                <i class="bi bi-cursor-fill"></i>
-                                            </a>
-                                            <a href="{{ route('country.edit', $country) }}" class="btn btn-primary me-1">
-                                                <i class="bi bi-pencil-fill"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
+                                                <a href="{{ route('country.edit', $country) }}" class="btn btn-primary me-1">
+                                                    <i class="bi bi-pencil-fill"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
                                 @endforeach
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="card-footer mb-3">
+                        <div class="d-flex justify-content-center">
+                            {!! $countries->links() !!}
                         </div>
                     </div>
                 </div>
