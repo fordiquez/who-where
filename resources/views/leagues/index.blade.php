@@ -129,8 +129,12 @@
                             </table>
                         </div>
                     @else
-                        <h5 class="card-text text-center text-uppercase m-5">
+                        <h5 class="card-text empty-title text-uppercase m-sm-5">
                             <span class="p-1 bg-indigo rounded">This country has not any league</span>
+                            <button type="button" class="btn btn-success flex-center mt-3 p-1" data-bs-toggle="modal" data-bs-target="#addLeagueModal">
+                                <i class="bi bi-plus-circle"></i>
+                                <span class="text-uppercase h5 mb-0 ms-2">Add the new league</span>
+                            </button>
                         </h5>
                     @endif
                 </div>

@@ -148,7 +148,7 @@
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-geo-alt-fill"></i>
                                 <b class="ms-2 me-1">Address:</b>
-                                <span class="badge bg-primary rounded-pill white-space">{{ $club->city }}, {{ $club->address }}</span>
+                                <span class="badge bg-primary rounded-pill white-space">{{ $club->address }}, {{ $club->city }}</span>
                             </li>
                             <li class="list-group-item d-flex align-items-center">
                                 <i class="bi bi-building"></i>

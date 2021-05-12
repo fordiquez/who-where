@@ -86,6 +86,12 @@ a.custom-link:hover {
     white-space: normal;
 }
 
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* Countries */
 
 .country-title {
@@ -180,8 +186,8 @@ a.custom-link:hover {
 }
 
 .league-logo-item img, .club-logo-item img, .player-photo-item img {
-    max-width: 200px;
-    max-height: 200px;
+    max-width: 180px;
+    max-height: 180px;
 }
 
 .league-market-column, .club-market-column, .player-market-column {
@@ -189,6 +195,13 @@ a.custom-link:hover {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+}
+
+.empty-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Leagues */

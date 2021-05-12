@@ -28,12 +28,12 @@ class ClubController extends Controller
     public function index($leagueId = null) {
         $league = League::find($leagueId);
         if ($leagueId) {
-            $clubs = Club::where('league_id', $leagueId)->paginate(10);
+            $clubs = Club::where('league_id', $leagueId)->orderBy('name')->paginate(10);
         } else {
             $clubs = Club::orderBy('league_id')->orderBy('name')->paginate(10);
         }
         $countries = Country::orderBy('name')->get();
-        $leagues = League::orderBy('country_id')->get();
+        $leagues = League::orderBy('league_level')->orderBy('country_id')->get();
         $seasons = Season::orderBy('year', 'desc')->get();
         return view('clubs.index', [
             'league' => $league,
@@ -122,11 +122,8 @@ class ClubController extends Controller
     public function edit($id) {
         $club = Club::find($id);
         $countries = Country::orderBy('name')->get();
-        $leagues = League::orderBy('country_id')->get();
-        $championships = Championship::where([
-            ['club_id', $club->id],
-            ['league_id', $club->league_id]
-        ])->get();
+        $leagues = League::orderBy('league_level')->orderBy('country_id')->get();
+        $championships = Championship::where('club_id', $club->id)->get();
         $seasons = Season::orderBy('year', 'desc')->get();
         return view('clubs.edit', [
             'club' => $club,
@@ -176,19 +173,18 @@ class ClubController extends Controller
         $club->save();
 
         if ($request->input('last_championship_season_id')) {
-            $championships = Championship::where([
-                ['club_id', $club->id],
-                ['league_id', $club->league_id]
-            ])->get();
+            $championships = Championship::where('club_id', $club->id)->get();
             if (count($championships) > 0) {
                 foreach ($championships as $championship) {
                     $request->validate([
                         'last_championship_season_id' => [
                             Rule::unique('championships', 'last_championship_season_id')
                                 ->where('league_id', $request->input('league_id'))
-                                ->ignore($championship->id)
+                                ->ignore($championship->id),
+                            Rule::unique('championships', 'club_id')->ignore($club->id)
                         ]
                     ]);
+                    $championship->league_id = $request->input('league_id');
                     $championship->championships_number = $request->input('championships_number');
                     $championship->last_championship_season_id = $request->input('last_championship_season_id');
                     $championship->save();
@@ -197,7 +193,8 @@ class ClubController extends Controller
                 $request->validate([
                     'last_championship_season_id' => [
                         Rule::unique('championships', 'last_championship_season_id')
-                            ->where('league_id', $request->input('league_id'))
+                            ->where('league_id', $request->input('league_id')),
+                        Rule::unique('championships')->where('club_id', $club->id)
                     ]
                 ]);
                 $championship = new Championship();

@@ -12,7 +12,7 @@
             <div class="card mb-3">
                 <div class="row g-0">
                     <div class="league-header mb-2">
-                        <a href="{{ route('league.index', $league) }}" class="btn btn-primary">
+                        <a href="{{ route('league.index', $league->country_id) }}" class="btn btn-primary">
                             <h5 class="d-flex align-items-center justify-content-between mb-0">
                                 <i class="bi bi-arrow-left-circle"></i>
                                 <span class="ms-2">Return to country leagues list</span>

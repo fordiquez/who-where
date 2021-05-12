@@ -178,8 +178,12 @@
                         </table>
                     </div>
                 @else
-                    <h5 class="card-text text-center text-uppercase m-5">
-                        <span class="bg-indigo rounded p-2">No transfer were found</span>
+                    <h5 class="card-text empty-title text-uppercase m-5">
+                        <span class="bg-indigo rounded p-2">No transfer has been found</span>
+                        <button type="button" class="btn btn-success flex-center mt-3 p-1" data-bs-toggle="modal" data-bs-target="#addTransferModal">
+                            <i class="bi bi-plus-circle"></i>
+                            <span class="text-uppercase h5 mb-0 ms-2">Add the new transfer</span>
+                        </button>
                     </h5>
                 @endif
             </div>

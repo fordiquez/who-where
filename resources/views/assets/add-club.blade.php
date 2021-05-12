@@ -55,7 +55,7 @@
                             <option selected disabled>Choose the league...</option>
                             @foreach($leagues as $league)
                                 @if($league->id == old('league_id'))
-                                    <option value="{{ $league->id }}" selected>{{ $league->name }}</option>
+                                    <option value="{{ $league->id }}" selected>{{ $league->country->code }} | {{ $league->name }}</option>
                                 @else
                                     <option value="{{ $league->id }}">{{ $league->country->code }} | {{ $league->name }}</option>
                                 @endif

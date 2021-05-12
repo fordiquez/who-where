@@ -67,9 +67,9 @@
                                     <option selected disabled>Choose the league...</option>
                                     @foreach($leagues as $league)
                                         @if($club->league_id == $league->id)
-                                            <option value="{{ $league->id }}" selected>{{ $league->name }}</option>
+                                            <option value="{{ $league->id }}" selected>{{ $league->country->code }} | {{ $league->name }}</option>
                                         @else
-                                            <option value="{{ $league->id }}">{{ $league->name }}</option>
+                                            <option value="{{ $league->id }}">{{ $league->country->code }} | {{ $league->name }}</option>
                                         @endif
                                     @endforeach
                                 </select>
