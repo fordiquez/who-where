@@ -16,8 +16,7 @@ class LeagueController extends Controller
     private $leagueRepository;
     private $clubRepository;
 
-    public function __construct(LeagueRepository $leagueRepository, ClubRepository $clubRepository)
-    {
+    public function __construct(LeagueRepository $leagueRepository, ClubRepository $clubRepository) {
         $this->leagueRepository = $leagueRepository;
         $this->clubRepository = $clubRepository;
     }
@@ -45,10 +44,10 @@ class LeagueController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50',
+            'name' => ['required', 'min:3', 'max:30',
                 Rule::unique('leagues', 'name')
                     ->where('country_id', $request->input('country_id'))],
-            'league_level' => ['required', 'min:3', 'max:50',
+            'league_level' => ['required', 'min:3', 'max:30',
                 Rule::unique('leagues', 'league_level')
                     ->where('country_id', $request->input('country_id'))],
             'country_id' => ['required', Rule::exists('countries', 'id')],
@@ -65,7 +64,7 @@ class LeagueController extends Controller
             $league->league_level = $request->input('league_level');
             $league->country_id = $request->input('country_id');
             $league->logo = $path;
-            $league->saveOrFail();
+            $league->save();
         }
         return back()->withMessage('The league was added successfully');
     }
@@ -105,10 +104,10 @@ class LeagueController extends Controller
     public function update($id, Request $request) {
         $league = League::find($id);
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50',
+            'name' => ['required', 'min:3', 'max:30',
                 Rule::unique('leagues', 'name')
                     ->where('country_id', $request->input('country_id'))->ignore($league->id)],
-            'league_level' => ['required', 'min:3', 'max:50',
+            'league_level' => ['required', 'min:3', 'max:30',
                 Rule::unique('leagues', 'league_level')
                     ->where('country_id', $request->input('country_id'))->ignore($league->id)],
             'country_id' => ['required', Rule::exists('countries', 'id')],
@@ -127,7 +126,7 @@ class LeagueController extends Controller
         $league->name = $name;
         $league->league_level = $request->input('league_level');
         $league->country_id = $request->input('country_id');
-        $league->saveOrFail();
+        $league->save();
         return back()->withMessage('The league was updated successfully');
     }
 }

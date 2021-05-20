@@ -19,8 +19,7 @@ class ClubController extends Controller
     private $clubRepository;
     private $playerRepository;
 
-    public function __construct(ClubRepository $clubRepository, PlayerRepository $playerRepository)
-    {
+    public function __construct(ClubRepository $clubRepository, PlayerRepository $playerRepository) {
         $this->clubRepository = $clubRepository;
         $this->playerRepository = $playerRepository;
     }
@@ -51,16 +50,16 @@ class ClubController extends Controller
 
     public function store(Request $request) {
         $request->validate([
-            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:50'],
+            'name' => ['required', Rule::unique('clubs', 'name'), 'min:3', 'max:30'],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'founded' => ['required', 'integer', 'min:1857'],
             'stadium' => ['required', 'min:1', 'max:50'],
             'address' => ['required', 'min:1', 'max:50'],
-            'city' => ['required', 'min:1', 'max:50',],
+            'city' => ['required', 'min:1', 'max:30',],
             'capacity' => ['required', 'integer', 'min:0', 'max:110000'],
-            'head_coach' => ['required', 'min:1', 'max:50'],
+            'head_coach' => ['required', 'min:1', 'max:30'],
             'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255',
                 Rule::requiredIf($request->input('last_championship_season_id'))],
             'last_championship_season_id' => [Rule::exists('seasons', 'id'),
@@ -137,16 +136,16 @@ class ClubController extends Controller
     public function update($id, Request $request) {
         $club = Club::find($id);
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50', Rule::unique('clubs', 'name')->ignore($club->id)],
+            'name' => ['required', 'min:3', 'max:30', Rule::unique('clubs', 'name')->ignore($club->id)],
             'country_id' => ['required', Rule::exists('countries', 'id')],
             'league_id' => ['required', Rule::exists('leagues', 'id')],
             'logo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'founded' => ['required', 'integer', 'min:1857'],
             'stadium' => ['required', 'min:1', 'max:50'],
             'address' => ['required', 'min:1', 'max:50'],
-            'city' => ['required', 'min:1', 'max:50',],
+            'city' => ['required', 'min:1', 'max:30',],
             'capacity' => ['required', 'integer', 'min:1', 'max:110000'],
-            'head_coach' => ['required', 'min:1', 'max:50'],
+            'head_coach' => ['required', 'min:1', 'max:30'],
             'championships_number' => ['numeric', 'nullable', 'min:0', 'max:255',
                 Rule::requiredIf($request->input('last_championship_season_id'))],
             'last_championship_season_id' => [Rule::exists('seasons', 'id'),

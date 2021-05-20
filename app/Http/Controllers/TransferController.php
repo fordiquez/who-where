@@ -15,8 +15,7 @@ class TransferController extends Controller
 {
     private $playerRepository;
 
-    public function __construct(PlayerRepository $playerRepository)
-    {
+    public function __construct(PlayerRepository $playerRepository) {
         $this->playerRepository = $playerRepository;
     }
 
@@ -37,15 +36,7 @@ class TransferController extends Controller
         ]);
     }
 
-    public function show($id) {
-        $transfer = Transfer::find($id);
-        return view('transfers.show', [
-            'transfer' => $transfer,
-        ]);
-    }
-
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $request->validate([
             'player_id' => ['required', Rule::exists('players', 'id')],
             'season_id' => ['required', Rule::exists('seasons', 'id'),
@@ -75,6 +66,13 @@ class TransferController extends Controller
         return back()->withMessage('Transfer was added successfully');
     }
 
+    public function show($id) {
+        $transfer = Transfer::find($id);
+        return view('transfers.show', [
+            'transfer' => $transfer,
+        ]);
+    }
+
     public function edit($id) {
         $transfer = Transfer::find($id);
         $seasons = Season::orderByDesc('year')->get();
@@ -86,24 +84,20 @@ class TransferController extends Controller
         ]);
     }
 
-    public function update($id, Request $request)
-    {
+    public function update($id, Request $request) {
         $transfer = Transfer::find($id);
         $request->validate([
             'season_id' => ['required', Rule::exists('seasons', 'id'),
                 Rule::unique('transfers')
                     ->where('season_id', $request->input('season_id'))
-                    ->where('player_id', $transfer->player_id)->ignore($transfer->id)
-            ],
+                    ->where('player_id', $transfer->player_id)->ignore($transfer->id)],
             'transfer_date' => ['required', 'date'],
             'transfer_window' => ['required', 'prohibited_unless:transfer_window,Winter,Summer'],
             'contract_expires' => ['required', 'date', 'after:transfer_date'],
             'left_club_id' => ['required', Rule::exists('clubs', 'id'),
-                'prohibited_if:joined_club_id,' . $request->input('left_club_id')
-            ],
+                'prohibited_if:joined_club_id,' . $request->input('left_club_id')],
             'joined_club_id' => ['required', Rule::exists('clubs', 'id'),
-                'prohibited_if:left_club_id,' . $request->input('joined_club_id')
-            ],
+                'prohibited_if:left_club_id,' . $request->input('joined_club_id')],
             'fee' => ['required', 'numeric', 'min:0.00'],
             'is_loan' => ['required', 'prohibited_unless:is_loan,0,1']
         ]);
@@ -120,8 +114,7 @@ class TransferController extends Controller
         return back()->withMessage('Transfer was updated successfully');
     }
 
-    public function delete($id): RedirectResponse
-    {
+    public function delete($id) {
         $transfer = Transfer::find($id);
         $transfer->delete();
         return back()->withMessage('Transfer was deleted successfully');

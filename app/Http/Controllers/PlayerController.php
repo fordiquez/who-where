@@ -16,8 +16,7 @@ class PlayerController extends Controller
     private $path = '/assets/images/players';
     private $playerRepository;
 
-    public function __construct(PlayerRepository $playerRepository)
-    {
+    public function __construct(PlayerRepository $playerRepository) {
         $this->playerRepository = $playerRepository;
     }
 
@@ -45,7 +44,7 @@ class PlayerController extends Controller
         $validated_timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y') - 16);
         $validated_birth_date = date("Y-m-d", $validated_timestamp);
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50', Rule::unique('players', 'name'),],
+            'name' => ['required', 'min:3', 'max:30', Rule::unique('players', 'name'),],
             'photo' => ['required', 'file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'number' => ['required', 'integer', 'min:1', 'max:99'],
             'birth_date' => ['required', 'date', 'before_or_equal:' . $validated_birth_date],
@@ -116,7 +115,7 @@ class PlayerController extends Controller
         $validated_timestamp = mktime(0, 0, 0, date('m'), date('d'), date('Y') - 16);
         $validated_birth_date = date("Y-m-d", $validated_timestamp);
         $request->validate([
-            'name' => ['required', 'min:3', 'max:50', Rule::unique('players', 'name')->ignore($player->id)],
+            'name' => ['required', 'min:3', 'max:30', Rule::unique('players', 'name')->ignore($player->id)],
             'photo' => ['file', 'mimes:svg,png,jpg,jpeg,bmp,webp'],
             'number' => ['required', 'integer', 'min:1', 'max:99'],
             'birth_date' => ['required', 'date', 'before_or_equal:' . $validated_birth_date],

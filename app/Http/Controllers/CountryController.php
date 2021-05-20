@@ -13,13 +13,13 @@ class CountryController extends Controller
     private $path = '/assets/images/countries';
     private $countryRepository;
 
-    public function __construct(CountryRepository $countryRepository)
-    {
+    public function __construct(CountryRepository $countryRepository) {
         $this->countryRepository = $countryRepository;
     }
 
     public function index() {
-        $countries = Country::orderBy('is_european_country', 'desc')->orderBy('uefa_position')->orderBy('name')->paginate(10);
+        $countries = Country::orderBy('is_european_country', 'desc')
+            ->orderBy('uefa_position')->orderBy('name')->paginate(10);
         return view('countries.index', [
             'countries' => $countries,
             'totalLeagues' => $this->countryRepository->getTotalLeagues(),
@@ -66,7 +66,7 @@ class CountryController extends Controller
                 $country->uefa_position = $request->input('uefa_position');
                 $country->uefa_coefficient_points = $request->input('uefa_coefficient_points');
             }
-            $country->saveOrFail();
+            $country->save();
         }
         return back()->withMessage('The country was added successfully');
     }
@@ -121,7 +121,7 @@ class CountryController extends Controller
             $country->uefa_position = null;
             $country->uefa_coefficient_points = null;
         }
-        $country->saveOrFail();
+        $country->save();
         return back()->withMessage('The country was updated successfully');
     }
 }
