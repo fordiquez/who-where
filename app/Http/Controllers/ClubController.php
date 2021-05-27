@@ -179,8 +179,7 @@ class ClubController extends Controller
                         'last_championship_season_id' => [
                             Rule::unique('championships', 'last_championship_season_id')
                                 ->where('league_id', $request->input('league_id'))
-                                ->ignore($championship->id),
-                            Rule::unique('championships', 'club_id')->ignore($club->id)
+                                ->ignore($championship->id)
                         ]
                     ]);
                     $championship->league_id = $request->input('league_id');
@@ -192,8 +191,7 @@ class ClubController extends Controller
                 $request->validate([
                     'last_championship_season_id' => [
                         Rule::unique('championships', 'last_championship_season_id')
-                            ->where('league_id', $request->input('league_id')),
-                        Rule::unique('championships')->where('club_id', $club->id)
+                            ->where('league_id', $request->input('league_id'))
                     ]
                 ]);
                 $championship = new Championship();

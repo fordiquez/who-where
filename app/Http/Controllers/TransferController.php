@@ -7,7 +7,6 @@ use App\Models\Player;
 use App\Models\Season;
 use App\Models\Transfer;
 use App\Repositories\PlayerRepository;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
